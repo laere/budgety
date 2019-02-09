@@ -6,6 +6,7 @@ import * as actions from 'actions';
 import Header from 'components/Header';
 import LandingPage from 'components/LandingPage';
 import Budgets from 'components/Budgets';
+import BudgetNew from 'components/BudgetNew';
 
 class App extends React.Component {
   componentDidMount() {
@@ -14,12 +15,13 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="container">
         <BrowserRouter>
           <div>
             <Header />
             <Route exact path="/" component={LandingPage} />
-            <Route path="/budgets" component={Budgets} />
+            <Route exact path="/budgets" component={Budgets} />
+            <Route path="/budgets/new" component={BudgetNew} />
           </div>
         </BrowserRouter>
       </div>

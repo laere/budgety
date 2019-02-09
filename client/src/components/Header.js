@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 class Header extends React.Component {
   renderContent() {
@@ -7,22 +8,25 @@ class Header extends React.Component {
       case null:
         return;
       case false:
-        return <li><a href="/auth/google">Login with Google</a></li>;
+        return <a className="navbar-item" href="/auth/google">Login with Google</a>;
       default:
-        return <li><a href="/api/logout">Logout</a></li>;
+        return [
+          <Link to="/budgets/new" className="navbar-item">New Budget</Link>,
+          <a className="navbar-item" href="/api/logout">Logout</a>
+        ];
     }
   }
 
   render() {
     return (
-      <nav className="navbar">
+      <nav className="navbar is-primary">
         <div className="navbar-brand">
-          Budgety
+          <Link to="/" className="navbar-item">
+            Budgety
+          </Link>
         </div>
         <div className="navbar-end">
-          <ul>
-            {this.renderContent()}
-          </ul>
+          {this.renderContent()}
         </div>
       </nav>
     );
