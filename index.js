@@ -5,6 +5,7 @@ const passport = require('passport');
 const bodyParser = require('body-parser');
 const keys = require('./config/keys');
 require('./models/User');
+require('./models/Budget');
 require('./services/passport');
 
 mongoose.connect(keys.mongoURI);
@@ -22,6 +23,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 require('./routes/authRoutes')(app);
+require('./routes/budgetRoutes')(app);
 
 // Only ran inside production (in heroku)
 if (process.env.NODE_ENV === 'production') {

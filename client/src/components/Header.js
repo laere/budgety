@@ -1,18 +1,22 @@
+import accounting from 'accounting-js';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 class Header extends React.Component {
   renderContent() {
-    switch (this.props.auth) {
+    const { auth } = this.props;
+    switch (auth) {
       case null:
         return;
       case false:
         return <a className="navbar-item" href="/auth/google">Login with Google</a>;
       default:
         return [
-          <Link to="/budgets/new" className="navbar-item">New Budget</Link>,
-          <a className="navbar-item" href="/api/logout">Logout</a>
+          <div key="1" className="navbar-item">Current balance: {accounting.formatMoney(auth.totalBalance)}</div>,
+          <Link to="/budgets" key="2" className="navbar-item">Your Budgets</Link>,
+          <Link to="/budgets/new" key="3" className="navbar-item">New Budget</Link>,
+          <a key="4" className="navbar-item" href="/api/logout">Logout</a>
         ];
     }
   }
@@ -20,8 +24,8 @@ class Header extends React.Component {
   render() {
     return (
       <nav className="navbar is-primary">
-        <div className="navbar-brand">
-          <Link to="/" className="navbar-item">
+        <div className="navbar-start">
+          <Link to={this.props.auth ? "/budgets" : "/"} className="navbar-item">
             Budgety
           </Link>
         </div>
