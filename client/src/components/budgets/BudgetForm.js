@@ -2,14 +2,12 @@ import 'css/BudgetForm.css';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { reduxForm, Field } from 'redux-form';
-import { connect } from 'react-redux';
-import * as actions from 'actions';
 import BudgetField from 'components/budgets/BudgetField';
 import formFields from 'components/budgets/formFields';
 
 class BudgetForm extends React.Component {
-  OnSubmit = formValues => {
-    this.props.addBudget(formValues);
+  onSubmit = formValues => {
+    this.props.onSubmit(formValues);
   }
 
   renderFields() {
@@ -21,7 +19,7 @@ class BudgetForm extends React.Component {
   render() {
     return (
       <div className="budget-new">
-        <form onSubmit={this.props.handleSubmit(this.OnSubmit)}>
+        <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
           {this.renderFields()}
           <Link to="/budgets" type="submit" className="button is-danger is-large">Cancel</Link>
           <button type="submit" className="button is-primary is-large">Create Budget</button>
@@ -46,4 +44,4 @@ const validate = values => {
 export default reduxForm({
   form: 'budgetForm',
   validate
-})(connect(null, actions)(BudgetForm));
+})(BudgetForm);

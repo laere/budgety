@@ -10,10 +10,10 @@ module.exports = app => {
     res.send(budgets);
   });
 
-  app.get('/api/budgets/:id', requireLogin, async (req, res) => {
-    const budget = await Budget.findById({ _id: req.params.id });
-    console.log(budget);
-    res.send(budget);
+  app.get('/api/budgets/:budgetId', requireLogin, async (req, res) => {
+    const budget = await Budget.findById({ _id: req.params.budgetId });
+
+    res.status(200).json(budget);
   });
 
   app.post('/api/budgets', requireLogin, async (req, res) => {
@@ -39,7 +39,8 @@ module.exports = app => {
     } catch (err) {
       res.status(422).send(err)
     }
-    
+
   });
+
 
 };

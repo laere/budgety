@@ -4,11 +4,15 @@ import * as actions from 'actions';
 
 class BudgetShow extends React.Component {
   componentDidMount() {
-    console.log(this.props.match.params.id);
-    this.props.fetchBudget(this.props.match.params.id);
+    const { budgetId } = this.props.match.params;
+
+    console.log(budgetId);
+
+    this.props.fetchBudget(budgetId);
   }
 
   render() {
+    console.log(this.props.budget);
     return (
       <div>
         Budget Show
@@ -17,8 +21,4 @@ class BudgetShow extends React.Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  return { budget: state.budgets[ownProps.match.params.id] };
-}
-
-export default connect(mapStateToProps, actions)(BudgetShow);
+export default connect(null, actions)(BudgetShow);

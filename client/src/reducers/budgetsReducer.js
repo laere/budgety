@@ -1,12 +1,16 @@
-import _ from 'lodash';
 import { FETCH_BUDGETS, FETCH_BUDGET } from 'actions/types';
 
-export default (state = [], action) => {
+const initialState = {
+  budgetList: [],
+  budget: {}
+}
+
+export default (state = initialState, action) => {
   switch (action.type) {
     case FETCH_BUDGETS:
-      return action.payload;
+      return { ...state, budgetList: action.payload };
     case FETCH_BUDGET:
-      return action.payload;
+      return { ...state, budget: action.payload };
     default:
       return state;
   }

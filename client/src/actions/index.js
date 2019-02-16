@@ -18,8 +18,8 @@ export const fetchBudgets = () => async dispatch => {
   dispatch({ type: FETCH_BUDGETS, payload: res.data });
 };
 
-export const fetchBudget = (id) => async dispatch => {
-  const res = await axios.get(`/api/budgets/${id}`);
+export const fetchBudget = budgetId => async dispatch => {
+  const res = await axios.get(`/api/budgets/${budgetId}`);
 
   dispatch({ type: FETCH_BUDGET, payload: res.data });
 }

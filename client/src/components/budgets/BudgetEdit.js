@@ -1,7 +1,14 @@
 import React from 'react';
+import BudgetForm from 'components/budgets/BudgetForm';
 
-const BudgetEdit = () => {
-  return <div>Budget Edit</div>;
+class BudgetEdit extends React.Component {
+  render() {
+    return (
+      <div>
+        <BudgetForm />
+      </div>
+    );
+  }
 }
 
 export default BudgetEdit;

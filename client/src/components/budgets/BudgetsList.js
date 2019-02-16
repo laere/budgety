@@ -12,7 +12,7 @@ class BudgetsList extends React.Component {
   renderBudgets() {
     return this.props.budgets.map(budget => {
       return (
-        <div className="card" key={budget._id}>
+        <div className="card" key={budget._id} style={{marginTop: '30px'}}>
           <header className="card-header">
             <p className="card-header-title">
               {budget.title}
@@ -48,8 +48,8 @@ class BudgetsList extends React.Component {
   }
 }
 
-const mapStateToProps = ({ budgets }) => {
-  return { budgets };
+const mapStateToProps = state => {
+  return { budgets: state.budgets.budgetList };
 }
 
 export default connect(mapStateToProps, actions)(BudgetsList);
