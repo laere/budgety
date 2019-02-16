@@ -10,8 +10,8 @@ class BudgetShow extends React.Component {
 
     this.props.fetchBudget(budgetId);
   }
-
-  renderBudget() {
+  
+  render() {
     const { budget } = this.props;
     return (
       <div>
@@ -39,14 +39,6 @@ class BudgetShow extends React.Component {
           </footer>
         </div>
       </div>
-    );
-  }
-
-  render() {
-    return (
-      <React.Fragment>
-        {this.renderBudget()}
-      </React.Fragment>
     );
   }
 }

@@ -1,7 +1,7 @@
 import React from 'react';
-import * as actions from 'actions';
+import { addBudget } from 'actions';
 import { connect } from 'react-redux';
-import BudgetForm 'components/Budgets/BudgetForm';
+import BudgetForm from 'components/budgets/BudgetForm';
 
 
 class BudgetCreate extends React.Component {
@@ -12,12 +12,10 @@ class BudgetCreate extends React.Component {
   render() {
     return (
       <div>
-        <BudgetForm
-          onSubmit={this.onSubmit}
-        />
+        <BudgetForm onSubmit={this.onSubmit} />
       </div>
     );
   }
 }
 
-export default connect(null, actions)(BudgetCreate);
+export default connect(null, { addBudget })(BudgetCreate);

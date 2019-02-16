@@ -2,24 +2,21 @@ import 'css/BudgetForm.css';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { reduxForm, Field } from 'redux-form';
-import { connect } from 'react-redux';
 import BudgetField from 'components/budgets/BudgetField';
 import formFields from 'components/budgets/formFields';
-import * as actions from 'actions';
 
 class BudgetForm extends React.Component {
-  onSubmit = formValues => {
-    this.props.addBudget(formValues);
-  }
-
   renderFields() {
     return formFields.map(({ label, name, type }) => {
       return <Field key={name} label={label} name={name} type={type} component={BudgetField} />
     });
   }
 
+  onSubmit = formValues => {
+    this.props.onSubmit(formValues);
+  }
+
   render() {
-    console.log(this.props);
     return (
       <div className="budget-new">
         <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
@@ -47,4 +44,4 @@ const validate = values => {
 export default reduxForm({
   form: 'budgetForm',
   validate
-})(connect(null, actions)(BudgetForm));
+})(BudgetForm);

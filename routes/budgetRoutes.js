@@ -42,11 +42,11 @@ module.exports = app => {
   });
 
   app.delete('/api/budgets/delete/:budgetId', requireLogin, (req, res) => {
-    Budget.remove({ _id: req.params.budgetId }, (err, budget) => {
-      if (err) { res.send(err) }
-
-      res.json({ message: 'Transaction deleted!' })
-    });
+    Budget.findById(req.params.budgetId)
+      .then(budget => {
+        budget.remove().then(() => res.json({ success: true }));
+      })
+      .catch(err => res.status(404));
   });
 
 };

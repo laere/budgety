@@ -28,15 +28,15 @@ export const fetchBudget = budgetId => async dispatch => {
 export const addBudget = formValues => async dispatch => {
   const res = await axios.post('/api/budgets', formValues);
 
-  history.push('/budgets');
   dispatch({ type: FETCH_USER, payload: res.data });
+  history.push('/budgets');
 };
 
 export const deleteBudget = budgetId => async dispatch => {
   const res = await axios.delete(`/api/budgets/delete/${budgetId}`);
 
-  history.push('/budgets');
   dispatch({ type: DELETE_BUDGET, payload: budgetId });
+  history.push('/budgets');
 }
 
 // export const test = () => dispatch => {

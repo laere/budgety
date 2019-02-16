@@ -4,14 +4,12 @@ import { connect } from 'react-redux';
 import { deleteBudget } from 'actions';
 import { Link } from 'react-router-dom';
 
-
 class BudgetDelete extends React.Component {
-
   renderActions() {
     return (
       <React.Fragment>
         <button
-          onClick={() => this.props.deleteBudget(this.props.match.params.id)}
+          onClick={() => this.props.deleteBudget(this.props.match.params.budgetId)}
           className="button is-danger">
             Delete
         </button>

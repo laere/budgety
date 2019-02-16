@@ -8,13 +8,21 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case FETCH_BUDGETS:
-      return { ...state, budgetList: action.payload };
+      return {
+        ...state,
+        budgetList:
+        action.payload
+      };
     case FETCH_BUDGET:
-      console.log(action.payload);
-      return { ...state, budget: action.payload };
+      return {
+        ...state,
+        budget: action.payload
+      };
     case DELETE_BUDGET:
-      const filteredBudgets = state.budgetList.filter(id => id !== action.payload);
-      return { ...state, filteredBudgets };
+      return {
+        ...state,
+        budgetList: state.budgetList.filter(budget => budget._id !== action.payload)
+      };
     default:
       return state;
   }
