@@ -6,9 +6,11 @@ const budgetSchema = new Schema({
   title: String,
   description: String,
   amount: { type: Number, default: 0 },
-  startDate: String,
-  endDate: String,
-  transactions: [TransactionSchema]
+  startDate: Date,
+  endDate: Date,
+  transactions: [TransactionSchema],
+  _user: { type: Schema.Types.ObjectId, ref: 'User' },
+  dateCreated: Date
 })
 
 mongoose.model('budgets', budgetSchema);

@@ -1,15 +1,12 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import * as actions from 'actions';
+import BudgetsList from 'components/budgets/BudgetsList';
 
-class Dashboard extends React.Component {
-  componentDidMount() {
-    this.props.fetchBudgets();
-  }
+const Dashboard = () => {
+  return (
+    <div>
+      <BudgetsList />
+    </div>
+  );
+}
 
-  render() {
-    return <div>Dashboard</div>;
-  }
-};
-
-export default connect(null, actions)(Dashboard);
+export default BudgetsList;

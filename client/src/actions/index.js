@@ -3,6 +3,7 @@ import history from '../history';
 import {
   FETCH_USER,
   FETCH_BUDGETS,
+  FETCH_BUDGET
 } from 'actions/types';
 
 export const fetchUser = () => async dispatch => {
@@ -11,41 +12,21 @@ export const fetchUser = () => async dispatch => {
   dispatch({ type: FETCH_USER, payload: res.data });
 };
 
-
 export const fetchBudgets = () => async dispatch => {
-  const res = await axios.get('api/budgets');
+  const res = await axios.get('/api/budgets');
 
   dispatch({ type: FETCH_BUDGETS, payload: res.data });
 };
 
-export const fetchBudget = () => async dispatch => {
+export const fetchBudget = (id) => async dispatch => {
+  const res = await axios.get(`/api/budgets/${id}`);
 
-};
-
-export const addBudget = formValues => async (dispatch, getState) => {
-  const res = await axios.post('/api/budgets', formValues);
-
-  dispatch({ type: FETCH_USER, payload: res.data });
-
-  history.push('/budgets');
-};
-
-export const editBudget = (id, formValues) => async dispatch => {
-
-};
-
-export const deleteBudget = (id) => async dispatch => {
-
+  dispatch({ type: FETCH_BUDGET, payload: res.data });
 }
 
-export const addTransaction = () => dispatch => {
+export const addBudget = formValues => async dispatch => {
+  const res = await axios.post('/api/budgets', formValues);
 
-};
-
-export const deleteTransaction = (id) => dispatch => {
-
-};
-
-export const editTransaction = (id, formValues) => dispatch => {
-
+  history.push('/budgets');
+  dispatch({ type: FETCH_USER, payload: res.data });
 };

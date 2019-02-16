@@ -9,6 +9,8 @@ import LandingPage from 'components/LandingPage';
 import Dashboard from 'components/Dashboard';
 import BudgetForm from 'components/budgets/BudgetForm';
 import BudgetEdit from 'components/budgets/BudgetEdit';
+import BudgetShow from 'components/budgets/BudgetShow';
+import BudgetDelete from 'components/budgets/BudgetDelete';
 
 class App extends React.Component {
   componentDidMount() {
@@ -22,8 +24,10 @@ class App extends React.Component {
           <Header />
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/budgets" component={Dashboard} />
-          <Route path="/budgets/new" component={BudgetForm} />
-          <Route path="/budgets/edit/:id" component={BudgetEdit} />
+          <Route exact path="/budgets/new" component={BudgetForm} />
+          <Route exact path="/budgets/edit/:id" component={BudgetEdit} />
+          <Route exact path="/budgets/delete/:id" component={BudgetDelete} />
+          <Route exact path="/budgets/:id" component={BudgetShow} />
         </div>
       </Router>
     );

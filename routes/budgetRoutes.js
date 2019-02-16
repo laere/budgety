@@ -1,13 +1,22 @@
 const mongoose = require('mongoose');
+const requireLogin = require('../middlewares/requireLogin');
 const Budget = mongoose.model('budgets');
 
 module.exports = app => {
-  // get budgets
-  app.get('/api/budgets', async (req, res) => {
 
+  app.get('/api/budgets', requireLogin, async (req, res) => {
+    const budgets = await Budget.find({ _user: req.user.id });
+
+    res.send(budgets);
   });
 
-  app.post('/api/budgets', async (req, res) => {
+  app.get('/api/budgets/:id', requireLogin, async (req, res) => {
+    const budget = await Budget.findById({ _id: req.params.id });
+    console.log(budget);
+    res.send(budget);
+  });
+
+  app.post('/api/budgets', requireLogin, async (req, res) => {
     const { title, description, amount, startDate, endDate, transactions } = req.body;
 
     const budget = new Budget({
@@ -18,7 +27,7 @@ module.exports = app => {
       endDate,
       transactions,
       _user: req.user.id,
-      dateSent: Date.now()
+      dateCreated: Date.now()
     });
 
     try {
@@ -30,7 +39,7 @@ module.exports = app => {
     } catch (err) {
       res.status(422).send(err)
     }
+    
   });
-
 
 };

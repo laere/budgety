@@ -14,8 +14,7 @@ class Header extends React.Component {
       default:
         return [
           <div key="1" className="navbar-item">Current balance: {accounting.formatMoney(auth.totalBalance)}</div>,
-          <Link to="/budgets" key="2" className="navbar-item">Your Budgets</Link>,
-          <Link to="/budgets/new" key="3" className="navbar-item">New Budget</Link>,
+          <Link to="/budgets/new" key="3" className="button is-fullwidth is-danger is-rounded is-outlined is-inverted" style={{margin: 'auto'}}>New Budget</Link>,
           <a key="4" className="navbar-item" href="/api/logout">Logout</a>
         ];
     }
