@@ -33,8 +33,9 @@ export const addBudget = formValues => async dispatch => {
 };
 
 export const deleteBudget = budgetId => async dispatch => {
-  const res = await axios.delete(`/api/budgets/${budgetId}`);
+  const res = await axios.delete(`/api/budgets/delete/${budgetId}`);
 
+  history.push('/budgets');
   dispatch({ type: DELETE_BUDGET, payload: budgetId });
 }
 

@@ -1,23 +1,19 @@
 import React from 'react';
 import Modal from 'components/Modal';
 import { connect } from 'react-redux';
-import * as actions from 'actions';
-import history from '../../history';
+import { deleteBudget } from 'actions';
 import { Link } from 'react-router-dom';
 
 
 class BudgetDelete extends React.Component {
-  componentDidMount() {
-    // console.log(this.props.match.params.id);
-    // this.props.fetchBudget(this.props.match.params.id);
-  }
 
   renderActions() {
     return (
       <React.Fragment>
         <button
+          onClick={() => this.props.deleteBudget(this.props.match.params.id)}
           className="button is-danger">
-          Delete
+            Delete
         </button>
         <Link to="/budgets" className="button">Cancel</Link>
       </React.Fragment>
@@ -37,8 +33,4 @@ class BudgetDelete extends React.Component {
   }
 }
 
-const mapStateToProps = (state, ownProps)=> {
-  return { budget: state.budgets[ownProps.match.params.id] };
-}
-
-export default connect(mapStateToProps, actions)(BudgetDelete);
+export default connect(null, { deleteBudget })(BudgetDelete);

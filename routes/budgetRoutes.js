@@ -10,9 +10,9 @@ module.exports = app => {
     res.send(budgets);
   });
 
-  app.get('/api/budgets/:budgetId', async (req, res) => {
+  app.get('/api/budgets/:budgetId', requireLogin, async (req, res) => {
     const budget = await Budget.findById({ _id: req.params.budgetId });
-    
+
     res.send(budget);
   });
 
@@ -39,8 +39,14 @@ module.exports = app => {
     } catch (err) {
       res.status(422).send(err)
     }
-
   });
 
+  app.delete('/api/budgets/delete/:budgetId', requireLogin, (req, res) => {
+    Budget.remove({ _id: req.params.budgetId }, (err, budget) => {
+      if (err) { res.send(err) }
+
+      res.json({ message: 'Transaction deleted!' })
+    });
+  });
 
 };

@@ -30,8 +30,6 @@ class BudgetsList extends React.Component {
             <div>End Date: {new Date(budget.endDate).toLocaleDateString()}</div>
           </div>
           <footer className="card-footer">
-            <Link to={`/budgets/edit/${budget._id}`} className="card-footer-item">Edit</Link>
-            <Link to={`/budgets/delete/${budget._id}`} className="card-footer-item">Delete</Link>
             <Link to={`/budgets/${budget._id}`} className="card-footer-item">Configure Budget</Link>
           </footer>
         </div>

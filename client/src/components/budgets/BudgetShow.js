@@ -11,7 +11,7 @@ class BudgetShow extends React.Component {
     this.props.fetchBudget(budgetId);
   }
 
-  render() {
+  renderBudget() {
     const { budget } = this.props;
     return (
       <div>
@@ -33,8 +33,20 @@ class BudgetShow extends React.Component {
             <div>Start Date: {new Date(budget.startDate).toLocaleDateString()}</div>
             <div>End Date: {new Date(budget.endDate).toLocaleDateString()}</div>
           </div>
+          <footer className="card-footer">
+            <Link to={`/budgets/edit/${budget._id}`} className="card-footer-item">Edit</Link>
+            <Link to={`/budgets/delete/${budget._id}`} className="card-footer-item">Delete</Link>
+          </footer>
         </div>
       </div>
+    );
+  }
+
+  render() {
+    return (
+      <React.Fragment>
+        {this.renderBudget()}
+      </React.Fragment>
     );
   }
 }

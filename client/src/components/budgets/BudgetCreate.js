@@ -6,7 +6,7 @@ import BudgetForm 'components/Budgets/BudgetForm';
 
 class BudgetCreate extends React.Component {
   onSubmit = formValues => {
-    // this.props.addBudget(formValues);
+    this.props.addBudget(formValues);
   }
 
   render() {
