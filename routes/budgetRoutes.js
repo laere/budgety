@@ -10,10 +10,10 @@ module.exports = app => {
     res.send(budgets);
   });
 
-  app.get('/api/budgets/:budgetId', requireLogin, async (req, res) => {
+  app.get('/api/budgets/:budgetId', async (req, res) => {
     const budget = await Budget.findById({ _id: req.params.budgetId });
-
-    res.status(200).json(budget);
+    
+    res.send(budget);
   });
 
   app.post('/api/budgets', requireLogin, async (req, res) => {

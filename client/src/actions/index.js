@@ -3,7 +3,8 @@ import history from '../history';
 import {
   FETCH_USER,
   FETCH_BUDGETS,
-  FETCH_BUDGET
+  FETCH_BUDGET,
+  DELETE_BUDGET
 } from 'actions/types';
 
 export const fetchUser = () => async dispatch => {
@@ -30,3 +31,14 @@ export const addBudget = formValues => async dispatch => {
   history.push('/budgets');
   dispatch({ type: FETCH_USER, payload: res.data });
 };
+
+export const deleteBudget = budgetId => async dispatch => {
+  const res = await axios.delete(`/api/budgets/${budgetId}`);
+
+  dispatch({ type: DELETE_BUDGET, payload: budgetId });
+}
+
+// export const test = () => dispatch => {
+//   dispatch({ type: 'test', payload: 'test'})
+//
+// }

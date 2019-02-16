@@ -6,14 +6,15 @@ import BudgetForm 'components/Budgets/BudgetForm';
 
 class BudgetCreate extends React.Component {
   onSubmit = formValues => {
-    this.props.addBudget(formValues);
+    // this.props.addBudget(formValues);
   }
 
   render() {
     return (
       <div>
-        <h3>Create a budget!</h3>
-        <BudgetForm onSubmit={this.onSubmit} />
+        <BudgetForm
+          onSubmit={this.onSubmit}
+        />
       </div>
     );
   }

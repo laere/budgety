@@ -5,7 +5,7 @@ class BudgetEdit extends React.Component {
   render() {
     return (
       <div>
-        <BudgetForm />
+        <BudgetForm  />
       </div>
     );
   }

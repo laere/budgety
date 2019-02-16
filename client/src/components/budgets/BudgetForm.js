@@ -22,7 +22,7 @@ class BudgetForm extends React.Component {
         <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
           {this.renderFields()}
           <Link to="/budgets" type="submit" className="button is-danger is-large">Cancel</Link>
-          <button type="submit" className="button is-primary is-large">Create Budget</button>
+          <button type="submit" className="button is-primary is-large">Done</button>
         </form>
       </div>
     );
