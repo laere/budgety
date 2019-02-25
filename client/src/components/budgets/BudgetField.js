@@ -1,15 +1,13 @@
-import React from 'react';
+import React from "react";
 
-const BudgetField = ({ input, label, type, meta: { touched, error} }) => {
+const BudgetField = ({ input, label, type, meta: { touched, error } }) => {
   return (
     <div>
       <label className="label">{label}</label>
       <input className="input" type={type} {...input} />
-      <div style={{ color: 'red', fontWeight: 'bold' }}>
-        {touched && error}
-      </div>
+      <div style={{ color: "red", fontWeight: "bold" }}>{touched && error}</div>
     </div>
   );
-}
+};
 
 export default BudgetField;

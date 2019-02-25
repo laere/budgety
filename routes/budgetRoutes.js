@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const requireLogin = require("../middlewares/requireLogin");
 const Budget = mongoose.model("budgets");
 const User = mongoose.model("users");
-const asyncMiddleware = require("../utils/asyncMiddleware");
 
 module.exports = app => {
   // @route   GET api/budgets
@@ -15,7 +14,6 @@ module.exports = app => {
       res.status(404).json({ budgetsnotfound: "Not budgets found!" });
     }
 
-    console.log(budgets);
     res.send(budgets);
   });
 
@@ -73,7 +71,6 @@ module.exports = app => {
   app.delete("/api/budgets/delete/:budgetId", requireLogin, (req, res) => {
     Budget.findById(req.params.budgetId)
       .then(budget => {
-        console.log(budget.amount);
         if (!budget) {
           res
             .status(404)

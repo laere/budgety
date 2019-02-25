@@ -47,6 +47,16 @@ export const editBudget = (budgetId, formValues) => async dispatch => {
   history.push("/budgets");
 };
 
+export const addTransaction = (budgetId, formValues) => async dispatch => {
+  const res = await axios.post(
+    `/api/budgets/${budgetId}/transactions`,
+    formValues
+  );
+
+  dispatch({ type: FETCH_BUDGET, payload: res.data });
+  history.push(`/budgets/${budgetId}`);
+};
+
 export const budgetsLoading = () => {
   return {
     type: BUDGETS_LOADING
