@@ -25,6 +25,7 @@ class BudgetForm extends React.Component {
   };
 
   render() {
+    console.log(this.props);
     return (
       <div className="budget-new">
         <form onSubmit={this.props.handleSubmit(this.onSubmit)}>

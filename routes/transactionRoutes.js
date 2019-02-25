@@ -18,6 +18,10 @@ module.exports = app => {
           amount
         };
 
+        budget.amount -= parseFloat(amount);
+        req.user.totalBalance -= parseFloat(amount);
+        req.user.save();
+
         budget.transactions.unshift(transaction);
 
         budget.save().then(budget => {

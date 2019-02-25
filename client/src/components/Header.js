@@ -1,7 +1,7 @@
-import accounting from 'accounting-js';
-import React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import accounting from "accounting-js";
+import React from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 class Header extends React.Component {
   renderContent() {
@@ -10,12 +10,27 @@ class Header extends React.Component {
       case null:
         return;
       case false:
-        return <a className="navbar-item" href="/auth/google">Login with Google</a>;
+        return (
+          <a className="navbar-item" href="/auth/google">
+            Login with Google
+          </a>
+        );
       default:
         return [
-          <div key="1" className="navbar-item">Current balance: {accounting.formatMoney(auth.totalBalance)}</div>,
-          <Link to="/budgets/new" key="3" className="button is-fullwidth is-danger is-rounded is-outlined is-inverted" style={{margin: 'auto'}}>New Budget</Link>,
-          <a key="4" className="navbar-item" href="/api/logout">Logout</a>
+          <div key="1" className="navbar-item">
+            Current balance: {accounting.formatMoney(auth.totalBalance)}
+          </div>,
+          <Link
+            to="/budgets/new"
+            key="3"
+            className="button is-fullwidth is-danger is-rounded is-outlined is-inverted"
+            style={{ margin: "auto" }}
+          >
+            New Budget
+          </Link>,
+          <a key="4" className="navbar-item" href="/api/logout">
+            Logout
+          </a>
         ];
     }
   }
@@ -28,9 +43,7 @@ class Header extends React.Component {
             Budgety
           </Link>
         </div>
-        <div className="navbar-end">
-          {this.renderContent()}
-        </div>
+        <div className="navbar-end">{this.renderContent()}</div>
       </nav>
     );
   }
@@ -38,6 +51,6 @@ class Header extends React.Component {
 
 const mapStateToProps = ({ auth }) => {
   return { auth };
-}
+};
 
 export default connect(mapStateToProps)(Header);

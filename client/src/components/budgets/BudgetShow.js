@@ -1,7 +1,7 @@
 import React from "react";
 import accounting from "accounting-js";
 import { connect } from "react-redux";
-import { fetchBudget } from "actions";
+import { fetchBudget, fetchUser } from "actions";
 import { Link } from "react-router-dom";
 import TransactionsList from "components/transactions/TransactionsList";
 
@@ -10,6 +10,7 @@ class BudgetShow extends React.Component {
     const { budgetId } = this.props.match.params;
 
     this.props.fetchBudget(budgetId);
+    this.props.fetchUser();
   }
 
   render() {
@@ -73,5 +74,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { fetchBudget }
+  { fetchBudget, fetchUser }
 )(BudgetShow);
