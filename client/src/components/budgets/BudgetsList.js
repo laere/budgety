@@ -25,10 +25,16 @@ class BudgetsList extends React.Component {
           </header>
           <div className="card-content">
             <div className="content">{budget.description}</div>
+            <div>Start Date: {budget.startDate}</div>
+            <div>End Date: {budget.endDate}</div>
             <div>
-              Start Date: {new Date(budget.startDate).toLocaleDateString()}
+              You currently have {budget.transactions.length}{" "}
+              {budget.transactions.length > 1 ||
+              budget.transactions.length === 0
+                ? "transactions"
+                : "transaction"}{" "}
+              for this budget!
             </div>
-            <div>End Date: {new Date(budget.endDate).toLocaleDateString()}</div>
           </div>
           <footer className="card-footer">
             <Link to={`/budgets/${budget._id}`} className="card-footer-item">
@@ -46,7 +52,6 @@ class BudgetsList extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state.auth);
   return {
     budgetList: state.budgets.budgetList,
     auth: state.auth

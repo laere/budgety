@@ -10,7 +10,6 @@ module.exports = app => {
   app.post("/api/budgets/:budgetId/transactions", requireLogin, (req, res) => {
     Budget.findOne({ _id: req.params.budgetId })
       .then(budget => {
-        console.log(budget);
         const { description, amount } = req.body;
 
         const transaction = {
