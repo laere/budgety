@@ -1,16 +1,53 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const { Schema } = mongoose;
-const TransactionSchema = require('./Transaction');
 
 const budgetSchema = new Schema({
-  title: String,
-  description: String,
-  amount: { type: Number, default: 0 },
-  startDate: Date,
-  endDate: Date,
-  transactions: [TransactionSchema],
-  _user: { type: Schema.Types.ObjectId, ref: 'User' },
-  dateCreated: Date
-})
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "User"
+  },
+  title: {
+    type: String,
+    required: true
+  },
+  description: {
+    type: String,
+    required: true
+  },
+  amount: {
+    type: Number,
+    default: 0,
+    required: true
+  },
+  startDate: {
+    type: Date,
+    required: true
+  },
+  endDate: {
+    type: Date,
+    required: true
+  },
+  transactions: [
+    {
+      description: {
+        type: String,
+        required: true
+      },
+      amount: {
+        type: Number,
+        default: 0,
+        required: true
+      },
+      dateCreated: {
+        type: Date,
+        default: Date.now()
+      }
+    }
+  ],
+  dateCreated: {
+    type: Date,
+    default: Date.now()
+  }
+});
 
-mongoose.model('budgets', budgetSchema);
+mongoose.model("budgets", budgetSchema);

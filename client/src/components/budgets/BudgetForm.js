@@ -2,8 +2,8 @@ import 'css/BudgetForm.css';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { reduxForm, Field } from 'redux-form';
-import BudgetField from 'components/budgets/BudgetField';
 import formFields from 'components/budgets/formFields';
+import BudgetField from 'components/budgets/BudgetField';
 
 class BudgetForm extends React.Component {
   renderFields() {

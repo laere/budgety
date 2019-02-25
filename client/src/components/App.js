@@ -1,7 +1,7 @@
 import React from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
-import * as actions from 'actions';
+import { fetchUser } from 'actions';
 import history from '../history';
 
 import Header from 'components/Header';
@@ -36,8 +36,8 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return { auth: state.auth };
+const mapStateToProps = ({ auth }) => {
+  return { auth };
 }
 
-export default connect(mapStateToProps, actions)(App);
+export default connect(mapStateToProps, { fetchUser })(App);

@@ -10,7 +10,7 @@ class BudgetShow extends React.Component {
 
     this.props.fetchBudget(budgetId);
   }
-  
+
   render() {
     const { budget } = this.props;
     return (
@@ -36,6 +36,7 @@ class BudgetShow extends React.Component {
           <footer className="card-footer">
             <Link to={`/budgets/edit/${budget._id}`} className="card-footer-item">Edit</Link>
             <Link to={`/budgets/delete/${budget._id}`} className="card-footer-item">Delete</Link>
+            <Link to={`/budgets/${budget._id}/transaction/new`} className="card-footer-item">Add Transaction</Link>
           </footer>
         </div>
       </div>

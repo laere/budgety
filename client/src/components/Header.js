@@ -36,8 +36,8 @@ class Header extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return { auth: state.auth };
+const mapStateToProps = ({ auth }) => {
+  return { auth };
 }
 
 export default connect(mapStateToProps)(Header);
