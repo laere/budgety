@@ -11,9 +11,6 @@ class BudgetsList extends React.Component {
   }
 
   renderBudgets() {
-    if (this.props.budgets.loading) {
-      return <div>Loading...</div>;
-    }
     return this.props.budgetList.map(budget => {
       return (
         <div className="card" key={budget._id} style={{ marginTop: "30px" }}>
@@ -48,8 +45,12 @@ class BudgetsList extends React.Component {
   }
 }
 
-const mapStateToProps = ({ budgets }) => {
-  return { budgets, budgetList: budgets.budgetList };
+const mapStateToProps = state => {
+  console.log(state.auth);
+  return {
+    budgetList: state.budgets.budgetList,
+    auth: state.auth
+  };
 };
 
 export default connect(

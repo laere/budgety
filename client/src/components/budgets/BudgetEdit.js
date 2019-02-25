@@ -14,8 +14,6 @@ class BudgetEdit extends React.Component {
   onSubmit = formValues => {
     const { budgetId } = this.props.match.params;
 
-    console.log(budgetId);
-    console.log(formValues);
     this.props.editBudget(budgetId, formValues);
   };
 
