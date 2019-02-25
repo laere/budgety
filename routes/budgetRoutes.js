@@ -73,12 +73,14 @@ module.exports = app => {
   app.delete("/api/budgets/delete/:budgetId", requireLogin, (req, res) => {
     Budget.findById(req.params.budgetId)
       .then(budget => {
+        console.log(budget.amount);
         if (!budget) {
           res
             .status(404)
             .json({ budgetnotfound: "Budget with that ID not found!" });
         }
-
+        req.user.totalBalance -= parseFloat(budget.amount);
+        req.user.save();
         budget.remove().then(() => res.json({ success: true }));
       })
       .catch(err => res.status(404).json(err));
@@ -104,6 +106,9 @@ module.exports = app => {
       { new: true }
     )
       .then(budget => {
+        const budgetDiff = req.user.totalBalance - parseFloat(amount);
+        req.user.totalBalance -= budgetDiff;
+        req.user.save();
         Budget.find()
           .then(budgets => res.json(budgets))
           .catch(e => res.status(404).json(e));
