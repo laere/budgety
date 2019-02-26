@@ -30,6 +30,35 @@ module.exports = app => {
       .catch(e => res.status(404).json(e));
   });
 
+  // @route   DELETE api/budgets/:budgetId/transactions/:transactionId
+  // @desc    Delete a transaction
+  // @access  Public
+  app.delete(
+    "/api/budgets/:budgetId/transactions/:transactionId",
+    requireLogin,
+    (req, res) => {
+      Budget.findOne({ _id: req.params.budgetId })
+        .then(budget => {
+          const removeIndex = budget.transactions
+            .map(transaction => transaction._id)
+            .indexOf(req.params.transactionId);
+
+          budget.transactions.splice(removeIndex, 1);
+
+          const transactionAmount = parseFloat(
+            budget.transactions[removeIndex].amount
+          );
+
+          req.user.totalBalance += transactionAmount;
+          budget.amount += transactionAmount;
+
+          req.user.save();
+          budget.save().then(budget => res.json(budget));
+        })
+        .catch(e => res.status(404).json(e));
+    }
+  );
+
   // @route   GET api/budgets/:budgetId/transactions
   // @desc    Get all transactions
   // @access  Public

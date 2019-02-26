@@ -1,30 +1,46 @@
 import React from "react";
 import { connect } from "react-redux";
+import accounting from "accounting-js";
 
 class TransactionsList extends React.Component {
   renderTransactions() {
     const { transactions } = this.props.budget;
 
-    console.log(transactions);
     if (!transactions) {
       return;
     }
 
-    return transactions.map(({ amount, description }) => {
+    return transactions.map(({ amount, description, dateCreated }) => {
+      const formatAmount = accounting.formatMoney(-amount);
+
       return (
-        <div key={amount} className="panel">
-          <div class="panel-block">
-            <span>{description}</span>
-            <span>{amount}</span>
-            <button>Delete</button>
-          </div>
-        </div>
+        <tr key={amount} className="panel">
+          <td>{dateCreated}</td>
+          <td>{description}</td>
+          <td>{formatAmount}</td>
+          <td>
+            <button className="button is-danger">Delete</button>
+          </td>
+        </tr>
       );
     });
   }
 
   render() {
-    return <div>{this.renderTransactions()}</div>;
+    return (
+      <div className="container">
+        <table className="table is-bordered is-fullwidth">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Description</th>
+              <th>Amount</th>
+            </tr>
+            {this.renderTransactions()}
+          </thead>
+        </table>
+      </div>
+    );
   }
 }
 
