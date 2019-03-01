@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { fetchBudget, fetchUser } from "actions";
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
+import Spinner from "components/Spinner";
 import TransactionsList from "components/transactions/TransactionsList";
 
 class BudgetShow extends React.Component {
@@ -15,7 +16,12 @@ class BudgetShow extends React.Component {
   }
 
   render() {
-    const { budget } = this.props;
+    const { budget, loading } = this.props.budgets;
+
+    if (budget === null || loading) {
+      return <Spinner />;
+    }
+
     return (
       <div>
         <Link
@@ -73,8 +79,8 @@ class BudgetShow extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return { budget: state.budgets.budget };
+const mapStateToProps = ({ budgets }) => {
+  return { budgets };
 };
 
 export default connect(

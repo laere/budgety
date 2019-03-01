@@ -2,9 +2,9 @@ TODOS:
 
 Add loading state for fetching and route changing
 _Add a <Spinner /> component._
-Update loading state changes to implement Spinner component.
+_Update loading state changes to implement Spinner component._
 Add action creator to delete transactions.
-Put date formats back to type: Date in models and use Moment to better format dates.
+_Put date formats back to type: Date in models and use Moment to better format dates._
 Add ability to edit transactions.
 Add facebook Oauth for fun.
 Redo backend routes with express.Router

@@ -10,7 +10,7 @@ class TransactionsList extends React.Component {
       return <tr>You currently have no transactions!</tr>;
     }
 
-    return transactions.map(({ amount, description, dateCreated }) => {
+    return transactions.sort().map(({ amount, description, dateCreated }) => {
       const formatAmount = accounting.formatMoney(-amount);
 
       return (

@@ -27,7 +27,8 @@ export default (state = initialState, action) => {
     case FETCH_BUDGET:
       return {
         ...state,
-        budget: action.payload
+        budget: action.payload,
+        loading: false
       };
     case DELETE_BUDGET:
       return {
