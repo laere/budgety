@@ -1,13 +1,13 @@
 import React from "react";
-import { connect } from "react-redux";
 import accounting from "accounting-js";
+import Moment from "react-moment";
 
 class TransactionsList extends React.Component {
   renderTransactions() {
-    const { transactions } = this.props.budget;
+    const { transactions } = this.props;
 
-    if (!transactions) {
-      return;
+    if (!transactions || transactions.length === 0) {
+      return <tr>You currently have no transactions!</tr>;
     }
 
     return transactions.map(({ amount, description, dateCreated }) => {
@@ -15,11 +15,16 @@ class TransactionsList extends React.Component {
 
       return (
         <tr key={amount} className="panel">
-          <td>{dateCreated}</td>
+          <td>
+            <Moment format="MM/DD/YYYY">{dateCreated}</Moment>
+          </td>
           <td>{description}</td>
           <td>{formatAmount}</td>
           <td>
             <button className="button is-danger">Delete</button>
+            <button className="button" style={{ marginLeft: "10px" }}>
+              Edit
+            </button>
           </td>
         </tr>
       );
@@ -28,13 +33,14 @@ class TransactionsList extends React.Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="container" style={{ marginTop: "40px" }}>
         <table className="table is-bordered is-fullwidth">
           <thead>
             <tr>
               <th>Date</th>
               <th>Description</th>
               <th>Amount</th>
+              <th>Options</th>
             </tr>
             {this.renderTransactions()}
           </thead>
@@ -44,9 +50,4 @@ class TransactionsList extends React.Component {
   }
 }
 
-const mapStateToProps = ({ budgets }, ownProps) => {
-  console.log(ownProps);
-  return { budget: budgets.budget };
-};
-
-export default connect(mapStateToProps)(TransactionsList);
+export default TransactionsList;

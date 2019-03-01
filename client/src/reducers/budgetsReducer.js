@@ -2,7 +2,7 @@ import {
   FETCH_BUDGETS,
   FETCH_BUDGET,
   DELETE_BUDGET,
-  BUDGETS_LOADING
+  IS_LOADING
 } from "actions/types";
 
 const initialState = {
@@ -13,7 +13,7 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case BUDGETS_LOADING:
+    case IS_LOADING:
       return {
         ...state,
         loading: true

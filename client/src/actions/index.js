@@ -5,10 +5,12 @@ import {
   FETCH_BUDGETS,
   FETCH_BUDGET,
   DELETE_BUDGET,
-  BUDGETS_LOADING
+  IS_LOADING
 } from "actions/types";
 
 export const fetchUser = () => async dispatch => {
+  dispatch(budgetsLoading());
+
   const res = await axios.get("/api/current_user");
 
   dispatch({ type: FETCH_USER, payload: res.data });
@@ -16,13 +18,17 @@ export const fetchUser = () => async dispatch => {
 
 export const fetchBudgets = () => async dispatch => {
   dispatch(budgetsLoading());
+
   const res = await axios.get("/api/budgets");
 
   dispatch({ type: FETCH_BUDGETS, payload: res.data });
 };
 
 export const fetchBudget = budgetId => async dispatch => {
+  dispatch(budgetsLoading());
+
   const res = await axios.get(`/api/budgets/${budgetId}`);
+
   dispatch({ type: FETCH_BUDGET, payload: res.data });
 };
 
@@ -48,6 +54,8 @@ export const editBudget = (budgetId, formValues) => async dispatch => {
 };
 
 export const addTransaction = (budgetId, formValues) => async dispatch => {
+  dispatch(budgetsLoading());
+
   const res = await axios.post(
     `/api/budgets/${budgetId}/transactions`,
     formValues
@@ -57,9 +65,18 @@ export const addTransaction = (budgetId, formValues) => async dispatch => {
   history.push(`/budgets/${budgetId}`);
 };
 
+export const deleteTransaction = transactionId => async dispatch => {
+  const res = await axios.delete(
+    `/api/budgets/:budgetId/transactions/${transactionId}`
+  );
+
+  dispatch({ type: FETCH_BUDGET, payload: res.data });
+  history.push("/budgets/:budgetId");
+};
+
 export const budgetsLoading = () => {
   return {
-    type: BUDGETS_LOADING
+    type: IS_LOADING
   };
 };
 

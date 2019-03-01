@@ -3,6 +3,7 @@ import accounting from "accounting-js";
 import { connect } from "react-redux";
 import { fetchBudget, fetchUser } from "actions";
 import { Link } from "react-router-dom";
+import Moment from "react-moment";
 import TransactionsList from "components/transactions/TransactionsList";
 
 class BudgetShow extends React.Component {
@@ -31,15 +32,19 @@ class BudgetShow extends React.Component {
               Budget Amount: {accounting.formatMoney(budget.amount)}
             </p>
             <div className="card-header-icon">
-              Created on: {new Date(budget.dateCreated).toLocaleDateString()}
+              Created on:{" "}
+              <Moment format="MM/DD/YYYY">{budget.dateCreated}</Moment>
             </div>
           </header>
           <div className="card-content">
             <div className="content">{budget.description}</div>
             <div>
-              Start Date: {new Date(budget.startDate).toLocaleDateString()}
+              Start Date:{" "}
+              <Moment format="MM/DD/YYYY">{budget.startDate}</Moment>
             </div>
-            <div>End Date: {new Date(budget.endDate).toLocaleDateString()}</div>
+            <div>
+              End Date: <Moment format="MM/DD/YYYY">{budget.endDate}</Moment>
+            </div>
           </div>
           <footer className="card-footer">
             <Link
@@ -62,7 +67,7 @@ class BudgetShow extends React.Component {
             </Link>
           </footer>
         </div>
-        <TransactionsList />
+        <TransactionsList transactions={budget.transactions} />
       </div>
     );
   }
