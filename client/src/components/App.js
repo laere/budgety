@@ -3,6 +3,7 @@ import { Router, Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import { fetchUser } from "actions";
 import history from "../history";
+import _ from "lodash";
 
 import Header from "components/Header";
 import LandingPage from "components/LandingPage";

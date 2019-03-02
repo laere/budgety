@@ -19,6 +19,7 @@ module.exports = app => {
 
         budget.amount -= parseFloat(amount);
         req.user.totalBalance -= parseFloat(amount);
+
         req.user.save();
 
         budget.transactions.unshift(transaction);
@@ -34,7 +35,7 @@ module.exports = app => {
   // @desc    Delete a transaction
   // @access  Public
   app.delete(
-    "/api/budgets/:budgetId/transactions/:transactionId",
+    "/api/budgets/:budgetId/:transactionId",
     requireLogin,
     (req, res) => {
       Budget.findOne({ _id: req.params.budgetId })
@@ -43,16 +44,16 @@ module.exports = app => {
             .map(transaction => transaction._id)
             .indexOf(req.params.transactionId);
 
-          budget.transactions.splice(removeIndex, 1);
-
-          const transactionAmount = parseFloat(
-            budget.transactions[removeIndex].amount
-          );
+          // TODO: make dynamic
+          const transactionAmount = budget.transactions[0].amount;
 
           req.user.totalBalance += transactionAmount;
           budget.amount += transactionAmount;
 
+          budget.transactions.splice(removeIndex, 1);
+
           req.user.save();
+
           budget.save().then(budget => res.json(budget));
         })
         .catch(e => res.status(404).json(e));

@@ -1,8 +1,8 @@
-import React from 'react';
-import Modal from 'components/Modal';
-import { connect } from 'react-redux';
-import { deleteBudget } from 'actions';
-import { Link } from 'react-router-dom';
+import React from "react";
+import Modal from "components/Modal";
+import { connect } from "react-redux";
+import { deleteBudget } from "actions";
+import { Link } from "react-router-dom";
 
 class BudgetDelete extends React.Component {
   renderActions() {
@@ -11,10 +11,13 @@ class BudgetDelete extends React.Component {
       <React.Fragment>
         <button
           onClick={() => this.props.deleteBudget(budgetId)}
-          className="button is-danger">
-            Delete
+          className="button is-danger"
+        >
+          Delete
         </button>
-        <Link to={`/budgets/${budgetId}`} className="button">Cancel</Link>
+        <Link to={`/budgets/${budgetId}`} className="button">
+          Cancel
+        </Link>
       </React.Fragment>
     );
   }
@@ -32,4 +35,7 @@ class BudgetDelete extends React.Component {
   }
 }
 
-export default connect(null, { deleteBudget })(BudgetDelete);
+export default connect(
+  null,
+  { deleteBudget }
+)(BudgetDelete);

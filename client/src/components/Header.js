@@ -1,5 +1,6 @@
 import accounting from "accounting-js";
 import React from "react";
+import { fetchUser } from "actions";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -53,4 +54,7 @@ const mapStateToProps = ({ auth }) => {
   return { auth };
 };
 
-export default connect(mapStateToProps)(Header);
+export default connect(
+  mapStateToProps,
+  { fetchUser }
+)(Header);

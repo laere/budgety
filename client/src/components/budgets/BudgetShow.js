@@ -73,7 +73,7 @@ class BudgetShow extends React.Component {
             </Link>
           </footer>
         </div>
-        <TransactionsList transactions={budget.transactions} />
+        <TransactionsList />
       </div>
     );
   }

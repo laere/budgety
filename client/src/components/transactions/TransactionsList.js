@@ -1,34 +1,44 @@
 import React from "react";
 import accounting from "accounting-js";
 import Moment from "react-moment";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { deleteTransaction, fetchUser } from "actions";
 
 class TransactionsList extends React.Component {
   renderTransactions() {
-    const { transactions } = this.props;
+    const { budget } = this.props.budgets;
 
-    if (!transactions || transactions.length === 0) {
-      return <tr>You currently have no transactions!</tr>;
+    if (!budget.transactions || budget.transactions.length === 0) {
+      return <p>You currently have no transactions!</p>;
     }
 
-    return transactions.sort().map(({ amount, description, dateCreated }) => {
-      const formatAmount = accounting.formatMoney(-amount);
+    return budget.transactions
+      .sort()
+      .map(({ amount, description, dateCreated, _id }) => {
+        const formatAmount = accounting.formatMoney(-amount);
 
-      return (
-        <tr key={amount} className="panel">
-          <td>
-            <Moment format="MM/DD/YYYY">{dateCreated}</Moment>
-          </td>
-          <td>{description}</td>
-          <td>{formatAmount}</td>
-          <td>
-            <button className="button is-danger">Delete</button>
-            <button className="button" style={{ marginLeft: "10px" }}>
-              Edit
-            </button>
-          </td>
-        </tr>
-      );
-    });
+        return (
+          <tr key={_id} className="panel">
+            <td>
+              <Moment format="MM/DD/YYYY">{dateCreated}</Moment>
+            </td>
+            <td>{description}</td>
+            <td>{formatAmount}</td>
+            <td>
+              <button
+                onClick={() => this.props.deleteTransaction(budget._id, _id)}
+                className="button is-danger"
+              >
+                Delete
+              </button>
+              <button className="button" style={{ marginLeft: "10px" }}>
+                Edit
+              </button>
+            </td>
+          </tr>
+        );
+      });
   }
 
   render() {
@@ -50,4 +60,18 @@ class TransactionsList extends React.Component {
   }
 }
 
-export default TransactionsList;
+TransactionsList.propTypes = {
+  deleteTransaction: PropTypes.func.isRequired,
+  budgets: PropTypes.object.isRequired
+};
+
+// TODO: Instead of grabbing entire budgets budgetList
+// grab the single budget you're currently showing
+const mapStateToProps = ({ budgets, auth }) => {
+  return { budgets, auth };
+};
+
+export default connect(
+  mapStateToProps,
+  { deleteTransaction, fetchUser }
+)(TransactionsList);

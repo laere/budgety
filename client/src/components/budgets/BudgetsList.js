@@ -19,48 +19,45 @@ class BudgetsList extends React.Component {
       return <Spinner />;
     }
 
-    return budgetList
-      .sort()
-      .reverse()
-      .map(budget => {
-        return (
-          <div className="card" key={budget._id} style={{ marginTop: "30px" }}>
-            <header className="card-header">
-              <p className="card-header-title">{budget.title}</p>
-              <p className="card-header-icon">
-                Budget Amount: {accounting.formatMoney(budget.amount)}
-              </p>
-              <div className="card-header-icon">
-                Created on:{" "}
-                <Moment format="MM/DD/YYYY">{budget.dateCreated}</Moment>
-              </div>
-            </header>
-            <div className="card-content">
-              <div className="content">{budget.description}</div>
-              <div>
-                Start Date:{" "}
-                <Moment format="MM/DD/YYYY">{budget.startDate}</Moment>
-              </div>
-              <div>
-                End Date: <Moment format="MM/DD/YYYY">{budget.endDate}</Moment>
-              </div>
-              <div style={{ marginTop: "20px" }}>
-                You currently have <strong>{budget.transactions.length}</strong>{" "}
-                {budget.transactions.length > 1 ||
-                budget.transactions.length === 0
-                  ? "transactions"
-                  : "transaction"}{" "}
-                for this budget!
-              </div>
+    return budgetList.sort().map(budget => {
+      return (
+        <div className="card" key={budget._id} style={{ marginTop: "30px" }}>
+          <header className="card-header">
+            <p className="card-header-title">{budget.title}</p>
+            <p className="card-header-icon">
+              Budget Amount: {accounting.formatMoney(budget.amount)}
+            </p>
+            <div className="card-header-icon">
+              Created on:{" "}
+              <Moment format="MM/DD/YYYY">{budget.dateCreated}</Moment>
             </div>
-            <footer className="card-footer">
-              <Link to={`/budgets/${budget._id}`} className="card-footer-item">
-                Configure Budget
-              </Link>
-            </footer>
+          </header>
+          <div className="card-content">
+            <div className="content">{budget.description}</div>
+            <div>
+              Start Date:{" "}
+              <Moment format="MM/DD/YYYY">{budget.startDate}</Moment>
+            </div>
+            <div>
+              End Date: <Moment format="MM/DD/YYYY">{budget.endDate}</Moment>
+            </div>
+            <div style={{ marginTop: "20px" }}>
+              You currently have <strong>{budget.transactions.length}</strong>{" "}
+              {budget.transactions.length > 1 ||
+              budget.transactions.length === 0
+                ? "transactions"
+                : "transaction"}{" "}
+              for this budget!
+            </div>
           </div>
-        );
-      });
+          <footer className="card-footer">
+            <Link to={`/budgets/${budget._id}`} className="card-footer-item">
+              Configure Budget
+            </Link>
+          </footer>
+        </div>
+      );
+    });
   }
 
   render() {
@@ -68,10 +65,9 @@ class BudgetsList extends React.Component {
   }
 }
 
-const mapStateToProps = ({ budgets, auth }) => {
+const mapStateToProps = ({ budgets }) => {
   return {
-    budgets,
-    auth
+    budgets
   };
 };
 
