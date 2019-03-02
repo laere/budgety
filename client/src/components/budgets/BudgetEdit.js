@@ -18,6 +18,7 @@ class BudgetEdit extends React.Component {
   };
 
   render() {
+    console.log(this.props.budget);
     return (
       <div>
         <BudgetForm

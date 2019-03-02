@@ -26,6 +26,7 @@ class TransactionsList extends React.Component {
             <td>{description}</td>
             <td>{formatAmount}</td>
             <td>
+              //Make this a link to modal delete route
               <button
                 onClick={() => this.props.deleteTransaction(budget._id, _id)}
                 className="button is-danger"

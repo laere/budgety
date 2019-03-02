@@ -41,11 +41,12 @@ module.exports = app => {
       Budget.findOne({ _id: req.params.budgetId })
         .then(budget => {
           const removeIndex = budget.transactions
-            .map(transaction => transaction._id)
+            .map(transaction => transaction.id)
             .indexOf(req.params.transactionId);
 
+          console.log(removeIndex);
           // TODO: make dynamic
-          const transactionAmount = budget.transactions[0].amount;
+          const transactionAmount = budget.transactions[removeIndex].amount;
 
           req.user.totalBalance += transactionAmount;
           budget.amount += transactionAmount;
