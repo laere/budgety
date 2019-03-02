@@ -6,11 +6,11 @@ import { Link } from "react-router-dom";
 
 class TransactionDelete extends React.Component {
   renderActions() {
-    const { budgetId } = this.props.match.params;
+    const { budgetId, transactionId } = this.props.match.params;
     return (
       <React.Fragment>
         <button
-          onClick={() => this.props.deleteTransaction(budgetId)}
+          onClick={() => this.props.deleteTransaction(budgetId, transactionId)}
           className="button is-danger"
         >
           Delete
@@ -26,8 +26,8 @@ class TransactionDelete extends React.Component {
     return (
       <React.Fragment>
         <Modal
-          title="Delete Budget"
-          content="Are you sure you want to delete this budget?"
+          title="Delete Transaction"
+          content="Are you sure you want to delete this transaction?"
           actions={this.renderActions()}
         />
       </React.Fragment>

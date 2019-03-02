@@ -1,6 +1,7 @@
 import React from "react";
 import accounting from "accounting-js";
 import Moment from "react-moment";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { deleteTransaction, fetchUser } from "actions";
@@ -26,13 +27,12 @@ class TransactionsList extends React.Component {
             <td>{description}</td>
             <td>{formatAmount}</td>
             <td>
-              //Make this a link to modal delete route
-              <button
-                onClick={() => this.props.deleteTransaction(budget._id, _id)}
+              <Link
+                to={`/budgets/${budget._id}/transactions/${_id}/delete`}
                 className="button is-danger"
               >
                 Delete
-              </button>
+              </Link>
               <button className="button" style={{ marginLeft: "10px" }}>
                 Edit
               </button>
@@ -68,8 +68,8 @@ TransactionsList.propTypes = {
 
 // TODO: Instead of grabbing entire budgets budgetList
 // grab the single budget you're currently showing
-const mapStateToProps = ({ budgets, auth }) => {
-  return { budgets, auth };
+const mapStateToProps = ({ budgets }) => {
+  return { budgets };
 };
 
 export default connect(

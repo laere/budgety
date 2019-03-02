@@ -72,6 +72,7 @@ export const deleteTransaction = (
   const res = await axios.delete(`/api/budgets/${budgetId}/${transactionId}`);
 
   dispatch({ type: FETCH_BUDGET, payload: res.data });
+  history.push(`/budgets/${budgetId}`);
 };
 
 export const budgetsLoading = () => {
