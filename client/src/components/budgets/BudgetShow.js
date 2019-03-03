@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import accounting from "accounting-js";
 import { connect } from "react-redux";
 import { fetchBudget, fetchUser } from "actions";
@@ -78,6 +79,12 @@ class BudgetShow extends React.Component {
     );
   }
 }
+
+BudgetShow.propTypes = {
+  budgets: PropTypes.object.isRequired,
+  fetchBudget: PropTypes.func.isRequired,
+  fetchUser: PropTypes.func.isRequired
+};
 
 const mapStateToProps = ({ budgets }) => {
   return { budgets };

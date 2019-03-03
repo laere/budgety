@@ -1,43 +1,42 @@
-import "css/BudgetForm.css";
 import React from "react";
-import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import { reduxForm, Field } from "redux-form";
+import { Link } from "react-router-dom";
 import formFields from "components/budgets/formFields";
 import BudgetField from "components/budgets/BudgetField";
 
-class BudgetForm extends React.Component {
-  renderFields() {
-    return formFields.map(({ label, name, type }) => {
-      return (
-        <Field
-          key={name}
-          label={label}
-          name={name}
-          type={type}
-          component={BudgetField}
-        />
-      );
-    });
-  }
-
+class TransactionForm extends React.Component {
   onSubmit = formValues => {
-    this.props.onSubmit(formValues);
+    this.props.onSubmit(this.props.budgetId, formValues);
   };
 
   render() {
     return (
-      <div className="budget-new">
+      <div>
         <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
-          {this.renderFields()}
+          <Field
+            key="description"
+            label="description"
+            name="description"
+            type="text"
+            component={BudgetField}
+          />
+          <Field
+            key="amount"
+            label="amount"
+            name="amount"
+            type="number"
+            component={BudgetField}
+          />
           <Link
-            to="/budgets"
-            type="submit"
+            to={`/budgets/${this.props.budgetId}`}
             className="button is-danger is-large"
           >
             Cancel
           </Link>
           <button type="submit" className="button is-primary is-large">
-            Done
+            Submit
           </button>
         </form>
       </div>
@@ -58,7 +57,6 @@ const validate = values => {
 };
 
 export default reduxForm({
-  form: "budgetForm",
-  enableReinitialize: true,
+  form: "transactionForm",
   validate
-})(BudgetForm);
+})(TransactionForm);

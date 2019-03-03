@@ -4,8 +4,8 @@ const Budget = mongoose.model("budgets");
 const User = mongoose.model("users");
 
 module.exports = app => {
-  // @route   GET api/budgets/:budgetId/transactions/
-  // @desc    Get all transactions
+  // @route   POST api/budgets/:budgetId/transactions/
+  // @desc    POST transactions
   // @access  Public
   app.post("/api/budgets/:budgetId/transactions", requireLogin, (req, res) => {
     Budget.findOne({ _id: req.params.budgetId })
@@ -35,7 +35,7 @@ module.exports = app => {
   // @desc    Delete a transaction
   // @access  Public
   app.delete(
-    "/api/budgets/:budgetId/:transactionId",
+    "/api/budgets/:budgetId/transactions/:transactionId",
     requireLogin,
     (req, res) => {
       Budget.findOne({ _id: req.params.budgetId })
@@ -48,8 +48,8 @@ module.exports = app => {
           // TODO: make dynamic
           const transactionAmount = budget.transactions[removeIndex].amount;
 
-          req.user.totalBalance += transactionAmount;
           budget.amount += transactionAmount;
+          req.user.totalBalance += transactionAmount;
 
           budget.transactions.splice(removeIndex, 1);
 
@@ -59,6 +59,36 @@ module.exports = app => {
         })
         .catch(e => res.status(404).json(e));
     }
+  );
+
+  // @route   GET api/budgets/:budgetId/transactions
+  // @desc    Get a single transaction
+  // @access  Public
+  app.get(
+    "/api/budgets/:budgetId/transactions/:transactionId",
+    requireLogin,
+    (req, res) => {
+      Budget.findOne({ _id: req.params.budgetId })
+        .then(budget => {
+          const singleTransaction = budget.transactions.find(
+            transaction => transaction.id === req.params.transactionId
+          );
+
+          console.log(singleTransaction);
+
+          res.json(singleTransaction);
+        })
+        .catch(e => res.status(400).json(e));
+    }
+  );
+
+  // @route   PATCH api/budgets/:budgetId/transactions
+  // @desc    Update a single transaction
+  // @access  Public
+  app.patch(
+    "/api/budgets/:budgetId/transactions/:transactionId",
+    requireLogin,
+    (req, res) => {}
   );
 
   // @route   GET api/budgets/:budgetId/transactions

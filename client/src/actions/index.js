@@ -5,6 +5,7 @@ import {
   FETCH_BUDGETS,
   FETCH_BUDGET,
   DELETE_BUDGET,
+  FETCH_TRANSACTION,
   IS_LOADING
 } from "actions/types";
 
@@ -53,9 +54,17 @@ export const editBudget = (budgetId, formValues) => async dispatch => {
   history.push("/budgets");
 };
 
-export const addTransaction = (budgetId, formValues) => async dispatch => {
-  // dispatch(budgetsLoading());
+/////// TRANSACTIONS ///////////////////////////////////////////////////////////////
 
+export const getTransaction = (budgetId, transactionId) => async dispatch => {
+  const res = await axios.get(
+    `/api/budgets/${budgetId}/transactions/${transactionId}`
+  );
+
+  dispatch({ type: FETCH_TRANSACTION, payload: res.data });
+};
+
+export const addTransaction = (budgetId, formValues) => async dispatch => {
   const res = await axios.post(
     `/api/budgets/${budgetId}/transactions`,
     formValues
@@ -69,9 +78,25 @@ export const deleteTransaction = (
   budgetId,
   transactionId
 ) => async dispatch => {
-  const res = await axios.delete(`/api/budgets/${budgetId}/${transactionId}`);
+  const res = await axios.delete(
+    `/api/budgets/${budgetId}/transactions/${transactionId}`
+  );
 
   dispatch({ type: FETCH_BUDGET, payload: res.data });
+  history.push(`/budgets/${budgetId}`);
+};
+
+export const editTransaction = (
+  transactionId,
+  budgetId,
+  formValues
+) => async dispatch => {
+  const res = await axios.patch(
+    `/api/budgets/${budgetId}/transactions/${transactionId}`,
+    formValues
+  );
+
+  dispatch({ type: FETCH_TRANSACTION, payload: res.data });
   history.push(`/budgets/${budgetId}`);
 };
 
@@ -80,8 +105,3 @@ export const budgetsLoading = () => {
     type: IS_LOADING
   };
 };
-
-// export const test = () => dispatch => {
-//   dispatch({ type: 'test', payload: 'test'})
-//
-// }

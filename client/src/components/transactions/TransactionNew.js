@@ -1,13 +1,11 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { reduxForm, Field } from "redux-form";
-import * as actions from "actions";
-import { Link } from "react-router-dom";
-import formFields from "components/budgets/formFields";
-import BudgetField from "components/budgets/BudgetField";
+import { addTransaction } from "actions";
+import TransactionForm from "components/transactions/TransactionForm";
 
 class TransactionNew extends React.Component {
-  onSubmit = formValues => {
+  onSubmit = (id, formValues) => {
     const { budgetId } = this.props.match.params;
 
     this.props.addTransaction(budgetId, formValues);
@@ -18,54 +16,17 @@ class TransactionNew extends React.Component {
 
     return (
       <div>
-        <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
-          <Field
-            key="description"
-            label="description"
-            name="description"
-            type="text"
-            component={BudgetField}
-          />
-          <Field
-            key="amount"
-            label="amount"
-            name="amount"
-            type="number"
-            component={BudgetField}
-          />
-          <Link
-            to={`/budgets/${budgetId}`}
-            className="button is-danger is-large"
-          >
-            Cancel
-          </Link>
-          <button type="submit" className="button is-primary is-large">
-            Submit
-          </button>
-        </form>
+        <TransactionForm onSubmit={this.onSubmit} budgetId={budgetId} />
       </div>
     );
   }
 }
 
-const validate = values => {
-  const errors = {};
-
-  formFields.forEach(({ name, required }) => {
-    if (required && !values[name]) {
-      errors[name] = "You must provide a value!";
-    }
-  });
-
-  return errors;
+TransactionNew.propTypes = {
+  addTransaction: PropTypes.func.isRequired
 };
 
-export default reduxForm({
-  form: "transactionNew",
-  validate
-})(
-  connect(
-    null,
-    actions
-  )(TransactionNew)
-);
+export default connect(
+  null,
+  { addTransaction }
+)(TransactionNew);

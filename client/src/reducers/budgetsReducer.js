@@ -2,12 +2,14 @@ import {
   FETCH_BUDGETS,
   FETCH_BUDGET,
   DELETE_BUDGET,
-  IS_LOADING
+  IS_LOADING,
+  FETCH_TRANSACTION
 } from "actions/types";
 
 const initialState = {
   budgetList: [],
   budget: {},
+  transaction: {},
   loading: false
 };
 
@@ -36,6 +38,12 @@ export default (state = initialState, action) => {
         budgetList: state.budgetList.filter(
           budget => budget._id !== action.payload
         )
+      };
+    case FETCH_TRANSACTION:
+      return {
+        ...state,
+        transaction: action.payload,
+        loading: false
       };
     default:
       return state;

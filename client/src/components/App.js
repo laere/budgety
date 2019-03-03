@@ -14,6 +14,7 @@ import BudgetShow from "components/budgets/BudgetShow";
 import BudgetDelete from "components/budgets/BudgetDelete";
 import TransactionNew from "components/transactions/TransactionNew";
 import TransactionDelete from "components/transactions/TransactionDelete";
+import TransactionEdit from "components/transactions/TransactionEdit";
 
 class App extends React.Component {
   componentDidMount() {
@@ -49,6 +50,11 @@ class App extends React.Component {
               exact
               path="/budgets/:budgetId/transactions/:transactionId/delete"
               component={TransactionDelete}
+            />
+            <Route
+              exact
+              path="/budgets/:budgetId/transactions/:transactionId/edit"
+              component={TransactionEdit}
             />
           </Switch>
         </div>

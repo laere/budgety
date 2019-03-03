@@ -4,14 +4,14 @@ import Moment from "react-moment";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { deleteTransaction, fetchUser } from "actions";
+import { deleteTransaction } from "actions";
 
 class TransactionsList extends React.Component {
   renderTransactions() {
     const { budget } = this.props.budgets;
 
     if (!budget.transactions || budget.transactions.length === 0) {
-      return <p>You currently have no transactions!</p>;
+      return <tr>You currently have no transactions!</tr>;
     }
 
     return budget.transactions
@@ -33,9 +33,13 @@ class TransactionsList extends React.Component {
               >
                 Delete
               </Link>
-              <button className="button" style={{ marginLeft: "10px" }}>
+              <Link
+                to={`/budgets/${budget._id}/transactions/${_id}/edit`}
+                className="button"
+                style={{ marginLeft: "10px" }}
+              >
                 Edit
-              </button>
+              </Link>
             </td>
           </tr>
         );
@@ -74,5 +78,5 @@ const mapStateToProps = ({ budgets }) => {
 
 export default connect(
   mapStateToProps,
-  { deleteTransaction, fetchUser }
+  { deleteTransaction }
 )(TransactionsList);

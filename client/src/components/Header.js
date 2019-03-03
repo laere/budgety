@@ -3,6 +3,7 @@ import React from "react";
 import { fetchUser } from "actions";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 class Header extends React.Component {
   renderContent() {
@@ -49,6 +50,11 @@ class Header extends React.Component {
     );
   }
 }
+
+Header.propTypes = {
+  auth: PropTypes.object,
+  fetchUser: PropTypes.func.isRequired
+};
 
 const mapStateToProps = ({ auth }) => {
   return { auth };
