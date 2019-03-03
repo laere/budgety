@@ -48,9 +48,9 @@ class BudgetForm extends React.Component {
 const validate = values => {
   const errors = {};
 
-  formFields.forEach(({ name, required }) => {
+  formFields.forEach(({ name, required, validationMsg }) => {
     if (required && !values[name]) {
-      errors[name] = "You must provide a value!";
+      errors[name] = validationMsg;
     }
   });
 

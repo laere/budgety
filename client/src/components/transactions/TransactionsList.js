@@ -2,13 +2,12 @@ import React from "react";
 import accounting from "accounting-js";
 import Moment from "react-moment";
 import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { deleteTransaction } from "actions";
+import PropTypes from "prop-types";
 
 class TransactionsList extends React.Component {
   renderTransactions() {
-    const { budget } = this.props.budgets;
+    const { budget } = this.props;
 
     if (!budget.transactions || budget.transactions.length === 0) {
       return <tr>You currently have no transactions!</tr>;
@@ -57,8 +56,8 @@ class TransactionsList extends React.Component {
               <th>Amount</th>
               <th>Options</th>
             </tr>
-            {this.renderTransactions()}
           </thead>
+          <tbody>{this.renderTransactions()}</tbody>
         </table>
       </div>
     );
@@ -66,17 +65,11 @@ class TransactionsList extends React.Component {
 }
 
 TransactionsList.propTypes = {
-  deleteTransaction: PropTypes.func.isRequired,
   budgets: PropTypes.object.isRequired
 };
 
-// TODO: Instead of grabbing entire budgets budgetList
-// grab the single budget you're currently showing
 const mapStateToProps = ({ budgets }) => {
-  return { budgets };
+  return { budget: budgets.budget };
 };
 
-export default connect(
-  mapStateToProps,
-  { deleteTransaction }
-)(TransactionsList);
+export default connect(mapStateToProps)(TransactionsList);
