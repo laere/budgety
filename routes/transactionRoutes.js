@@ -88,7 +88,27 @@ module.exports = app => {
   app.patch(
     "/api/budgets/:budgetId/transactions/:transactionId",
     requireLogin,
-    (req, res) => {}
+    (req, res) => {
+      const { description, amount } = req.body;
+      const newTransaction = { description, amount };
+
+      // add User.findOne
+
+      Budget.findOne({ _id: req.params.budgetId })
+        .then(budget => {
+          console.log("BUDGET", budget);
+
+          const transaction = budget.transactions.id(req.params.transactionId);
+
+          transaction.set(newTransaction);
+
+          budget.save();
+
+          console.log(transaction);
+        })
+        .then(budget => res.json(budget))
+        .catch(e => res.status(404).json(e));
+    }
   );
 
   // @route   GET api/budgets/:budgetId/transactions

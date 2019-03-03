@@ -65,7 +65,7 @@ class TransactionsList extends React.Component {
 }
 
 TransactionsList.propTypes = {
-  budgets: PropTypes.object.isRequired
+  budget: PropTypes.object.isRequired
 };
 
 const mapStateToProps = ({ budgets }) => {

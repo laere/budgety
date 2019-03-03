@@ -87,8 +87,8 @@ export const deleteTransaction = (
 };
 
 export const editTransaction = (
-  transactionId,
   budgetId,
+  transactionId,
   formValues
 ) => async dispatch => {
   const res = await axios.patch(
@@ -96,7 +96,7 @@ export const editTransaction = (
     formValues
   );
 
-  dispatch({ type: FETCH_TRANSACTION, payload: res.data });
+  dispatch({ type: FETCH_BUDGET, payload: res.data });
   history.push(`/budgets/${budgetId}`);
 };
 
