@@ -74,8 +74,6 @@ module.exports = app => {
             transaction => transaction.id === req.params.transactionId
           );
 
-          console.log(singleTransaction);
-
           res.json(singleTransaction);
         })
         .catch(e => res.status(400).json(e));
@@ -91,22 +89,31 @@ module.exports = app => {
     (req, res) => {
       const { description, amount } = req.body;
       const newTransaction = { description, amount };
-
       // add User.findOne
+      User.findOne({ _id: req.user.id })
+        .then(user => {
+          Budget.findOne({ _id: req.params.budgetId })
+            .then(budget => {
+              const transaction = budget.transactions.id(
+                req.params.transactionId
+              );
 
-      Budget.findOne({ _id: req.params.budgetId })
-        .then(budget => {
-          console.log("BUDGET", budget);
+              console.log("TRANSACTION AMOUNT", transaction.amount);
+              console.log("AMOUNT", amount);
 
-          const transaction = budget.transactions.id(req.params.transactionId);
+              if (transaction.amount - amount < transaction.amount) {
+                user.totalBalance += transaction.amount - amount;
+                budget.amount += transaction.amount - amount;
+              }
 
-          transaction.set(newTransaction);
+              transaction.set(newTransaction);
 
-          budget.save();
-
-          console.log(transaction);
+              budget.save();
+              user.save();
+            })
+            .then(budget => res.json(budget))
+            .catch(e => res.status(404).json(e));
         })
-        .then(budget => res.json(budget))
         .catch(e => res.status(404).json(e));
     }
   );

@@ -68,8 +68,8 @@ TransactionsList.propTypes = {
   budget: PropTypes.object.isRequired
 };
 
-const mapStateToProps = ({ budgets }) => {
-  return { budget: budgets.budget };
+const mapStateToProps = state => {
+  return { budget: state.budgets.budget };
 };
 
 export default connect(mapStateToProps)(TransactionsList);
