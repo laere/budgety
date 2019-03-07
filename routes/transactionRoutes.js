@@ -40,12 +40,12 @@ module.exports = app => {
     (req, res) => {
       Budget.findOne({ _id: req.params.budgetId })
         .then(budget => {
+          // map id's of transactions and find index of params transactionId
           const removeIndex = budget.transactions
             .map(transaction => transaction.id)
             .indexOf(req.params.transactionId);
 
-          console.log(removeIndex);
-          // TODO: make dynamic
+          // Grab the transactions amount value
           const transactionAmount = budget.transactions[removeIndex].amount;
 
           budget.amount += transactionAmount;
@@ -70,6 +70,7 @@ module.exports = app => {
     (req, res) => {
       Budget.findOne({ _id: req.params.budgetId })
         .then(budget => {
+          // Find transaction based on ID
           const singleTransaction = budget.transactions.find(
             transaction => transaction.id === req.params.transactionId
           );
@@ -89,23 +90,28 @@ module.exports = app => {
     (req, res) => {
       const { description, amount } = req.body;
       const newTransaction = { description, amount };
-      // add User.findOne
+
       User.findOne({ _id: req.user.id })
         .then(user => {
           Budget.findOne({ _id: req.params.budgetId })
             .then(budget => {
+              // Find transaction in budget based on transaction ID
               const transaction = budget.transactions.id(
                 req.params.transactionId
               );
 
-              console.log("TRANSACTION AMOUNT", transaction.amount);
-              console.log("AMOUNT", amount);
+              // console.log("TRANSACTION AMOUNT", transaction.amount);
+              // console.log("AMOUNT", amount);
 
+              // Determines difference between original tranaction AMOUNT
+              // and the new transaction AMOUNT
+              // then adds difference to user total and budget amounts
               if (transaction.amount - amount < transaction.amount) {
                 user.totalBalance += transaction.amount - amount;
                 budget.amount += transaction.amount - amount;
               }
 
+              // set old transaction to new transaction
               transaction.set(newTransaction);
 
               budget.save();

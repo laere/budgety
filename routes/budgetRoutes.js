@@ -97,19 +97,42 @@ module.exports = app => {
       endDate
     };
 
-    Budget.findOneAndUpdate(
-      { _id: req.params.budgetId },
-      { $set: budgetFields },
-      { new: true }
-    )
+    Budget.findOne({ _id: req.params.budgetId })
       .then(budget => {
-        const budgetDiff = req.user.totalBalance - parseFloat(amount);
-        req.user.totalBalance -= budgetDiff;
+        console.log(budget);
+        console.log(amount);
+
+        if (budget.amount - amount < budget.amount) {
+          req.user.totalBalance -= budget.amount - amount;
+          budget.amount += budget.amount - amount;
+        }
+
         req.user.save();
-        Budget.find()
-          .then(budgets => res.json(budgets))
-          .catch(e => res.status(404).json(e));
+        budget.updateOne({ $set: budgetFields }, { new: true }).then(budget => {
+          Budget.find()
+            .then(budgets => res.json(budgets))
+            .catch(e => res.status(404).json(e));
+        });
       })
       .catch(e => res.status(404).json(e));
+
+    // Budget.findOneAndUpdate(
+    //   { _id: req.params.budgetId },
+    //   { $set: budgetFields },
+    //   { new: true }
+    // )
+    //   .then(budget => {
+    //     console.log(budget);
+    //     console.log(req.user);
+    //     console.log(amount);
+    //     const budgetDiff = req.user.totalBalance - parseFloat(amount);
+    //     req.user.totalBalance -= budgetDiff;
+    //     req.user.save();
+    //     budget.save();
+    //     Budget.find()
+    //       .then(budgets => res.json(budgets))
+    //       .catch(e => res.status(404).json(e));
+    //   })
+    //   .catch(e => res.status(404).json(e));
   });
 };

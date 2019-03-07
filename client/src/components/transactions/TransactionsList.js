@@ -13,9 +13,8 @@ class TransactionsList extends React.Component {
       return <tr>You currently have no transactions!</tr>;
     }
 
-    return budget.transactions
-      .sort()
-      .map(({ amount, description, dateCreated, _id }) => {
+    return budget.transactions.map(
+      ({ amount, description, dateCreated, _id }) => {
         const formatAmount = accounting.formatMoney(-amount);
 
         return (
@@ -42,7 +41,8 @@ class TransactionsList extends React.Component {
             </td>
           </tr>
         );
-      });
+      }
+    );
   }
 
   render() {
