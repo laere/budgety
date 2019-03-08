@@ -22,6 +22,7 @@ class BudgetShow extends React.Component {
     if (budget === null || loading) {
       return <Spinner />;
     }
+    console.log(budget.startDate);
 
     return (
       <div>

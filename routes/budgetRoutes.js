@@ -99,14 +99,13 @@ module.exports = app => {
 
     Budget.findOne({ _id: req.params.budgetId })
       .then(budget => {
-        console.log(budget);
-        console.log(amount);
-
+        // budget.amount is the amount of the budget before Edit
+        // amount is the new amount pulled from req.body after edit
         if (budget.amount - amount < budget.amount) {
           req.user.totalBalance -= budget.amount - amount;
           budget.amount += budget.amount - amount;
         }
-
+        console.log(budget);
         req.user.save();
         budget.updateOne({ $set: budgetFields }, { new: true }).then(budget => {
           Budget.find()
@@ -115,24 +114,5 @@ module.exports = app => {
         });
       })
       .catch(e => res.status(404).json(e));
-
-    // Budget.findOneAndUpdate(
-    //   { _id: req.params.budgetId },
-    //   { $set: budgetFields },
-    //   { new: true }
-    // )
-    //   .then(budget => {
-    //     console.log(budget);
-    //     console.log(req.user);
-    //     console.log(amount);
-    //     const budgetDiff = req.user.totalBalance - parseFloat(amount);
-    //     req.user.totalBalance -= budgetDiff;
-    //     req.user.save();
-    //     budget.save();
-    //     Budget.find()
-    //       .then(budgets => res.json(budgets))
-    //       .catch(e => res.status(404).json(e));
-    //   })
-    //   .catch(e => res.status(404).json(e));
   });
 };

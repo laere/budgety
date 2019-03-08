@@ -51,7 +51,7 @@ module.exports = app => {
           budget.amount += transactionAmount;
           req.user.totalBalance += transactionAmount;
 
-          budget.transactions.splice(removeIndex, 1);
+          budget.transactions[removeIndex].remove();
 
           req.user.save();
 
