@@ -1,5 +1,5 @@
 import React from "react";
-import Moment from "react-moment";
+import DatePicker from "react-datepicker";
 
 const BudgetField = ({ input, label, type, meta: { touched, error } }) => {
   return (

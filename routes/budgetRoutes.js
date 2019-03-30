@@ -8,7 +8,9 @@ module.exports = app => {
   // @desc    Get all budgets
   // @access  Public
   app.get("/api/budgets", requireLogin, async (req, res) => {
-    const budgets = await Budget.find({ user: req.user.id });
+    const budgets = await Budget.find({ user: req.user.id }).sort({
+      dateCreated: 1
+    });
 
     if (!budgets) {
       res.status(404).json({ budgetsnotfound: "Not budgets found!" });

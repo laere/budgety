@@ -23,14 +23,14 @@ export default [
   {
     label: "Budget Start Date",
     name: "startDate",
-    type: "date",
+    type: "datetime-local",
     required: true,
     validationMsg: "You must provide a start date!"
   },
   {
     label: "Budget End Date",
     name: "endDate",
-    type: "date",
+    type: "datetime-local",
     required: true,
     validationMsg: "You must provide an end date!"
   }
