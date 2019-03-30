@@ -30,7 +30,7 @@ class BudgetsList extends React.Component {
                 Budget Amount: {accounting.formatMoney(budget.amount)}
               </p>
               <div className="card-header-icon">
-                Created on:{" "}
+                <span style={{ marginRight: "10px" }}>Created on:</span>{" "}
                 <Moment format="MM/DD/YYYY">{budget.dateCreated}</Moment>
               </div>
             </header>
