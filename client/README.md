@@ -1,6 +1,9 @@
-TODOS:
+Things to add:
 
-Redo backend routes with express.Router
-Add Prop Types to components
-Add Datepicker component
-Add validation to backend
+### Add validation to backend
+
+### Refactor promises to async/await
+
+### Comment code for better understandability
+
+### Testing

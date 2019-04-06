@@ -41,14 +41,14 @@ export const addBudget = formValues => async dispatch => {
 };
 
 export const deleteBudget = budgetId => async dispatch => {
-  const res = await axios.delete(`/api/budgets/delete/${budgetId}`);
+  const res = await axios.delete(`/api/budgets/${budgetId}`);
 
   dispatch({ type: DELETE_BUDGET, payload: budgetId });
   history.push("/budgets");
 };
 
 export const editBudget = (budgetId, formValues) => async dispatch => {
-  const res = await axios.patch(`/api/budgets/edit/${budgetId}`, formValues);
+  const res = await axios.put(`/api/budgets/${budgetId}`, formValues);
 
   dispatch({ type: FETCH_BUDGETS, payload: res.data });
   history.push("/budgets");
@@ -57,18 +57,13 @@ export const editBudget = (budgetId, formValues) => async dispatch => {
 /////// TRANSACTIONS ///////////////////////////////////////////////////////////////
 
 export const getTransaction = (budgetId, transactionId) => async dispatch => {
-  const res = await axios.get(
-    `/api/budgets/${budgetId}/transactions/${transactionId}`
-  );
+  const res = await axios.get(`/api/budgets/${budgetId}/${transactionId}`);
 
   dispatch({ type: FETCH_TRANSACTION, payload: res.data });
 };
 
 export const addTransaction = (budgetId, formValues) => async dispatch => {
-  const res = await axios.post(
-    `/api/budgets/${budgetId}/transactions`,
-    formValues
-  );
+  const res = await axios.post(`/api/budgets/${budgetId}`, formValues);
 
   dispatch({ type: FETCH_BUDGET, payload: res.data });
   history.push(`/budgets/${budgetId}`);
@@ -78,9 +73,7 @@ export const deleteTransaction = (
   budgetId,
   transactionId
 ) => async dispatch => {
-  const res = await axios.delete(
-    `/api/budgets/${budgetId}/transactions/${transactionId}`
-  );
+  const res = await axios.delete(`/api/budgets/${budgetId}/${transactionId}`);
 
   dispatch({ type: FETCH_BUDGET, payload: res.data });
   history.push(`/budgets/${budgetId}`);
@@ -91,8 +84,8 @@ export const editTransaction = (
   transactionId,
   formValues
 ) => async dispatch => {
-  const res = await axios.patch(
-    `/api/budgets/${budgetId}/transactions/${transactionId}`,
+  const res = await axios.put(
+    `/api/budgets/${budgetId}/${transactionId}`,
     formValues
   );
 

@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 const budgetSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
-    ref: "User"
+    ref: "users"
   },
   title: {
     type: String,
@@ -40,14 +40,22 @@ const budgetSchema = new Schema({
       },
       dateCreated: {
         type: Date,
-        default: Date.now()
+        default: Date.now
       }
     }
   ],
   dateCreated: {
     type: Date,
-    default: Date.now()
+    default: Date.now
   }
 });
 
-mongoose.model("budgets", budgetSchema);
+budgetSchema.methods.calculate = function(totalBalance, amount) {
+  if (this.amount - amount < this.amount) {
+    totalBalance -= this.amount - amount;
+    this.amount += this.amount - amount;
+  }
+};
+
+const Budget = mongoose.model("budgets", budgetSchema);
+module.exports = Budget;

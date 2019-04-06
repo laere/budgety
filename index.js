@@ -4,8 +4,11 @@ const cookieSession = require("cookie-session");
 const passport = require("passport");
 const bodyParser = require("body-parser");
 const keys = require("./config/keys");
-require("./models/User");
-require("./models/Budget");
+
+const auth = require("./routes/authRoutes");
+const budgets = require("./routes/budgetRoutes");
+const transactions = require("./routes/transactionRoutes");
+
 require("./services/passport");
 
 mongoose.connect(
@@ -25,9 +28,13 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-require("./routes/authRoutes")(app);
-require("./routes/budgetRoutes")(app);
-require("./routes/transactionRoutes")(app);
+app.use(auth);
+app.use("/api/budgets", budgets);
+app.use("/api/budgets", transactions);
+
+// require("./routes/authRoutes")(app);
+// require("./routes/budgetRoutes")(app);
+// require("./routes/transactionRoutes")(app);
 
 // Only ran inside production (in heroku)
 if (process.env.NODE_ENV === "production") {

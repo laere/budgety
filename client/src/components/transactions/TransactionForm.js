@@ -1,6 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
 import { reduxForm, Field } from "redux-form";
 import { Link } from "react-router-dom";
 import formFields from "components/budgets/formFields";

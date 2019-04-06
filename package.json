@@ -30,7 +30,6 @@
     "passport-google-oauth20": "^1.0.0"
   },
   "devDependencies": {
-    "jest": "^24.5.0",
     "supertest": "^4.0.2",
     "terser": "^3.14.1"
   }
