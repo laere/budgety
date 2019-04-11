@@ -5,6 +5,8 @@ const router = express.Router();
 const Budget = require("../models/Budget");
 const User = require("../models/User");
 
+const validateTransaction = require("../validation/validateTransaction");
+
 // @route   POST api/budgets/:budgetId/transactions/
 // @desc    POST transactions
 // @access  Public
@@ -24,6 +26,9 @@ router.post("/:budgetId", requireLogin, (req, res) => {
   //
   // await budget.save()
   // res.json(budget);
+
+  const { error } = validateTransaction(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
 
   Budget.findOne({ _id: req.params.budgetId })
     .then(budget => {
@@ -90,6 +95,9 @@ router.get("/:budgetId/:transactionId", requireLogin, (req, res) => {
 // @desc    Update a single transaction
 // @access  Public
 router.put("/:budgetId/:transactionId", requireLogin, (req, res) => {
+  const { error } = validateTransaction(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
+
   const { description, amount } = req.body;
   const newTransaction = { description, amount };
 

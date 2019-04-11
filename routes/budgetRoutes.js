@@ -5,6 +5,8 @@ const router = express.Router();
 const Budget = require("../models/Budget");
 const User = require("../models/User");
 
+const validateBudget = require("../validation/validateBudget");
+
 // @route   GET api/budgets
 // @desc    Get all budgets
 // @access  Public
@@ -34,6 +36,10 @@ router.get("/:budgetId", requireLogin, async (req, res) => {
 });
 
 router.post("/", requireLogin, async (req, res) => {
+  const { error } = validateBudget(req.body);
+  console.log(error);
+  if (err) return res.status(400).send(error.details[0].message);
+
   const {
     title,
     description,
@@ -89,8 +95,12 @@ router.delete("/:budgetId", requireLogin, (req, res) => {
 // @route   Patch api/budgets/edit/:budgetId
 // @desc    Edit a budget by ID
 // @access  Public
-router.put(":budgetId", requireLogin, (req, res) => {
+router.put("/:budgetId", requireLogin, (req, res) => {
   // REFACTOR *************//
+  console.log(req.body);
+  const { error } = validateBudget(req.body);
+  console.log(error);
+  if (error) return res.status(400).send(error.details[0].message);
 
   const { title, description, amount, startDate, endDate } = req.body;
 
@@ -106,6 +116,7 @@ router.put(":budgetId", requireLogin, (req, res) => {
 
   Budget.findOne({ _id: req.params.budgetId })
     .then(budget => {
+      console.log(budget);
       // budget.amount is the amount of the budget before Edit
       // amount is the new amount pulled from req.body after edit
       if (budget.amount - amount < budget.amount) {
