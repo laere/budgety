@@ -97,9 +97,8 @@ router.delete("/:budgetId", requireLogin, (req, res) => {
 // @access  Public
 router.put("/:budgetId", requireLogin, (req, res) => {
   // REFACTOR *************//
-  console.log(req.body);
   const { error } = validateBudget(req.body);
-  console.log(error);
+
   if (error) return res.status(400).send(error.details[0].message);
 
   const { title, description, amount, startDate, endDate } = req.body;
@@ -111,9 +110,7 @@ router.put("/:budgetId", requireLogin, (req, res) => {
     startDate,
     endDate
   };
-
   // Refactor FindOneAndUpdate
-
   Budget.findOne({ _id: req.params.budgetId })
     .then(budget => {
       console.log(budget);

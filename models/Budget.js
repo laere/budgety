@@ -8,11 +8,15 @@ const budgetSchema = new Schema({
   },
   title: {
     type: String,
-    required: true
+    required: true,
+    minlength: 2,
+    maxlength: 50
   },
   description: {
     type: String,
-    required: true
+    required: true,
+    minlength: 2,
+    maxlength: 255
   },
   amount: {
     type: Number,
@@ -31,7 +35,9 @@ const budgetSchema = new Schema({
     {
       description: {
         type: String,
-        required: true
+        required: true,
+        minlength: 2,
+        maxlength: 50
       },
       amount: {
         type: Number,
