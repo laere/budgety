@@ -36,9 +36,9 @@ router.get("/:budgetId", requireLogin, async (req, res) => {
 });
 
 router.post("/", requireLogin, async (req, res) => {
-  const { error } = validateBudget(req.body);
-  console.log(error);
-  if (err) return res.status(400).send(error.details[0].message);
+  // const { error } = validateBudget(req.body);
+  // console.log(error);
+  // if (err) return res.status(400).send(error.details[0].message);
 
   const {
     title,
