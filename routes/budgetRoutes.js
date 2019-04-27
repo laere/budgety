@@ -1,135 +1,129 @@
 const mongoose = require("mongoose");
+const myAsync = require("../middlewares/asyncMiddleware");
 const requireLogin = require("../middlewares/requireLogin");
 const express = require("express");
 const router = express.Router();
 const Budget = require("../models/Budget");
 const User = require("../models/User");
-
 const validateBudget = require("../validation/validateBudget");
+const errors = require("../errors/errors");
 
 // @route   GET api/budgets
 // @desc    Get all budgets
 // @access  Public
-router.get("/", requireLogin, async (req, res) => {
-  const budgets = await Budget.find({ user: req.user.id }).sort({
-    dateCreated: 1
-  });
+router.get(
+  "/",
+  requireLogin,
+  myAsync(async (req, res, next) => {
+    const budgets = await Budget.find({ user: req.user.id }).sort({
+      dateCreated: -1
+    });
 
-  if (!budgets) {
-    res.status(404).json({ budgetsnotfound: "Not budgets found!" });
-  }
+    if (!budgets) {
+      next(errors.notFound);
+    }
 
-  res.send(budgets);
-});
+    res.send(budgets);
+  })
+);
 
 // @route   GET api/budgets/:budgetId
 // @desc    Get a budget by ID
 // @access  Public
-router.get("/:budgetId", requireLogin, async (req, res) => {
-  const budget = await Budget.findById({ _id: req.params.budgetId });
+router.get(
+  "/:budgetId",
+  requireLogin,
+  myAsync(async (req, res, next) => {
+    const budget = await Budget.findById(req.params.budgetId);
 
-  if (!budget) {
-    res.status(404).json({ budgetnotfound: "Budget with this ID not found" });
-  }
+    if (!budget) {
+      next(errors.notFound);
+    }
 
-  res.send(budget);
-});
+    res.send(budget);
+  })
+);
 
-router.post("/", requireLogin, async (req, res) => {
-  // const { error } = validateBudget(req.body);
-  // console.log(error);
-  // if (err) return res.status(400).send(error.details[0].message);
+router.post(
+  "/",
+  requireLogin,
+  myAsync(async (req, res, next) => {
+    // const { error } = validateBudget(req.body);
+    // console.log(error);
+    // if (err) return res.status(400).send(error.details[0].message);
 
-  const {
-    title,
-    description,
-    amount,
-    startDate,
-    endDate,
-    transactions
-  } = req.body;
+    const budget = new Budget({
+      ...req.body,
+      user: req.user.id
+    });
 
-  const budget = new Budget({
-    title,
-    description,
-    amount,
-    startDate,
-    endDate,
-    transactions,
-    user: req.user.id
-  });
-
-  try {
     // saving budget after creation
     await budget.save();
     // adding budget amount to user total balance
-    req.user.totalBalance += parseFloat(amount);
+    req.user.totalBalance += parseFloat(req.body.amount);
     // saving user after adding budget amount to total balance
     const user = await req.user.save();
 
     res.send(user);
-  } catch (err) {
-    res.status(400).send(err);
-  }
-});
+  })
+);
 
 // @route   DELETE api/budgets/delete/:budgetId
 // @desc    Delete a budget by ID
 // @access  Public
-router.delete("/:budgetId", requireLogin, (req, res) => {
-  // REFACTOR *************//
-  Budget.findById(req.params.budgetId)
-    .then(budget => {
-      if (!budget) {
-        res
-          .status(404)
-          .json({ budgetnotfound: "Budget with that ID not found!" });
-      }
-      req.user.totalBalance -= parseFloat(budget.amount);
-      req.user.save();
-      budget.remove().then(() => res.json({ success: true }));
-    })
-    .catch(err => res.status(404).json(err));
-});
+router.delete(
+  "/:budgetId",
+  requireLogin,
+  myAsync(async (req, res, next) => {
+    let budget = await Budget.findById(req.params.budgetId);
+
+    if (!budget) {
+      next(errors.notFound);
+    }
+
+    req.user.totalBalance -= parseFloat(budget.amount);
+    req.user.save();
+
+    budget.remove();
+
+    res.json({ success: true });
+  })
+);
 
 // @route   Patch api/budgets/edit/:budgetId
 // @desc    Edit a budget by ID
 // @access  Public
-router.put("/:budgetId", requireLogin, (req, res) => {
-  // REFACTOR *************//
-  const { error } = validateBudget(req.body);
+router.put(
+  "/:budgetId",
+  requireLogin,
+  myAsync(async (req, res, next) => {
+    // REFACTOR *************//
+    const { error } = validateBudget(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
 
-  if (error) return res.status(400).send(error.details[0].message);
+    const { title, description, amount, startDate, endDate } = req.body;
 
-  const { title, description, amount, startDate, endDate } = req.body;
+    const budgetFields = {
+      title,
+      description,
+      amount,
+      startDate,
+      endDate
+    };
 
-  const budgetFields = {
-    title,
-    description,
-    amount,
-    startDate,
-    endDate
-  };
-  // Refactor FindOneAndUpdate
-  Budget.findOne({ _id: req.params.budgetId })
-    .then(budget => {
-      console.log(budget);
-      // budget.amount is the amount of the budget before Edit
-      // amount is the new amount pulled from req.body after edit
-      if (budget.amount - amount < budget.amount) {
-        req.user.totalBalance -= budget.amount - amount;
-        budget.amount += budget.amount - amount;
-      }
+    let budget = await Budget.findById(req.params.budgetId);
 
-      req.user.save();
+    if (budget.amount - amount < budget.amount) {
+      req.user.totalBalance -= budget.amount - amount;
+      budget.amount += budget.amount - amount;
+    }
 
-      budget.updateOne({ $set: budgetFields }, { new: true }).then(budget => {
-        Budget.find()
-          .then(budgets => res.json(budgets))
-          .catch(e => res.status(404).json(e));
-      });
-    })
-    .catch(e => res.status(404).json(e));
-});
+    await budget.updateOne({ $set: budgetFields }, { new: true });
+
+    await req.user.save();
+
+    res.send(budget);
+  })
+);
 
 module.exports = router;

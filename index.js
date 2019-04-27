@@ -25,16 +25,13 @@ app.use(
     keys: [keys.cookieKey]
   })
 );
+
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(auth);
 app.use("/api/budgets", budgets);
 app.use("/api/budgets", transactions);
-
-// require("./routes/authRoutes")(app);
-// require("./routes/budgetRoutes")(app);
-// require("./routes/transactionRoutes")(app);
 
 // Only ran inside production (in heroku)
 if (process.env.NODE_ENV === "production") {
