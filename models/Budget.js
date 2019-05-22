@@ -56,14 +56,5 @@ const budgetSchema = new Schema({
   }
 });
 
-budgetSchema.methods.calculate = function(totalBalance, amount) {
-  if (this.amount - amount < this.amount) {
-    totalBalance -= this.amount - amount;
-    this.amount += this.amount - amount;
-  }
-
-  return this;
-};
-
 const Budget = mongoose.model("budgets", budgetSchema);
 module.exports = Budget;

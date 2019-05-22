@@ -55,8 +55,8 @@ export const editBudget = (budgetId, formValues) => async dispatch => {
     const res = await axios.put(`/api/budgets/${budgetId}`, formValues);
 
     history.push("/budgets");
-  } catch (e) {
-    dispatch({ type: GET_ERROR, payload: e });
+  } catch (error) {
+    dispatch({ type: GET_ERROR, payload: error });
   }
 };
 
@@ -72,6 +72,7 @@ export const addTransaction = (budgetId, formValues) => async dispatch => {
   const res = await axios.post(`/api/budgets/${budgetId}`, formValues);
 
   dispatch({ type: FETCH_BUDGET, payload: res.data });
+
   history.push(`/budgets/${budgetId}`);
 };
 

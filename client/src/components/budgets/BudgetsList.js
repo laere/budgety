@@ -14,11 +14,7 @@ class BudgetsList extends React.Component {
   }
 
   renderBudgets() {
-    const { budgetList, loading } = this.props.budgets;
-
-    if (!budgetList || loading) {
-      return <Spinner />;
-    }
+    const { budgetList } = this.props.budgets;
 
     return budgetList.map(budget => {
       return (
@@ -62,7 +58,24 @@ class BudgetsList extends React.Component {
   }
 
   render() {
-    return <React.Fragment>{this.renderBudgets()}</React.Fragment>;
+    const { budgetList, loading } = this.props.budgets;
+
+    if (loading) {
+      return <Spinner />;
+    }
+
+    return (
+      <React.Fragment>
+        <div style={{ textAlign: "left", marginTop: "20px" }}>
+          {budgetList.length === 0 ? (
+            <p className="subtitle is-4">Create a budget that works for you.</p>
+          ) : (
+            <p className="subtitle is-4">Your current budgets:</p>
+          )}
+        </div>
+        {this.renderBudgets()}
+      </React.Fragment>
+    );
   }
 }
 

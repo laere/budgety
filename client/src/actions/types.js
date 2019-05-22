@@ -9,3 +9,5 @@ export const FETCH_TRANSACTION = "FETCH_TRANSACTION";
 
 export const IS_LOADING = "IS_LOADING";
 export const GET_ERROR = "GET_ERROR";
+
+export const FETCH_CHECKS = "FETCH_CHECKS";

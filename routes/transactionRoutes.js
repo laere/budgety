@@ -1,7 +1,9 @@
 const mongoose = require("mongoose");
 const requireLogin = require("../middlewares/requireLogin");
+const myAsync = require("../middlewares/asyncMiddleware");
 const express = require("express");
 const router = express.Router();
+const errors = require("../errors/errors");
 const Budget = require("../models/Budget");
 const User = require("../models/User");
 
@@ -10,86 +12,74 @@ const validateTransaction = require("../validation/validateTransaction");
 // @route   POST api/budgets/:budgetId/transactions/
 // @desc    POST transactions
 // @access  Public
-router.post("/:budgetId", requireLogin, (req, res) => {
-  // ASYNC/AWAIT
+router.post(
+  "/:budgetId",
+  requireLogin,
+  myAsync(async (req, res, next) => {
+    const { error } = validateTransaction(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
 
-  // const { amount } = req.body;
-  //
-  // const budget = await Budget.findOne({ _id: req.params.budgetId });
-  //
-  // budget.amount -= parseFloat(amount);
-  // req.user.totalBalance -= parseFloat(amount);
-  //
-  // budget.transactions.unshift(req.body);
-  //
-  // await req.user.save();
-  //
-  // await budget.save()
-  // res.json(budget);
+    const { amount } = req.body;
 
-  const { error } = validateTransaction(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+    const budget = await Budget.findOne({ _id: req.params.budgetId });
 
-  Budget.findOne({ _id: req.params.budgetId })
-    .then(budget => {
-      const transactionProps = req.body;
-      const { amount } = transactionProps;
+    if (!budget) return next(errors.notFound);
 
-      budget.amount -= parseFloat(amount);
-      req.user.totalBalance -= parseFloat(amount);
+    budget.amount -= parseFloat(amount);
+    req.user.totalBalance -= parseFloat(amount);
 
-      budget.transactions.unshift(transactionProps);
+    budget.transactions.unshift(req.body);
 
-      req.user.save();
+    await req.user.save();
+    await budget.save();
 
-      budget.save().then(budget => {
-        res.json(budget);
-      });
-    })
-    .catch(e => res.status(404).json(e));
-});
+    res.json(budget);
+  })
+);
 
 // @route   DELETE api/budgets/:budgetId/transactions/:transactionId
 // @desc    Delete a transaction
 // @access  Public
-router.delete("/:budgetId/:transactionId", requireLogin, (req, res) => {
-  Budget.findOne({ _id: req.params.budgetId })
-    .then(budget => {
-      // map id's of transactions and find index of params transactionId
-      const removeIndex = budget.transactions
-        .map(transaction => transaction.id)
-        .indexOf(req.params.transactionId);
+router.delete(
+  "/:budgetId/:transactionId",
+  requireLogin,
+  myAsync(async (req, res, next) => {
+    let budget = await Budget.findById(req.params.budgetId);
 
-      // Grab the transactions amount value
-      const transactionAmount = budget.transactions[removeIndex].amount;
+    let transaction = budget.transactions.id(req.params.transactionId);
 
-      budget.amount += transactionAmount;
-      req.user.totalBalance += transactionAmount;
+    const transactionAmount = transaction.amount;
 
-      budget.transactions[removeIndex].remove();
+    budget.amount += transactionAmount;
+    req.user.totalBalance += transactionAmount;
 
-      req.user.save();
+    transaction.remove();
 
-      budget.save().then(budget => res.json(budget));
-    })
-    .catch(e => res.status(404).json(e));
-});
+    await req.user.save();
+    await budget.save();
+
+    res.send(budget);
+  })
+);
 
 // @route   GET api/budgets/:budgetId/transactions
 // @desc    Get a single transaction
 // @access  Public
-router.get("/:budgetId/:transactionId", requireLogin, (req, res) => {
-  Budget.findOne({ _id: req.params.budgetId })
-    .then(budget => {
-      // Find transaction based on ID
-      const singleTransaction = budget.transactions.find(
-        transaction => transaction.id === req.params.transactionId
-      );
+router.get(
+  "/:budgetId/:transactionId",
+  requireLogin,
+  myAsync(async (req, res, next) => {
+    let budget = await Budget.findById(req.params.budgetId);
 
-      res.json(singleTransaction);
-    })
-    .catch(e => res.status(400).json(e));
-});
+    if (!budget) return next(errors.notFound);
+
+    let transaction = budget.transactions.id(req.params.trasnsactionId);
+
+    if (!transaction) return next(errors.notFound);
+
+    res.send(transaction);
+  })
+);
 
 // @route   PATCH api/budgets/:budgetId/transactions
 // @desc    Update a single transaction
@@ -134,12 +124,16 @@ router.put("/:budgetId/:transactionId", requireLogin, (req, res) => {
 // @route   GET api/budgets/:budgetId/transactions
 // @desc    Get all transactions
 // @access  Public
-router.get("/:budgetId", requireLogin, (req, res) => {
-  Budget.findById({ _id: req.params.budgetId })
-    .then(budget => {
-      res.json(budget.transactions);
-    })
-    .catch(e => res.status(404).json(e));
-});
+router.get(
+  "/:budgetId",
+  requireLogin,
+  myAsync(async (req, res, next) => {
+    let budget = await Budget.findById(req.params.budgetId);
+
+    if (!budget) return next(errors.notFound);
+
+    res.send(budget.transactions);
+  })
+);
 
 module.exports = router;

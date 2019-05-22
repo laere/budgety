@@ -23,10 +23,18 @@ class Header extends React.Component {
             Current balance: {accounting.formatMoney(auth.totalBalance)}
           </div>,
           <Link
+            to="/checks/new"
+            key="2"
+            className="button is-fullwidth is-primary is-rounded is-outlined is-inverted"
+            style={{ margin: "auto 10px" }}
+          >
+            Add Check
+          </Link>,
+          <Link
             to="/budgets/new"
             key="3"
-            className="button is-fullwidth is-danger is-rounded is-outlined is-inverted"
-            style={{ margin: "auto" }}
+            className="button is-fullwidth is-primary is-rounded is-outlined is-inverted"
+            style={{ margin: "auto 10px" }}
           >
             New Budget
           </Link>,
@@ -43,6 +51,12 @@ class Header extends React.Component {
         <div className="navbar-start">
           <Link to={this.props.auth ? "/budgets" : "/"} className="navbar-item">
             Budgety
+          </Link>
+          <Link to="/budget-plan" className="navbar-item ">
+            Create A Plan
+          </Link>
+          <Link to="/checks" className="navbar-item ">
+            Checks
           </Link>
         </div>
         <div className="navbar-end">{this.renderContent()}</div>

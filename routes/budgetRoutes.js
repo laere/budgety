@@ -48,9 +48,9 @@ router.post(
   "/",
   requireLogin,
   myAsync(async (req, res, next) => {
-    // const { error } = validateBudget(req.body);
-    // console.log(error);
-    // if (err) return res.status(400).send(error.details[0].message);
+    const { error } = validateBudget(req.body);
+    console.log(error);
+    if (error) return res.status(400).send(error.details[0].message);
 
     const budget = new Budget({
       ...req.body,
@@ -82,7 +82,8 @@ router.delete(
     }
 
     req.user.totalBalance -= parseFloat(budget.amount);
-    req.user.save();
+
+    await req.user.save();
 
     budget.remove();
 
