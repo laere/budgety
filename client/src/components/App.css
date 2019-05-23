@@ -1,0 +1,10 @@
+.dashboard-cards {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dashboard-card {
+  border: 1px solid #dbdbdb;
+  width: 30%;
+  text-align: center;
+}

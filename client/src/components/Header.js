@@ -22,22 +22,7 @@ class Header extends React.Component {
           <div key="1" className="navbar-item">
             Current balance: {accounting.formatMoney(auth.totalBalance)}
           </div>,
-          <Link
-            to="/checks/new"
-            key="2"
-            className="button is-fullwidth is-primary is-rounded is-outlined is-inverted"
-            style={{ margin: "auto 10px" }}
-          >
-            Add Check
-          </Link>,
-          <Link
-            to="/budgets/new"
-            key="3"
-            className="button is-fullwidth is-primary is-rounded is-outlined is-inverted"
-            style={{ margin: "auto 10px" }}
-          >
-            New Budget
-          </Link>,
+
           <a key="4" className="navbar-item" href="/api/logout">
             Logout
           </a>
@@ -49,14 +34,11 @@ class Header extends React.Component {
     return (
       <nav className="navbar is-primary">
         <div className="navbar-start">
-          <Link to={this.props.auth ? "/budgets" : "/"} className="navbar-item">
+          <Link
+            to={this.props.auth ? "/dashboard" : "/"}
+            className="navbar-item"
+          >
             Budgety
-          </Link>
-          <Link to="/budget-plan" className="navbar-item ">
-            Create A Plan
-          </Link>
-          <Link to="/checks" className="navbar-item ">
-            Checks
           </Link>
         </div>
         <div className="navbar-end">{this.renderContent()}</div>

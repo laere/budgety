@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { fetchUser } from "actions";
 import history from "../history";
 import _ from "lodash";
+import "./App.css";
 
 import Header from "components/Header";
 import LandingPage from "components/LandingPage";

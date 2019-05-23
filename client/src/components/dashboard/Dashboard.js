@@ -20,10 +20,10 @@ class Dashboard extends React.Component {
             </li>
           </ul>
         </nav>
-        <div>
-          <Card />
-          <Card />
-          <Card />
+        <div className="dashboard-cards">
+          <Card title="Add Plan" path="/plans/new" />
+          <Card title="Add Budget" path="/budgets/new" />
+          <Card title="Add Check" path="/checks/new" />
         </div>
       </div>
     );
