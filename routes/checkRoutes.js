@@ -33,7 +33,9 @@ router.get(
   "/",
   requireLogin,
   myAsync(async (req, res, next) => {
-    let checks = await Check.find({ user: req.user.id });
+    let checks = await Check.find({ user: req.user.id }).sort({
+      dateCreated: -1
+    });
 
     if (!checks) return;
 

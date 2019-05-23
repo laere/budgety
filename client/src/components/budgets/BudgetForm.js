@@ -1,6 +1,7 @@
 import "css/BudgetForm.css";
 import React from "react";
 import { Link } from "react-router-dom";
+// import { Formik, Form, Field, ErrorMessage } from "formik";
 import { reduxForm, Field } from "redux-form";
 import formFields from "components/budgets/formFields";
 import BudgetField from "components/budgets/BudgetField";
@@ -21,7 +22,7 @@ class BudgetForm extends React.Component {
   }
 
   onSubmit = formValues => {
-    console.log(formValues);
+    // console.log(formValues);
     this.props.onSubmit(formValues);
   };
 

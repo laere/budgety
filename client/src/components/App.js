@@ -7,7 +7,7 @@ import _ from "lodash";
 
 import Header from "components/Header";
 import LandingPage from "components/LandingPage";
-import Dashboard from "components/Dashboard";
+import BudgetsList from "components/budgets/BudgetsList";
 import BudgetCreate from "components/budgets/BudgetCreate";
 import BudgetEdit from "components/budgets/BudgetEdit";
 import BudgetShow from "components/budgets/BudgetShow";
@@ -17,6 +17,7 @@ import TransactionDelete from "components/transactions/TransactionDelete";
 import TransactionEdit from "components/transactions/TransactionEdit";
 import AddCheck from "components/checks/AddCheck";
 import CheckList from "components/checks/CheckList";
+import Dashboard from "components/dashboard/Dashboard";
 
 class App extends React.Component {
   componentDidMount() {
@@ -30,7 +31,8 @@ class App extends React.Component {
           <Header />
           <Switch>
             <Route exact path="/" component={LandingPage} />
-            <Route exact path="/budgets" component={Dashboard} />
+            <Route exact path="/dashboard" component={Dashboard} />
+            <Route exact path="/budgets" component={BudgetsList} />
             <Route exact path="/budgets/new" component={BudgetCreate} />
             <Route exact path="/budgets/:budgetId" component={BudgetShow} />
             <Route

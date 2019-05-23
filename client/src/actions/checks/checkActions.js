@@ -7,7 +7,7 @@ export const addCheck = userData => async dispatch => {
 
   dispatch({ type: FETCH_USER, payload: res.payload });
 
-  history.push("/budgets");
+  history.push("/checks");
 };
 
 export const fetchChecks = () => async dispatch => {

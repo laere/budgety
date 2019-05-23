@@ -49,7 +49,7 @@ router.post(
   requireLogin,
   myAsync(async (req, res, next) => {
     const { error } = validateBudget(req.body);
-    console.log(error);
+    // console.log(error);
     if (error) return res.status(400).send(error.details[0].message);
 
     const budget = new Budget({
