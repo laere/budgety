@@ -2,22 +2,16 @@ export default [
   {
     label: "Budget Title",
     name: "title",
-    type: "text",
-    required: true,
-    validationMsg: "You must provide a title!"
+    type: "text"
   },
   {
     label: "Budget Description",
     name: "description",
-    type: "text",
-    required: true,
-    validationMsg: "You must provide a description!"
+    type: "text"
   },
   {
     label: "Budget Amount",
     name: "amount",
-    type: "number",
-    required: true,
-    validationMsg: "You must provide an amount!"
+    type: "number"
   }
 ];

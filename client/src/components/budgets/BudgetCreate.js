@@ -11,7 +11,7 @@ class BudgetCreate extends React.Component {
   render() {
     return (
       <div>
-        <BudgetForm onSubmit={this.onSubmit} />
+        <BudgetForm onSubmit={this.props.addBudget} />
       </div>
     );
   }
