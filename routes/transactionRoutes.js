@@ -70,10 +70,13 @@ router.get(
   requireLogin,
   myAsync(async (req, res, next) => {
     let budget = await Budget.findById(req.params.budgetId);
+    console.log(budget);
 
     if (!budget) return next(errors.notFound);
 
     let transaction = budget.transactions.id(req.params.trasnsactionId);
+
+    console.log(transaction);
 
     if (!transaction) return next(errors.notFound);
 
@@ -85,6 +88,7 @@ router.get(
 // @desc    Update a single transaction
 // @access  Public
 router.put("/:budgetId/:transactionId", requireLogin, (req, res) => {
+  console.log(req.body);
   const { error } = validateTransaction(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 

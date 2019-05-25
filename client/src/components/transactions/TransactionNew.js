@@ -1,30 +1,53 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+import InputField from "components/InputField";
+import { Formik, Form } from "formik";
 import { connect } from "react-redux";
 import { addTransaction } from "actions";
-import TransactionForm from "components/transactions/TransactionForm";
+import formFields from "components/transactions/formFields";
 
 class TransactionNew extends React.Component {
-  onSubmit = (id, formValues) => {
-    const { budgetId } = this.props.match.params;
-
-    this.props.addTransaction(budgetId, formValues);
-  };
+  renderFields() {
+    return formFields.map(({ label, name, type }) => {
+      return <InputField label={label} name={name} type={type} />;
+    });
+  }
 
   render() {
-    const { budgetId } = this.props.match.params;
-
     return (
       <div>
-        <TransactionForm onSubmit={this.onSubmit} budgetId={budgetId} />
+        <Formik
+          onSubmit={(values, { setSubmitting }) => {
+            setSubmitting(false);
+            // console.log("VALUES", values);
+            this.props.addTransaction(values);
+          }}
+        >
+          {({ isSubmitting, values }) => (
+            <Form>
+              {this.renderFields()}
+              <Link
+                to={`/budgets/${this.props.budgetId}`}
+                className="button is-danger is-large"
+              >
+                Cancel
+              </Link>
+              <button
+                type="submit"
+                className="button is-primary is-large"
+                disabled={isSubmitting}
+                onSubmit={this.onSubmit}
+              >
+                Submit
+              </button>
+            </Form>
+          )}
+        </Formik>
       </div>
     );
   }
 }
-
-TransactionNew.propTypes = {
-  addTransaction: PropTypes.func.isRequired
-};
 
 export default connect(
   null,
