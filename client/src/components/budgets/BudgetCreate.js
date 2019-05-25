@@ -4,10 +4,6 @@ import { connect } from "react-redux";
 import BudgetForm from "components/budgets/BudgetForm";
 
 class BudgetCreate extends React.Component {
-  onSubmit = formValues => {
-    this.props.addBudget(formValues);
-  };
-
   render() {
     return (
       <div>
