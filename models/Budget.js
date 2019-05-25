@@ -23,14 +23,6 @@ const budgetSchema = new Schema({
     default: 0,
     required: true
   },
-  startDate: {
-    type: Date,
-    required: true
-  },
-  endDate: {
-    type: Date,
-    required: true
-  },
   transactions: [
     {
       description: {

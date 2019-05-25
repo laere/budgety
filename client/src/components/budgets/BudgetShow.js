@@ -45,13 +45,6 @@ class BudgetShow extends React.Component {
           </header>
           <div className="card-content">
             <div className="content">{budget.description}</div>
-            <div>
-              Start Date:{" "}
-              <Moment format="MM/DD/YYYY">{budget.startDate}</Moment>
-            </div>
-            <div>
-              End Date: <Moment format="MM/DD/YYYY">{budget.endDate}</Moment>
-            </div>
           </div>
           <footer className="card-footer">
             <Link

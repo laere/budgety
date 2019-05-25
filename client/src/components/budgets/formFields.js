@@ -19,19 +19,5 @@ export default [
     type: "number",
     required: true,
     validationMsg: "You must provide an amount!"
-  },
-  {
-    label: "Budget Start Date",
-    name: "startDate",
-    type: "datetime-local",
-    required: true,
-    validationMsg: "You must provide a start date!"
-  },
-  {
-    label: "Budget End Date",
-    name: "endDate",
-    type: "datetime-local",
-    required: true,
-    validationMsg: "You must provide an end date!"
   }
 ];

@@ -1,5 +1,6 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import InputField from "components/InputField";
 import { connect } from "react-redux";
 import { addCheck } from "actions/checks/checkActions";
 
@@ -18,15 +19,7 @@ class AddCheck extends React.Component {
         >
           {({ isSubmitting, values }) => (
             <Form>
-              <label className="label">Check:</label>
-              <Field type="number" name="checkamount" className="input" />
-              <ErrorMessage
-                className="help is-danger"
-                name="checkamount"
-                component="div"
-                style={{ fontSize: "16px" }}
-              />
-
+              <InputField type="number" name="checkamount" label="Check:" />
               <button
                 type="submit"
                 className="button is-primary is-large"

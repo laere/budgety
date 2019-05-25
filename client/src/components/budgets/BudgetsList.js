@@ -31,13 +31,7 @@ class BudgetsList extends React.Component {
           </header>
           <div className="card-content">
             <div className="content">{budget.description}</div>
-            <div>
-              Start Date:{" "}
-              <Moment format="MM/DD/YYYY">{budget.startDate}</Moment>
-            </div>
-            <div>
-              End Date: <Moment format="MM/DD/YYYY">{budget.endDate}</Moment>
-            </div>
+
             <div style={{ marginTop: "20px" }}>
               You currently have <strong>{budget.transactions.length}</strong>{" "}
               {budget.transactions.length > 1 ||

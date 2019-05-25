@@ -11,9 +11,7 @@ function validateBudget(budget) {
         .min(2)
         .max(50)
         .required(),
-      amount: Joi.number().required(),
-      startDate: Joi.string().required(),
-      endDate: Joi.string().required()
+      amount: Joi.number().required()
     })
     .unknown();
 

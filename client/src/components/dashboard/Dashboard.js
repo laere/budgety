@@ -10,9 +10,6 @@ class Dashboard extends React.Component {
         <nav class="breadcrumb has-bullet-separator" aria-label="breadcrumbs">
           <ul>
             <li>
-              <Link to="/plans">Plans</Link>
-            </li>
-            <li>
               <Link to="/budgets">Budgets</Link>
             </li>
             <li>
@@ -21,7 +18,6 @@ class Dashboard extends React.Component {
           </ul>
         </nav>
         <div className="dashboard-cards">
-          <Card title="Add Plan" path="/plans/new" />
           <Card title="Add Budget" path="/budgets/new" />
           <Card title="Add Check" path="/checks/new" />
         </div>
