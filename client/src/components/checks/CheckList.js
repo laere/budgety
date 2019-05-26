@@ -6,25 +6,35 @@ import Spinner from "components/Spinner";
 import Moment from "react-moment";
 
 class CheckList extends React.Component {
-  componentDidMount() {
-    this.props.fetchChecks();
-  }
-
   renderChecks() {
-    return this.props.checks.map(({ checkamount, dateCreated, _id }) => {
-      return (
-        <tr key={_id}>
-          <td>{accounting.formatMoney(checkamount)}</td>
-          <td>
-            <Moment format="MM/DD/YYYY">{dateCreated}</Moment>
-          </td>
-        </tr>
-      );
-    });
+    console.log(this.props);
+
+    const { budget } = this.props;
+
+    if (!budget.paychecks || budget.paychecks.length === 0) {
+      return <tr>You currently have no paychecks!</tr>;
+    }
+
+    return this.props.budget.paychecks.map(
+      ({ checkamount, dateCreated, _id }) => {
+        return (
+          <tr key={_id}>
+            <td>{accounting.formatMoney(checkamount)}</td>
+            <td>
+              <Moment format="MM/DD/YYYY">{dateCreated}</Moment>
+            </td>
+          </tr>
+        );
+      }
+    );
   }
 
   render() {
     // add loading flag with spinner
+
+    if (!this.props.budget) {
+      return <Spinner />;
+    }
 
     return (
       <div style={{ marginTop: "40px" }}>
@@ -42,10 +52,9 @@ class CheckList extends React.Component {
   }
 }
 
-const mapStateToProps = ({ checks }) => {
-  return { checks };
+const mapStateToProps = state => {
+  return { budget: state.budgets.budget };
 };
-
 export default connect(
   mapStateToProps,
   { fetchChecks }

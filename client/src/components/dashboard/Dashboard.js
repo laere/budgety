@@ -15,14 +15,10 @@ class Dashboard extends React.Component {
             <li>
               <Link to="/budgets">Budgets</Link>
             </li>
-            <li>
-              <Link to="/checks">Checks</Link>
-            </li>
           </ul>
         </nav>
         <div className="dashboard-cards">
           <Card title="Add Budget" path="/budgets/new" />
-          <Card title="Add Check" path="/checks/new" />
         </div>
       </div>
     );

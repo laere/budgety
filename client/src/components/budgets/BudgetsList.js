@@ -21,7 +21,7 @@ class BudgetsList extends React.Component {
           <header className="card-header">
             <p className="card-header-title">{budget.title}</p>
             <p className="card-header-icon">
-              Budget Amount: {accounting.formatMoney(1000)}
+              Budget Amount: {accounting.formatMoney(budget.amount)}
             </p>
             <div className="card-header-icon">
               <span style={{ marginRight: "10px" }}>Created on:</span>{" "}

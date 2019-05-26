@@ -48,6 +48,7 @@ class TransactionsList extends React.Component {
   render() {
     return (
       <div className="container" style={{ marginTop: "40px" }}>
+        <h2 className="title is-5">Transactions</h2>
         <table className="table is-bordered is-fullwidth">
           <thead>
             <tr>
@@ -63,10 +64,6 @@ class TransactionsList extends React.Component {
     );
   }
 }
-
-TransactionsList.propTypes = {
-  budget: PropTypes.object.isRequired
-};
 
 const mapStateToProps = state => {
   return { budget: state.budgets.budget };

@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import Moment from "react-moment";
 import Spinner from "components/Spinner";
 import TransactionsList from "components/transactions/TransactionsList";
+import CheckList from "components/checks/CheckList";
 
 class BudgetShow extends React.Component {
   componentDidMount() {
@@ -76,6 +77,7 @@ class BudgetShow extends React.Component {
             </Link>
           </footer>
         </div>
+        <CheckList />
         <TransactionsList />
       </div>
     );
