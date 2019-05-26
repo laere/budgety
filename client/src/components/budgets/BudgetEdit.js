@@ -9,8 +9,16 @@ import formFields from "components/budgets/formFields";
 
 class BudgetEdit extends React.Component {
   renderFields() {
-    return formFields.map(({ label, name, type }) => {
-      return <InputField name={name} type={type} label={label} />;
+    return formFields.map(({ label, name, type, style }) => {
+      return (
+        <InputField
+          name={name}
+          type={type}
+          label={label}
+          style={style}
+          key={name}
+        />
+      );
     });
   }
 

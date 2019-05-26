@@ -27,6 +27,7 @@ export const fetchBudgets = () => async dispatch => {
 };
 
 export const fetchBudget = budgetId => async dispatch => {
+  dispatch(budgetsLoading());
   const res = await axios.get(`/api/budgets/${budgetId}`);
 
   dispatch({ type: FETCH_BUDGET, payload: res.data });

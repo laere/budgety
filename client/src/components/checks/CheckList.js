@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { fetchChecks } from "actions/checks/checkActions";
 import Spinner from "components/Spinner";
 import Moment from "react-moment";
+import { Link } from "react-router-dom";
 
 class CheckList extends React.Component {
   renderChecks() {
@@ -22,6 +23,18 @@ class CheckList extends React.Component {
             <td>{accounting.formatMoney(checkamount)}</td>
             <td>
               <Moment format="MM/DD/YYYY">{dateCreated}</Moment>
+            </td>
+            <td>
+              <Link to="#" className="button is-danger is-small">
+                Delete
+              </Link>
+              <Link
+                to="#"
+                className="button is-small"
+                style={{ marginLeft: "10px" }}
+              >
+                Edit
+              </Link>
             </td>
           </tr>
         );
@@ -43,6 +56,7 @@ class CheckList extends React.Component {
             <tr>
               <th>Amount</th>
               <th>Date Created</th>
+              <th>Options</th>
             </tr>
           </thead>
           <tbody>{this.renderChecks()}</tbody>

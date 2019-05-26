@@ -1,11 +1,12 @@
 import React from "react";
 import { Field, ErrorMessage } from "formik";
 
-const InputField = ({ label, name, type }) => {
+const InputField = ({ label, name, type, style }) => {
+  console.log(label);
   return (
     <React.Fragment>
       <label className="label">{label}</label>
-      <Field type={type} name={name} className="input" />
+      <Field type={type} name={name} className={style} />
       <ErrorMessage
         className="help is-danger"
         name={name}
@@ -14,6 +15,10 @@ const InputField = ({ label, name, type }) => {
       />
     </React.Fragment>
   );
+};
+
+InputField.defaultProps = {
+  style: "input"
 };
 
 export default InputField;

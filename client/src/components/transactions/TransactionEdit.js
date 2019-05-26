@@ -11,8 +11,16 @@ import formFields from "components/transactions/formFields";
 
 class TransactionEdit extends React.Component {
   renderFields() {
-    return formFields.map(({ label, name, type }) => {
-      return <InputField label={label} name={name} type={type} key={name} />;
+    return formFields.map(({ label, name, type, style }) => {
+      return (
+        <InputField
+          label={label}
+          name={name}
+          type={type}
+          key={name}
+          style={style}
+        />
+      );
     });
   }
 

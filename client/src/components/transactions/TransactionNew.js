@@ -9,8 +9,8 @@ import formFields from "components/transactions/formFields";
 
 class TransactionNew extends React.Component {
   renderFields() {
-    return formFields.map(({ label, name, type }) => {
-      return <InputField label={label} name={name} type={type} />;
+    return formFields.map(({ label, name, type, style }) => {
+      return <InputField label={label} name={name} type={type} style={style} />;
     });
   }
 

@@ -7,6 +7,7 @@ export default [
   {
     label: "Budget Description",
     name: "description",
-    type: "text"
+    type: "textarea",
+    style: "textarea"
   }
 ];

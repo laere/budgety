@@ -59,9 +59,6 @@ router.post(
 
     // saving budget after creation
     await budget.save();
-    // adding budget amount to user total balance
-    // req.user.totalBalance += parseFloat(req.body.amount);
-    // saving user after adding budget amount to total balance
 
     res.send(budget);
   })
@@ -80,10 +77,6 @@ router.delete(
       next(errors.notFound);
     }
 
-    req.user.totalBalance -= parseFloat(budget.amount);
-
-    await req.user.save();
-
     budget.remove();
 
     res.json({ success: true });
@@ -97,30 +90,18 @@ router.put(
   "/:budgetId",
   requireLogin,
   myAsync(async (req, res, next) => {
-    // REFACTOR *************//
     const { error } = validateBudget(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
-    const { title, description, amount, startDate, endDate } = req.body;
-
     const budgetFields = {
-      title,
-      description,
-      amount,
-      startDate,
-      endDate
+      ...req.body
     };
 
-    let budget = await Budget.findById(req.params.budgetId);
-
-    if (budget.amount - amount < budget.amount) {
-      req.user.totalBalance -= budget.amount - amount;
-      budget.amount += budget.amount - amount;
-    }
-
-    await budget.updateOne({ $set: budgetFields }, { new: true });
-
-    await req.user.save();
+    const budget = await Budget.findOneAndUpdate(
+      { _id: req.params.budgetId },
+      { $set: budgetFields },
+      { new: true }
+    );
 
     res.send(budget);
   })
