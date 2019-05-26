@@ -9,48 +9,7 @@ import formFields from "components/transactions/formFields";
 import GlobalForm from "components/GlobalForm";
 
 class TransactionNew extends React.Component {
-  // renderFields() {
-  //   return formFields.map(({ label, name, type, style }) => {
-  //     return <InputField label={label} name={name} type={type} style={style} />;
-  //   });
-  // }
-  //
-  // render() {
-  //   const { budgetId } = this.props.match.params;
-  //   return (
-  //     <div>
-  //       <Formik
-  //         onSubmit={(values, { setSubmitting }) => {
-  //           setSubmitting(false);
-  //           // console.log("VALUES", values);
-  //           this.props.addTransaction(budgetId, values);
-  //         }}
-  //       >
-  //         {({ isSubmitting, values }) => (
-  //           <Form>
-  //             {this.renderFields()}
-  //             <Link
-  //               to={`/budgets/${budgetId}`}
-  //               className="button is-danger is-large"
-  //             >
-  //               Cancel
-  //             </Link>
-  //             <button
-  //               type="submit"
-  //               className="button is-primary is-large"
-  //               disabled={isSubmitting}
-  //               onSubmit={this.onSubmit}
-  //             >
-  //               Submit
-  //             </button>
-  //           </Form>
-  //         )}
-  //       </Formik>
-  //     </div>
-  //   );
-  // }
-
-  handleCallback = values => {
+  handleActionCreator = values => {
     const { budgetId } = this.props.match.params;
     this.props.addTransaction(budgetId, values);
   };
@@ -61,7 +20,7 @@ class TransactionNew extends React.Component {
       <React.Fragment>
         <GlobalForm
           formFields={formFields}
-          actionCreator={this.handleCallback}
+          actionCreator={this.handleActionCreator}
           initialValues={{ description: "", amount: "" }}
           cancelpath={`/budgets/${budgetId}`}
           id={budgetId}
