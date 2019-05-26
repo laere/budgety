@@ -95,6 +95,22 @@ router.put("/:budgetId/:transactionId", requireLogin, (req, res) => {
   const { description, amount } = req.body;
   const newTransaction = { description, amount };
 
+  // let budget = await Budget.findOne({ _id: req.params.budgetId });
+  //
+  // let transaction = budget.transactions.id(req.params.transactionId);
+  //
+  // if (transaction.amount - amount < transaction.amount) {
+  //   user.totalBalance += transaction.amount - amount;
+  //   budget.amount += transaction.amount - amount;
+  // }
+  //
+  // transaction.set(newTransaction);
+  //
+  // await budget.save();
+  // await user.save();
+  //
+  // res.json(budget);
+
   User.findOne({ _id: req.user.id })
     .then(user => {
       Budget.findOne({ _id: req.params.budgetId })

@@ -21,7 +21,7 @@ class TransactionNew extends React.Component {
           onSubmit={(values, { setSubmitting }) => {
             setSubmitting(false);
             // console.log("VALUES", values);
-            this.props.addTransaction(values);
+            this.props.addTransaction(this.props.match.params.budgetId, values);
           }}
         >
           {({ isSubmitting, values }) => (

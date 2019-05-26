@@ -60,11 +60,10 @@ router.post(
     // saving budget after creation
     await budget.save();
     // adding budget amount to user total balance
-    req.user.totalBalance += parseFloat(req.body.amount);
+    // req.user.totalBalance += parseFloat(req.body.amount);
     // saving user after adding budget amount to total balance
-    const user = await req.user.save();
 
-    res.send(user);
+    res.send(req.user);
   })
 );
 

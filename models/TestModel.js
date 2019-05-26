@@ -1,6 +1,21 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
+const payCheckSchema = new Schema({
+  name: {
+    type: String,
+    default: "Paycheck " + paychecks.length
+  },
+  planned: {
+    type: Number,
+    default: 0
+  },
+  received: {
+    type: Number,
+    default: 0
+  }
+});
+
 const transactionSchema = new Schema({
   description: {
     type: String,
@@ -45,26 +60,51 @@ const budgetSchema = new Schema({
     default: Date.now,
     required: true
   },
-  paychecks: [
-    {
-      name: {
-        type: String,
-        default: "Paycheck " + paychecks.length
-      },
-      planned: {
-        type: Number,
-        default: 0
-      },
-      received: {
-        type: Number,
-        default: 0
-      }
-    }
-  ],
-  savings: [budgetItemSchema],
-  housing: [budgetItemSchema],
-  food: [budgetItemSchema],
-  personal: [budgetItemSchema],
+  income: {
+    title: {
+      type: String,
+      default: "Income",
+      min: 2,
+      max: 55
+    },
+    paychecks: [payCheckSchema]
+  },
+  savings: {
+    title: {
+      type: String,
+      default: "Savings",
+      min: 2,
+      max: 55
+    },
+    data: [budgetItemSchema]
+  },
+  housing: {
+    title: {
+      type: String,
+      default: "Housing",
+      min: 2,
+      max: 55
+    },
+    data: [budgetItemSchema]
+  },
+  food: {
+    title: {
+      type: String,
+      default: "Food",
+      min: 2,
+      max: 55
+    },
+    data: [budgetItemSchema]
+  },
+  personal: {
+    title: {
+      type: String,
+      default: "Personal",
+      min: 2,
+      max: 55
+    },
+    data: [budgetItemSchema]
+  },
   dateCreated: {
     type: Date,
     default: Date.now
