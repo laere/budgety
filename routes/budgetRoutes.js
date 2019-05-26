@@ -48,6 +48,7 @@ router.post(
   "/",
   requireLogin,
   myAsync(async (req, res, next) => {
+    console.log(req.body);
     const { error } = validateBudget(req.body);
     // console.log(error);
     if (error) return res.status(400).send(error.details[0].message);

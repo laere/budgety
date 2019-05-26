@@ -15,6 +15,7 @@ class BudgetCreate extends React.Component {
         <GlobalForm
           formFields={formFields}
           validateFunc={budgetValidation}
+          initialValues={{ title: "", description: "" }}
           actionCreator={this.props.addBudget}
           cancelpath="/budgets"
         />

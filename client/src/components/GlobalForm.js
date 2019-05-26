@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 const GlobalForm = props => {
   // form fields would be props
   const renderFields = () => {
+    console.log(props.formFields);
     return props.formFields.map(({ label, name, type, style }) => {
       return (
         <InputField
@@ -22,17 +23,18 @@ const GlobalForm = props => {
   return (
     <div className="budget-new">
       <Formik
+        initialValues={props.initialValues}
         validate={values => props.validateFunc(values)}
         onSubmit={(values, { setSubmitting }) => {
           setSubmitting(false);
           // console.log("VALUES", values);
+
           props.actionCreator(values);
         }}
       >
         {({ isSubmitting, values }) => (
           <Form>
             {renderFields()}
-
             <Link
               to={props.cancelpath}
               type="submit"
