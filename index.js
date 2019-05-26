@@ -33,7 +33,7 @@ app.use(passport.session());
 app.use(auth);
 app.use("/api/budgets", budgets);
 app.use("/api/budgets", transactions);
-app.use("/api/checks", checks);
+app.use("/api/budgets", checks);
 
 // Only ran inside production (in heroku)
 if (process.env.NODE_ENV === "production") {

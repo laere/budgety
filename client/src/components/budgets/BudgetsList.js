@@ -10,7 +10,6 @@ import Spinner from "components/Spinner";
 class BudgetsList extends React.Component {
   componentDidMount() {
     this.props.fetchBudgets();
-    this.props.fetchUser();
   }
 
   renderBudgets() {
@@ -22,7 +21,7 @@ class BudgetsList extends React.Component {
           <header className="card-header">
             <p className="card-header-title">{budget.title}</p>
             <p className="card-header-icon">
-              Budget Amount: {accounting.formatMoney(budget.amount)}
+              Budget Amount: {accounting.formatMoney(1000)}
             </p>
             <div className="card-header-icon">
               <span style={{ marginRight: "10px" }}>Created on:</span>{" "}
@@ -54,7 +53,7 @@ class BudgetsList extends React.Component {
   render() {
     const { budgetList, loading } = this.props.budgets;
 
-    if (loading) {
+    if (loading || !budgetList) {
       return <Spinner />;
     }
 

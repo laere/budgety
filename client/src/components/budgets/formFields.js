@@ -8,10 +8,5 @@ export default [
     label: "Budget Description",
     name: "description",
     type: "text"
-  },
-  {
-    label: "Budget Amount",
-    name: "amount",
-    type: "number"
   }
 ];

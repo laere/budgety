@@ -7,7 +7,10 @@ class Dashboard extends React.Component {
     return (
       <div>
         <h1 className="title is-4">Dashboard</h1>
-        <nav class="breadcrumb has-bullet-separator" aria-label="breadcrumbs">
+        <nav
+          className="breadcrumb has-bullet-separator"
+          aria-label="breadcrumbs"
+        >
           <ul>
             <li>
               <Link to="/budgets">Budgets</Link>

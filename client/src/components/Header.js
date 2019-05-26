@@ -18,15 +18,11 @@ class Header extends React.Component {
           </a>
         );
       default:
-        return [
-          <div key="1" className="navbar-item">
-            Current balance: {accounting.formatMoney(auth.totalBalance)}
-          </div>,
-
+        return (
           <a key="4" className="navbar-item" href="/api/logout">
             Logout
           </a>
-        ];
+        );
     }
   }
 

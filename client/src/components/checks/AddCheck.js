@@ -14,7 +14,7 @@ class AddCheck extends React.Component {
           onSubmit={(values, { setSubmitting }) => {
             setSubmitting(false);
             // console.log("VALUES", values);
-            this.props.addCheck(values);
+            this.props.addCheck(this.props.match.params.budgetId, values);
           }}
         >
           {({ isSubmitting, values }) => (

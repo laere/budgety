@@ -63,7 +63,7 @@ router.post(
     // req.user.totalBalance += parseFloat(req.body.amount);
     // saving user after adding budget amount to total balance
 
-    res.send(req.user);
+    res.send(budget);
   })
 );
 

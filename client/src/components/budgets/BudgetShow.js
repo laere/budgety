@@ -13,7 +13,6 @@ class BudgetShow extends React.Component {
     const { budgetId } = this.props.match.params;
 
     this.props.fetchBudget(budgetId);
-    this.props.fetchUser();
   }
 
   render() {
@@ -67,17 +66,21 @@ class BudgetShow extends React.Component {
             </Link>
           </footer>
         </div>
+        <div className="card" style={{ marginTop: "30px" }}>
+          <footer className="card-footer">
+            <Link
+              to={`/budgets/${budget._id}/checks/new`}
+              className="card-footer-item"
+            >
+              Add Paycheck
+            </Link>
+          </footer>
+        </div>
         <TransactionsList />
       </div>
     );
   }
 }
-
-BudgetShow.propTypes = {
-  budgets: PropTypes.object.isRequired,
-  fetchBudget: PropTypes.func.isRequired,
-  fetchUser: PropTypes.func.isRequired
-};
 
 const mapStateToProps = ({ budgets }) => {
   return { budgets };

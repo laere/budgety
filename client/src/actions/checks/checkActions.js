@@ -1,13 +1,15 @@
 import axios from "axios";
 import history from "../../history";
-import { FETCH_USER, FETCH_CHECKS } from "actions/types";
+import { FETCH_BUDGET, FETCH_CHECKS } from "actions/types";
 
-export const addCheck = userData => async dispatch => {
-  const res = await axios.post("/api/checks", userData);
+export const addCheck = (budgetId, userData) => async dispatch => {
+  const res = await axios.post(`/api/budgets/${budgetId}/checks`, userData);
 
-  dispatch({ type: FETCH_USER, payload: res.payload });
+  console.log(res.data);
 
-  history.push("/checks");
+  dispatch({ type: FETCH_BUDGET, payload: res.data });
+
+  history.push(`/budgets/${budgetId}`);
 };
 
 export const fetchChecks = () => async dispatch => {

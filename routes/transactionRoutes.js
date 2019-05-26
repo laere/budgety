@@ -25,12 +25,8 @@ router.post(
 
     if (!budget) return next(errors.notFound);
 
-    budget.amount -= parseFloat(amount);
-    req.user.totalBalance -= parseFloat(amount);
-
     budget.transactions.unshift(req.body);
 
-    await req.user.save();
     await budget.save();
 
     res.json(budget);
@@ -140,20 +136,5 @@ router.put("/:budgetId/:transactionId", requireLogin, (req, res) => {
     })
     .catch(e => res.status(404).json(e));
 });
-
-// @route   GET api/budgets/:budgetId/transactions
-// @desc    Get all transactions
-// @access  Public
-router.get(
-  "/:budgetId",
-  requireLogin,
-  myAsync(async (req, res, next) => {
-    let budget = await Budget.findById(req.params.budgetId);
-
-    if (!budget) return next(errors.notFound);
-
-    res.send(budget.transactions);
-  })
-);
 
 module.exports = router;

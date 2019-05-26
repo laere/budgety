@@ -10,8 +10,7 @@ function validateBudget(budget) {
       description: Joi.string()
         .min(2)
         .max(50)
-        .required(),
-      amount: Joi.number().required()
+        .required()
     })
     .unknown();
 

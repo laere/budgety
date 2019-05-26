@@ -1,10 +1,25 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
+const checkSchema = new Schema({
+  checkamount: {
+    type: Number,
+    default: 0
+  },
+  dateCreated: {
+    type: Date,
+    default: Date.now
+  }
+});
+
 const budgetSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
     ref: "users"
+  },
+  amount: {
+    type: Number,
+    default: 0
   },
   title: {
     type: String,
@@ -15,14 +30,9 @@ const budgetSchema = new Schema({
   description: {
     type: String,
     required: true,
-    minlength: 2,
-    maxlength: 255
+    minlength: 2
   },
-  amount: {
-    type: Number,
-    default: 0,
-    required: true
-  },
+  paychecks: [checkSchema],
   transactions: [
     {
       description: {

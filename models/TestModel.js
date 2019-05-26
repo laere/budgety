@@ -34,7 +34,7 @@ const transactionSchema = new Schema({
   }
 });
 
-const budgetItemSchema = new Schema({
+const categoryItemSchema = new Schema({
   name: {
     type: String,
     required: true
@@ -46,7 +46,17 @@ const budgetItemSchema = new Schema({
   remaining: {
     type: Number,
     default: 0
+  }
+});
+
+const categorySchema = new Schema({
+  name: {
+    type: String,
+    default: "Untitled",
+    minlength: 2,
+    maxlength: 50
   },
+  items: [categoryItemSchema],
   transactions: [transactionSchema]
 });
 
@@ -55,10 +65,14 @@ const budgetSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "users"
   },
+  goals: {
+    type: String,
+    required: true,
+    minlength: 2
+  },
   currentmonth: {
     type: Date,
-    default: Date.now,
-    required: true
+    default: Date.now
   },
   income: {
     title: {
@@ -68,42 +82,6 @@ const budgetSchema = new Schema({
       max: 55
     },
     paychecks: [payCheckSchema]
-  },
-  savings: {
-    title: {
-      type: String,
-      default: "Savings",
-      min: 2,
-      max: 55
-    },
-    data: [budgetItemSchema]
-  },
-  housing: {
-    title: {
-      type: String,
-      default: "Housing",
-      min: 2,
-      max: 55
-    },
-    data: [budgetItemSchema]
-  },
-  food: {
-    title: {
-      type: String,
-      default: "Food",
-      min: 2,
-      max: 55
-    },
-    data: [budgetItemSchema]
-  },
-  personal: {
-    title: {
-      type: String,
-      default: "Personal",
-      min: 2,
-      max: 55
-    },
-    data: [budgetItemSchema]
   },
   dateCreated: {
     type: Date,

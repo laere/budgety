@@ -61,8 +61,16 @@ class App extends React.Component {
               path="/budgets/:budgetId/transactions/:transactionId/edit"
               component={TransactionEdit}
             />
-            <Route exact path="/checks/new" component={AddCheck} />
-            <Route exact path="/checks" component={CheckList} />
+            <Route
+              exact
+              path="/budgets/:budgetId/checks/new"
+              component={AddCheck}
+            />
+            <Route
+              exact
+              path="/budgets/:budgetId/checks"
+              component={CheckList}
+            />
           </Switch>
         </div>
       </Router>

@@ -15,20 +15,21 @@ class TransactionNew extends React.Component {
   }
 
   render() {
+    const { budgetId } = this.props.match.params;
     return (
       <div>
         <Formik
           onSubmit={(values, { setSubmitting }) => {
             setSubmitting(false);
             // console.log("VALUES", values);
-            this.props.addTransaction(this.props.match.params.budgetId, values);
+            this.props.addTransaction(budgetId, values);
           }}
         >
           {({ isSubmitting, values }) => (
             <Form>
               {this.renderFields()}
               <Link
-                to={`/budgets/${this.props.budgetId}`}
+                to={`/budgets/${budgetId}`}
                 className="button is-danger is-large"
               >
                 Cancel

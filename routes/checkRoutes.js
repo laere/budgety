@@ -3,43 +3,33 @@ const myAsync = require("../middlewares/asyncMiddleware");
 const requireLogin = require("../middlewares/requireLogin");
 const express = require("express");
 const router = express.Router();
-const Check = require("../models/Check");
+const Budget = require("../models/Budget");
 const User = require("../models/User");
 // const validateBudget = require("../validation/validateBudget");
 const errors = require("../errors/errors");
 
 router.post(
-  "/",
+  "/:budgetId/checks",
   requireLogin,
   myAsync(async (req, res, next) => {
-    console.log(req.body);
-    console.log(req.user);
+    // add validation
 
-    let check = new Check({ ...req.body, user: req.user.id });
+    console.log("Check", req.body);
 
-    console.log("CHECK", check);
+    // find budget
+    let budget = await Budget.findOne({ _id: req.params.budgetId });
 
-    await check.save();
+    budget.paychecks.unshift(req.body);
 
-    req.user.totalBalance += parseFloat(req.body.checkamount);
+    console.log(budget.amount);
 
-    const user = await req.user.save();
+    budget.amount += req.body.checkamount;
 
-    res.send(user);
-  })
-);
+    await budget.save();
 
-router.get(
-  "/",
-  requireLogin,
-  myAsync(async (req, res, next) => {
-    let checks = await Check.find({ user: req.user.id }).sort({
-      dateCreated: -1
-    });
+    console.log(budget);
 
-    if (!checks) return;
-
-    res.send(checks);
+    res.json(budget);
   })
 );
 

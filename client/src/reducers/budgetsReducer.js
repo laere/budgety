@@ -32,13 +32,6 @@ export default (state = initialState, action) => {
         budget: action.payload,
         loading: false
       };
-    case DELETE_BUDGET:
-      return {
-        ...state,
-        budgetList: state.budgetList.filter(
-          budget => budget._id !== action.payload
-        )
-      };
     case FETCH_TRANSACTION:
       return {
         ...state,
