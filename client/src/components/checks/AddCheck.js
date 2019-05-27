@@ -7,44 +7,21 @@ import formFields from "components/checks/formFields";
 import checkValidation from "validation/checkValidation";
 
 class AddCheck extends React.Component {
+  handleActionCreator = values => {
+    const { budgetId } = this.props.match.params;
+    this.props.addCheck(budgetId, values);
+  };
+
   render() {
-    //   return (
-    //     <div>
-    //       <h1 className="title is-3">Add a check to your balance!</h1>
-    //       <Formik
-    //         initialValues={{ checkamount: "" }}
-    //         onSubmit={(values, { setSubmitting }) => {
-    //           setSubmitting(false);
-    //           // console.log("VALUES", values);
-    //           this.props.addCheck(this.props.match.params.budgetId, values);
-    //         }}
-    //       >
-    //         {({ isSubmitting, values }) => (
-    //           <Form>
-    //             <InputField type="number" name="checkamount" label="Check:" />
-    //             <button
-    //               type="submit"
-    //               className="button is-primary is-large"
-    //               style={{ marginTop: "20px" }}
-    //               disabled={isSubmitting}
-    //               onSubmit={this.onSubmit}
-    //             >
-    //               Submit
-    //             </button>
-    //           </Form>
-    //         )}
-    //       </Formik>
-    //     </div>
-    //   );
-    // }
+    const { budgetId } = this.props.match.params;
     return (
       <React.Fragment>
         <GlobalForm
           formFields={formFields}
           validateFunc={checkValidation}
           initialValues={{ checkamount: "" }}
-          actionCreator={this.props.addCheck}
-          cancelpath="/budgets"
+          actionCreator={this.handleActionCreator}
+          cancelpath={`/budgets/${budgetId}`}
         />
       </React.Fragment>
     );
