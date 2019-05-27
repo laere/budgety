@@ -1,10 +1,9 @@
 import React from "react";
 import { Field, ErrorMessage } from "formik";
 
-const InputField = ({ label, name, type, style }) => {
-  console.log(label);
+const InputField = ({ label, name, type, style, id }) => {
   return (
-    <React.Fragment>
+    <div key={id}>
       <label className="label">{label}</label>
       <Field type={type} name={name} className={style} />
       <ErrorMessage
@@ -13,7 +12,7 @@ const InputField = ({ label, name, type, style }) => {
         component="div"
         style={{ fontSize: "16px" }}
       />
-    </React.Fragment>
+    </div>
   );
 };
 

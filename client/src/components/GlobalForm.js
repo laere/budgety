@@ -4,31 +4,27 @@ import InputField from "components/InputField";
 import { Link } from "react-router-dom";
 
 const GlobalForm = props => {
-  // form fields would be props
   const renderFields = () => {
-    console.log(props.formFields);
-    return props.formFields.map(({ label, name, type, style }) => {
+    return props.formFields.map(({ label, name, type, style, id }) => {
       return (
         <InputField
           name={name}
           type={type}
           label={label}
           style={style}
-          key={name}
+          key={id}
         />
       );
     });
   };
 
   return (
-    <div className="budget-new">
+    <div className="form">
       <Formik
         initialValues={props.initialValues}
         validate={values => props.validateFunc(values)}
         onSubmit={(values, { setSubmitting }) => {
           setSubmitting(false);
-          // console.log("VALUES", values);
-
           props.actionCreator(values);
         }}
       >

@@ -1,4 +1,4 @@
-const budgetValidation = values => {
+const transactionValidation = values => {
   let errors = {};
 
   for (let val in values) {
@@ -12,4 +12,4 @@ const budgetValidation = values => {
   return errors;
 };
 
-export default budgetValidation;
+export default transactionValidation;

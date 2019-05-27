@@ -1,28 +1,19 @@
-import _ from "lodash";
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import InputField from "components/InputField";
-import { Formik, Form } from "formik";
 import { editTransaction } from "actions";
 import Spinner from "components/Spinner";
 import formFields from "components/transactions/formFields";
+import GlobalForm from "components/GlobalForm";
+import transactionValidation from "validation/transactionValidation";
 
 class TransactionEdit extends React.Component {
-  renderFields() {
-    return formFields.map(({ label, name, type, style }) => {
-      return (
-        <InputField
-          label={label}
-          name={name}
-          type={type}
-          key={name}
-          style={style}
-        />
-      );
-    });
-  }
+  handleActionCreator = values => {
+    const { budgetId, transactionId } = this.props.match.params;
+    this.props.editTransaction(budgetId, transactionId, values);
+  };
 
   render() {
     const { transactions } = this.props.budget;
@@ -36,42 +27,18 @@ class TransactionEdit extends React.Component {
       id => id._id === transactionId
     );
 
-    console.log(currentTransaction);
     return (
-      <div>
-        <Formik
+      <React.Fragment>
+        <GlobalForm
+          formFields={formFields}
+          actionCreator={this.handleActionCreator}
           initialValues={{
             description: currentTransaction.description,
             amount: currentTransaction.amount
           }}
-          onSubmit={(values, { setSubmitting }) => {
-            console.log(values);
-            setSubmitting(false);
-            // console.log("VALUES", values);
-            this.props.editTransaction(budgetId, transactionId, values);
-          }}
-        >
-          {({ isSubmitting, values }) => (
-            <Form>
-              {this.renderFields()}
-              <Link
-                to={`/budgets/${budgetId}`}
-                className="button is-danger is-large"
-              >
-                Cancel
-              </Link>
-              <button
-                type="submit"
-                className="button is-primary is-large"
-                disabled={isSubmitting}
-                onSubmit={this.onSubmit}
-              >
-                Submit
-              </button>
-            </Form>
-          )}
-        </Formik>
-      </div>
+          cancelpath={`/budgets/${budgetId}`}
+        />
+      </React.Fragment>
     );
   }
 }

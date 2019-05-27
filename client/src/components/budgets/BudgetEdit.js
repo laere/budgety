@@ -1,62 +1,30 @@
-import _ from "lodash";
 import React from "react";
 import { connect } from "react-redux";
-import * as actions from "actions";
-import { Formik, Form } from "formik";
+import { editBudget } from "actions";
 import { Link } from "react-router-dom";
 import InputField from "components/InputField";
 import formFields from "components/budgets/formFields";
+import GlobalForm from "components/GlobalForm";
+import budgetValidation from "validation/budgetValidation";
 
 class BudgetEdit extends React.Component {
-  renderFields() {
-    return formFields.map(({ label, name, type, style }) => {
-      return (
-        <InputField
-          name={name}
-          type={type}
-          label={label}
-          style={style}
-          key={name}
-        />
-      );
-    });
-  }
+  handleActionCreator = values => {
+    const { budgetId } = this.props.match.params;
+    this.props.editBudget(budgetId, values);
+  };
 
   render() {
-    console.log(this.props.budget);
-    const { amount, title, description, _id } = this.props.budget;
+    const { title, description } = this.props.budget;
     return (
-      <div className="budget-new">
-        <Formik
-          initialValues={{ amount, title, description }}
-          onSubmit={(values, { setSubmitting }) => {
-            setSubmitting(false);
-            // console.log("VALUES", values);
-            this.props.editBudget(_id, values);
-          }}
-        >
-          {({ isSubmitting, values }) => (
-            <Form>
-              {this.renderFields()}
-              <Link
-                to="/budgets"
-                type="submit"
-                className="button is-danger is-large"
-              >
-                Cancel
-              </Link>
-              <button
-                type="submit"
-                className="button is-primary is-large"
-                disabled={isSubmitting}
-                onSubmit={this.onSubmit}
-              >
-                Submit
-              </button>
-            </Form>
-          )}
-        </Formik>
-      </div>
+      <React.Fragment>
+        <GlobalForm
+          formFields={formFields}
+          validateFunc={budgetValidation}
+          initialValues={{ title, description }}
+          actionCreator={this.handleActionCreator}
+          cancelpath="/budgets"
+        />
+      </React.Fragment>
     );
   }
 }
@@ -67,5 +35,5 @@ const mapStateToProps = ({ budgets }) => {
 
 export default connect(
   mapStateToProps,
-  actions
+  { editBudget }
 )(BudgetEdit);
