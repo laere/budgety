@@ -48,6 +48,12 @@ class BudgetShow extends React.Component {
           </div>
           <footer className="card-footer">
             <Link
+              to={`/budgets/${budget._id}/checks/new`}
+              className="card-footer-item"
+            >
+              Add Paycheck
+            </Link>
+            <Link
               to={`/budgets/edit/${budget._id}`}
               className="card-footer-item"
             >
@@ -64,16 +70,6 @@ class BudgetShow extends React.Component {
               className="card-footer-item"
             >
               Add Transaction
-            </Link>
-          </footer>
-        </div>
-        <div className="card" style={{ marginTop: "30px" }}>
-          <footer className="card-footer">
-            <Link
-              to={`/budgets/${budget._id}/checks/new`}
-              className="card-footer-item"
-            >
-              Add Paycheck
             </Link>
           </footer>
         </div>

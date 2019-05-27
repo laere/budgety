@@ -1,9 +1,6 @@
 import React from "react";
-import accounting from "accounting-js";
-import Moment from "react-moment";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
+import TransactionItem from "components/transactions/TransactionItem";
 
 class TransactionsList extends React.Component {
   renderTransactions() {
@@ -13,36 +10,15 @@ class TransactionsList extends React.Component {
       return <tr>You currently have no transactions!</tr>;
     }
 
-    return budget.transactions.map(
-      ({ amount, description, dateCreated, _id }) => {
-        const formatAmount = accounting.formatMoney(-amount);
-
-        return (
-          <tr key={_id} className="panel">
-            <td>
-              <Moment format="MM/DD/YYYY">{dateCreated}</Moment>
-            </td>
-            <td>{description}</td>
-            <td>{formatAmount}</td>
-            <td>
-              <Link
-                to={`/budgets/${budget._id}/transactions/${_id}/delete`}
-                className="button is-danger"
-              >
-                Delete
-              </Link>
-              <Link
-                to={`/budgets/${budget._id}/transactions/${_id}/edit`}
-                className="button"
-                style={{ marginLeft: "10px" }}
-              >
-                Edit
-              </Link>
-            </td>
-          </tr>
-        );
-      }
-    );
+    return budget.transactions.map(transaction => {
+      return (
+        <TransactionItem
+          transaction={transaction}
+          key={transaction._id}
+          budgetId={budget._id}
+        />
+      );
+    });
   }
 
   render() {
