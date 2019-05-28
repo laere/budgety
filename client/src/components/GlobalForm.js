@@ -5,13 +5,13 @@ import { Link } from "react-router-dom";
 
 const GlobalForm = props => {
   const renderFields = () => {
-    return props.formFields.map(({ label, name, type, style, id }) => {
+    return props.formFields.map(({ label, name, type, classStyleName, id }) => {
       return (
         <InputField
           name={name}
           type={type}
           label={label}
-          style={style}
+          classStyleName={classStyleName}
           key={id}
         />
       );

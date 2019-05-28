@@ -27,13 +27,15 @@ router.post(
 
     budget.transactions.unshift(req.body);
 
+    budget.amount -= amount;
+
     await budget.save();
 
-    res.json(budget);
+    res.send(budget);
   })
 );
 
-// @route   DELETE api/budgets/:budgetId/transactions/:transactionId
+// @route   DELETE api/budgets/:budgetId/:transactionId
 // @desc    Delete a transaction
 // @access  Public
 router.delete(
@@ -58,7 +60,7 @@ router.delete(
   })
 );
 
-// @route   GET api/budgets/:budgetId/transactions
+// @route   GET api/budgets/:budgetId/:transactionId
 // @desc    Get a single transaction
 // @access  Public
 router.get(
@@ -66,13 +68,13 @@ router.get(
   requireLogin,
   myAsync(async (req, res, next) => {
     let budget = await Budget.findById(req.params.budgetId);
-    console.log(budget);
+    // console.log(budget);
 
     if (!budget) return next(errors.notFound);
 
     let transaction = budget.transactions.id(req.params.trasnsactionId);
 
-    console.log(transaction);
+    // console.log(transaction);
 
     if (!transaction) return next(errors.notFound);
 
@@ -80,61 +82,36 @@ router.get(
   })
 );
 
-// @route   PATCH api/budgets/:budgetId/transactions
+// @route   PATCH api/budgets/:budgetId/:transactionId
 // @desc    Update a single transaction
 // @access  Public
-router.put("/:budgetId/:transactionId", requireLogin, (req, res) => {
-  console.log(req.body);
-  const { error } = validateTransaction(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+router.put(
+  "/:budgetId/:transactionId",
+  requireLogin,
+  myAsync(async (req, res, next) => {
+    // console.log(req.body);
+    const { error } = validateTransaction(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
 
-  const { description, amount } = req.body;
-  const newTransaction = { description, amount };
+    const { description, amount } = req.body;
+    const newTransaction = { description, amount };
 
-  // let budget = await Budget.findOne({ _id: req.params.budgetId });
-  //
-  // let transaction = budget.transactions.id(req.params.transactionId);
-  //
-  // if (transaction.amount - amount < transaction.amount) {
-  //   user.totalBalance += transaction.amount - amount;
-  //   budget.amount += transaction.amount - amount;
-  // }
-  //
-  // transaction.set(newTransaction);
-  //
-  // await budget.save();
-  // await user.save();
-  //
-  // res.json(budget);
+    let budget = await Budget.findOne({ _id: req.params.budgetId });
 
-  User.findOne({ _id: req.user.id })
-    .then(user => {
-      Budget.findOne({ _id: req.params.budgetId })
-        .then(budget => {
-          // Find transaction in budget based on transaction ID
-          const transaction = budget.transactions.id(req.params.transactionId);
+    if (!budget) return next(errors.notFound);
 
-          // console.log("TRANSACTION AMOUNT", transaction.amount);
-          // console.log("AMOUNT", amount);
+    let transaction = budget.transactions.id(req.params.transactionId);
 
-          // Determines difference between original tranaction AMOUNT
-          // and the new transaction AMOUNT
-          // then adds difference to user total and budget amounts
-          if (transaction.amount - amount < transaction.amount) {
-            user.totalBalance += transaction.amount - amount;
-            budget.amount += transaction.amount - amount;
-          }
+    if (!transaction) return next(errors.notFound);
 
-          // set old transaction to new transaction
-          transaction.set(newTransaction);
+    budget.amount += transaction.amount - amount;
 
-          budget.save();
-          user.save();
-        })
-        .then(budget => res.json(budget))
-        .catch(e => res.status(404).json(e));
-    })
-    .catch(e => res.status(404).json(e));
-});
+    transaction.set(newTransaction);
+
+    await budget.save();
+
+    res.send(budget);
+  })
+);
 
 module.exports = router;

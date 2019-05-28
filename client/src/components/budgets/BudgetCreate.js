@@ -1,12 +1,10 @@
 import React from "react";
 import { addBudget } from "actions";
 import { connect } from "react-redux";
-import { Formik, Form } from "formik";
-import InputField from "components/InputField";
 import formFields from "components/budgets/formFields";
-import { Link } from "react-router-dom";
 import budgetValidation from "validation/budgetValidation";
 import GlobalForm from "components/GlobalForm";
+import InputField from "components/InputField";
 
 class BudgetCreate extends React.Component {
   render() {
@@ -17,7 +15,7 @@ class BudgetCreate extends React.Component {
           validateFunc={budgetValidation}
           initialValues={{ title: "", description: "" }}
           actionCreator={this.props.addBudget}
-          cancelpath="/budgets"
+          cancelpath="/dashboard"
         />
       </React.Fragment>
     );

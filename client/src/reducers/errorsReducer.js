@@ -1,8 +1,6 @@
 import { GET_ERROR } from "actions/types";
 
-const initialState = {};
-
-export default (state = initialState, action) => {
+export default (state = null, action) => {
   switch (action.type) {
     case GET_ERROR:
       return action.payload;

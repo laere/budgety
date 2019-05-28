@@ -6,8 +6,6 @@ describe("Budget", () => {
       name: "budget1",
       description: "this is a test budget",
       amount: 0,
-      startDate: Date.now,
-      endDate: Date.now,
       transactions: [],
       dateCreated: Date.now
     };
@@ -36,8 +34,6 @@ describe("Budget", () => {
       name: "budget1",
       description: "this is a test budget",
       amount: 0,
-      startDate: Date.now,
-      endDate: Date.now,
       transactions,
       dateCreated: Date.now
     };

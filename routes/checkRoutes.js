@@ -4,32 +4,29 @@ const requireLogin = require("../middlewares/requireLogin");
 const express = require("express");
 const router = express.Router();
 const Budget = require("../models/Budget");
-const User = require("../models/User");
-// const validateBudget = require("../validation/validateBudget");
+const validateCheck = require("../validation/validateCheck");
 const errors = require("../errors/errors");
 
+// @route   POST api/budgets/:budgetId/checks
+// @desc    POST a single paycheck
+// @access  Public
 router.post(
   "/:budgetId/checks",
   requireLogin,
   myAsync(async (req, res, next) => {
     // add validation
+    const { error } = validateCheck(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
 
-    console.log("Check", req.body);
-
-    // find budget
     let budget = await Budget.findOne({ _id: req.params.budgetId });
 
     budget.paychecks.unshift(req.body);
-
-    console.log(budget.amount);
 
     budget.amount += req.body.checkamount;
 
     await budget.save();
 
-    console.log(budget);
-
-    res.json(budget);
+    res.send(budget);
   })
 );
 

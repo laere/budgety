@@ -1,7 +1,6 @@
 import {
   FETCH_BUDGETS,
   FETCH_BUDGET,
-  DELETE_BUDGET,
   IS_LOADING,
   FETCH_TRANSACTION
 } from "actions/types";
