@@ -1,11 +1,11 @@
 Things to add:
 
-### Add validation to backend
-
-### Ability to add check to total balance and track
-
-### Refactor promises to async/await
-
-### Comment code for better understandability
-
 ### Testing
+
+### Fix DRY code
+
+### handling async errors in action creators
+
+### implement better backend error handling
+
+### allow users to add specific categories such as (food, savings, housing) which have their own transactions list.
