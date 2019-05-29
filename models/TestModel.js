@@ -74,6 +74,7 @@ const budgetSchema = new Schema({
     type: Date,
     default: Date.now
   },
+  categories: [categorySchema],
   income: {
     title: {
       type: String,

@@ -21,4 +21,9 @@ const InputField = ({ label, name, type, classStyleName, id }) => {
   );
 };
 
+InputField.defaultProps = {
+  classStyleName: "input",
+  type: "text"
+};
+
 export default InputField;

@@ -9,6 +9,8 @@ import {
   GET_ERROR
 } from "actions/types";
 
+// Refactor this code. Make it less DRY and also add error handling (try/catch)
+
 export const fetchUser = () => async dispatch => {
   dispatch(budgetsLoading());
 

@@ -57,6 +57,8 @@ router.post(
       user: req.user.id
     });
 
+    console.log(budget);
+
     // saving budget after creation
     await budget.save();
 

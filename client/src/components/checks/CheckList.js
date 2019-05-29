@@ -6,14 +6,14 @@ import CheckItem from "components/checks/CheckItem";
 
 class CheckList extends React.Component {
   renderChecks() {
-    const { paychecks } = this.props.budget;
+    const { paychecks, _id } = this.props.budget;
 
     if (!paychecks || paychecks.length === 0) {
       return <tr>You currently have no paychecks!</tr>;
     }
 
     return paychecks.map(check => {
-      return <CheckItem check={check} key={check._id} />;
+      return <CheckItem check={check} key={check._id} budgetId={_id} />;
     });
   }
 

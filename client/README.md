@@ -4,8 +4,10 @@ Things to add:
 
 ### Fix DRY code
 
-### handling async errors in action creators
+### Handling async errors in action creators
 
-### implement better backend error handling
+### Implement better backend error handling
 
-### allow users to add specific categories such as (food, savings, housing) which have their own transactions list.
+### Allow users to add specific categories such as (food, savings, housing) which have their own transactions list.
+
+### Make delete item component

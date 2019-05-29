@@ -4,8 +4,6 @@ export default [
   {
     label: "Budget Title",
     name: "title",
-    type: "text",
-    classStyleName: "input",
     id: generateId(16)
   },
   {

@@ -19,6 +19,8 @@ import TransactionEdit from "components/transactions/TransactionEdit";
 import AddCheck from "components/checks/AddCheck";
 import CheckList from "components/checks/CheckList";
 import Dashboard from "components/dashboard/Dashboard";
+import CheckDelete from "components/checks/CheckDelete";
+import CheckEdit from "components/checks/CheckEdit";
 
 class App extends React.Component {
   componentDidMount() {
@@ -70,6 +72,16 @@ class App extends React.Component {
               exact
               path="/budgets/:budgetId/checks"
               component={CheckList}
+            />
+            <Route
+              exact
+              path="/budgets/:budgetId/checks/:checkId/delete"
+              component={CheckDelete}
+            />
+            <Route
+              exact
+              path="/budgets/:budgetId/checks/:checkId/edit"
+              component={CheckEdit}
             />
           </Switch>
         </div>
