@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import formFields from "components/budgets/formFields";
 import budgetValidation from "validation/budgetValidation";
 import GlobalForm from "components/GlobalForm";
-import InputField from "components/InputField";
 
 class BudgetCreate extends React.Component {
   render() {

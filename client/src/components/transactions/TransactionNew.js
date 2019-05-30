@@ -1,7 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
-import InputField from "components/InputField";
 import { connect } from "react-redux";
 import { addTransaction } from "actions";
 import formFields from "components/transactions/formFields";
@@ -20,6 +17,7 @@ class TransactionNew extends React.Component {
       <React.Fragment>
         <GlobalForm
           formFields={formFields}
+          validateFunc={transactionValidation}
           actionCreator={this.handleActionCreator}
           initialValues={{ description: "", amount: "" }}
           cancelpath={`/budgets/${budgetId}`}

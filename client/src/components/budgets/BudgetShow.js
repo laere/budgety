@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import accounting from "accounting-js";
 import { connect } from "react-redux";
 import { fetchBudget, fetchUser } from "actions";

@@ -1,8 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import InputField from "components/InputField";
 import { editTransaction } from "actions";
 import Spinner from "components/Spinner";
 import formFields from "components/transactions/formFields";
@@ -31,6 +28,7 @@ class TransactionEdit extends React.Component {
       <React.Fragment>
         <GlobalForm
           formFields={formFields}
+          validateFunc={transactionValidation}
           actionCreator={this.handleActionCreator}
           initialValues={{
             description: currentTransaction.description,

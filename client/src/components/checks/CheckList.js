@@ -1,7 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import { fetchChecks } from "actions/checks/checkActions";
-import Spinner from "components/Spinner";
 import CheckItem from "components/checks/CheckItem";
 
 class CheckList extends React.Component {
@@ -39,7 +37,4 @@ class CheckList extends React.Component {
 const mapStateToProps = state => {
   return { budget: state.budgets.budget };
 };
-export default connect(
-  mapStateToProps,
-  { fetchChecks }
-)(CheckList);
+export default connect(mapStateToProps)(CheckList);

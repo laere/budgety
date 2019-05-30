@@ -1,8 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import { editBudget } from "actions";
-import { Link } from "react-router-dom";
-import InputField from "components/InputField";
 import formFields from "components/budgets/formFields";
 import GlobalForm from "components/GlobalForm";
 import budgetValidation from "validation/budgetValidation";

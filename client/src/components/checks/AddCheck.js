@@ -1,5 +1,4 @@
 import React from "react";
-import InputField from "components/InputField";
 import { connect } from "react-redux";
 import { addCheck } from "actions/checks/checkActions";
 import GlobalForm from "components/GlobalForm";

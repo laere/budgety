@@ -35,7 +35,7 @@ export const fetchBudget = budgetId => async dispatch => {
 };
 
 export const addBudget = formValues => async dispatch => {
-  const res = await axios.post("/api/budgets", formValues);
+  await axios.post("/api/budgets", formValues);
 
   history.push("/budgets");
 };
@@ -43,16 +43,16 @@ export const addBudget = formValues => async dispatch => {
 export const deleteBudget = budgetId => async dispatch => {
   dispatch(budgetsLoading());
 
-  const res = await axios.delete(`/api/budgets/${budgetId}`);
+  await axios.delete(`/api/budgets/${budgetId}`);
 
-  dispatch({ type: FETCH_BUDGET, payload: budgetId });
+  // dispatch({ type: FETCH_BUDGET, payload: budgetId });
 
   history.push("/budgets");
 };
 
 export const editBudget = (budgetId, formValues) => async dispatch => {
   try {
-    const res = await axios.put(`/api/budgets/${budgetId}`, formValues);
+    await axios.put(`/api/budgets/${budgetId}`, formValues);
 
     history.push("/budgets");
   } catch (error) {
@@ -82,7 +82,7 @@ export const deleteTransaction = (
   budgetId,
   transactionId
 ) => async dispatch => {
-  const res = await axios.delete(`/api/budgets/${budgetId}/${transactionId}`);
+  await axios.delete(`/api/budgets/${budgetId}/${transactionId}`);
 
   history.push(`/budgets/${budgetId}`);
 };

@@ -1,4 +1,3 @@
-import accounting from "accounting-js";
 import React from "react";
 import { fetchUser } from "actions";
 import { connect } from "react-redux";

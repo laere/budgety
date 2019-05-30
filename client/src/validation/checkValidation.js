@@ -7,3 +7,5 @@ const checkValidation = values => {
 
   return errors;
 };
+
+export default checkValidation;

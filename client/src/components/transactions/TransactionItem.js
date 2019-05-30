@@ -2,7 +2,6 @@ import React from "react";
 import accounting from "accounting-js";
 import Moment from "react-moment";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
 
 const TransactionItem = ({ transaction, budgetId }) => {
   return (

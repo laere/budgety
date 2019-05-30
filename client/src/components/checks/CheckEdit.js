@@ -1,8 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import { editCheck } from "actions/checks/checkActions";
-import { Link } from "react-router-dom";
-import InputField from "components/InputField";
 import formFields from "components/checks/formFields";
 import GlobalForm from "components/GlobalForm";
 import checkValidation from "validation/checkValidation";
