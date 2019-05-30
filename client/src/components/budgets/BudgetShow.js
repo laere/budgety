@@ -7,6 +7,7 @@ import Moment from "react-moment";
 import Spinner from "components/Spinner";
 import TransactionsList from "components/transactions/TransactionsList";
 import CheckList from "components/checks/CheckList";
+import CategoryList from "components/categories/CategoryList";
 
 class BudgetShow extends React.Component {
   componentDidMount() {
@@ -67,6 +68,7 @@ class BudgetShow extends React.Component {
             <Link
               to={`/budgets/${budget._id}/transactions/new`}
               className="card-footer-item"
+              disabled={true}
             >
               Add Transaction
             </Link>

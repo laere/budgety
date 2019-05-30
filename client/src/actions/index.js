@@ -9,15 +9,39 @@ import {
   GET_ERROR
 } from "actions/types";
 
+const thunkCreator = action => {
+  const { types, promise, ...rest } = action;
+  const [FETCH, ERROR] = types;
+
+  return async dispatch => {
+    console.log(promise);
+
+    const res = await promise;
+    const { data } = res;
+
+    dispatch({ type: FETCH, payload: data });
+  };
+};
+
+const apiCall = (path, method, options) => {
+  return method(path, options);
+};
+
+export const fetchUser = () =>
+  thunkCreator({
+    types: [FETCH_USER],
+    promise: apiCall("/api/current_user", axios.get)
+  });
+
 // Refactor this code. Make it less DRY and also add error handling (try/catch)
 
-export const fetchUser = () => async dispatch => {
-  dispatch(budgetsLoading());
-
-  const res = await axios.get("/api/current_user");
-
-  dispatch({ type: FETCH_USER, payload: res.data });
-};
+// export const fetchUser = () => async dispatch => {
+//   dispatch(budgetsLoading());
+//
+//   const res = await apiCall("/api/current_user", axios.get);
+//
+//   dispatch({ type: FETCH_USER, payload: res.data });
+// };
 
 export const fetchBudgets = () => async dispatch => {
   dispatch(budgetsLoading());
