@@ -43,7 +43,7 @@ class Header extends React.Component {
 }
 
 Header.propTypes = {
-  auth: PropTypes.object,
+  auth: PropTypes.boolean,
   fetchUser: PropTypes.func.isRequired
 };
 

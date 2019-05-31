@@ -10,16 +10,22 @@ import {
 } from "actions/types";
 
 const thunkCreator = action => {
-  const { types, promise, ...rest } = action;
+  const { types, promise, redirect, ...rest } = action;
   const [FETCH, ERROR] = types;
 
   return async dispatch => {
-    console.log(promise);
+    try {
+      dispatch(budgetsLoading());
+      const res = await promise;
 
-    const res = await promise;
-    const { data } = res;
+      const { data } = res;
 
-    dispatch({ type: FETCH, payload: data });
+      dispatch({ ...rest, type: FETCH, payload: data });
+
+      history.push(redirect);
+    } catch (err) {
+      dispatch({ ...rest, type: ERROR, payload: err });
+    }
   };
 };
 
@@ -29,40 +35,34 @@ const apiCall = (path, method, options) => {
 
 export const fetchUser = () =>
   thunkCreator({
-    types: [FETCH_USER],
+    types: [FETCH_USER, GET_ERROR],
     promise: apiCall("/api/current_user", axios.get)
   });
 
-// Refactor this code. Make it less DRY and also add error handling (try/catch)
+export const fetchBudgets = () =>
+  thunkCreator({
+    types: [FETCH_BUDGETS, GET_ERROR],
+    promise: apiCall("/api/budgets", axios.get)
+  });
 
-// export const fetchUser = () => async dispatch => {
-//   dispatch(budgetsLoading());
+export const fetchBudget = budgetId =>
+  thunkCreator({
+    types: [FETCH_BUDGET, GET_ERROR],
+    promise: apiCall(`/api/budgets/${budgetId}`, axios.get)
+  });
+
+export const addBudget = formValues =>
+  thunkCreator({
+    types: [GET_ERROR],
+    promise: apiCall("/api/budgets", axios.post, formValues),
+    redirect: "/budgets"
+  });
+
+// export const addBudget = formValues => async dispatch => {
+//   await axios.post("/api/budgets", formValues);
 //
-//   const res = await apiCall("/api/current_user", axios.get);
-//
-//   dispatch({ type: FETCH_USER, payload: res.data });
+//   history.push("/budgets");
 // };
-
-export const fetchBudgets = () => async dispatch => {
-  dispatch(budgetsLoading());
-
-  const res = await axios.get("/api/budgets");
-
-  dispatch({ type: FETCH_BUDGETS, payload: res.data });
-};
-
-export const fetchBudget = budgetId => async dispatch => {
-  dispatch(budgetsLoading());
-  const res = await axios.get(`/api/budgets/${budgetId}`);
-
-  dispatch({ type: FETCH_BUDGET, payload: res.data });
-};
-
-export const addBudget = formValues => async dispatch => {
-  await axios.post("/api/budgets", formValues);
-
-  history.push("/budgets");
-};
 
 export const deleteBudget = budgetId => async dispatch => {
   dispatch(budgetsLoading());
