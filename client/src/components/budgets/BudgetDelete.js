@@ -1,7 +1,7 @@
 import React from "react";
 import Modal from "components/Modal";
 import { connect } from "react-redux";
-import { deleteBudget } from "actions";
+import { deleteBudget } from "actions/budgets/budgetActions";
 import { Link } from "react-router-dom";
 
 class BudgetDelete extends React.Component {

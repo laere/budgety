@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { editBudget } from "actions";
+import { editBudget } from "actions/budgets/budgetActions";
 import formFields from "components/budgets/formFields";
 import GlobalForm from "components/GlobalForm";
 import budgetValidation from "validation/budgetValidation";

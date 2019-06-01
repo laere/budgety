@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { addTransaction } from "actions";
+import { addTransaction } from "actions/transactions/transactionActions";
 import formFields from "components/transactions/formFields";
 import GlobalForm from "components/GlobalForm";
 import transactionValidation from "validation/transactionValidation";

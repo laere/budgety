@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { editTransaction } from "actions";
+import { editTransaction } from "actions/transactions/transactionActions";
 import Spinner from "components/Spinner";
 import formFields from "components/transactions/formFields";
 import GlobalForm from "components/GlobalForm";

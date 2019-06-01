@@ -1,8 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import { fetchBudgets } from "actions";
+import { fetchBudgets } from "actions/budgets/budgetActions";
 import Spinner from "components/Spinner";
 import BudgetCard from "components/budgets/BudgetCard";
+import Notification from "components/Notification";
 
 class BudgetsList extends React.Component {
   componentDidMount() {
@@ -35,8 +36,10 @@ class BudgetsList extends React.Component {
 
     return (
       <React.Fragment>
+        {this.props.budgets.message.success ? <Notification /> : false}
         <div style={{ textAlign: "left", marginTop: "20px" }}>
           {this.renderTitle()}
+          <h1>{this.props.budgets.message.success}</h1>
         </div>
         {this.renderBudgets()}
       </React.Fragment>

@@ -1,7 +1,7 @@
 import React from "react";
 import Modal from "components/Modal";
 import { connect } from "react-redux";
-import { deleteTransaction } from "actions";
+import { deleteTransaction } from "actions/transactions/transactionActions";
 import { Link } from "react-router-dom";
 
 class TransactionDelete extends React.Component {

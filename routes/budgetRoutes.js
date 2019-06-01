@@ -62,7 +62,7 @@ router.post(
     // saving budget after creation
     await budget.save();
 
-    res.send(budget);
+    res.send({ success: "Budget was sucessfully added!" });
   })
 );
 
@@ -81,7 +81,7 @@ router.delete(
 
     budget.remove();
 
-    res.send({ success: true });
+    res.send({ success: "Budget was sucessfully deleted!" });
   })
 );
 

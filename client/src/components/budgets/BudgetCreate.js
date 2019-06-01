@@ -1,5 +1,5 @@
 import React from "react";
-import { addBudget } from "actions";
+import { addBudget } from "actions/budgets/budgetActions";
 import { connect } from "react-redux";
 import formFields from "components/budgets/formFields";
 import budgetValidation from "validation/budgetValidation";

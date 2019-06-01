@@ -1,7 +1,7 @@
 import React from "react";
 import accounting from "accounting-js";
 import { connect } from "react-redux";
-import { fetchBudget, fetchUser } from "actions";
+import { fetchBudget } from "actions/budgets/budgetActions";
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
 import Spinner from "components/Spinner";
@@ -87,5 +87,5 @@ const mapStateToProps = ({ budgets }) => {
 
 export default connect(
   mapStateToProps,
-  { fetchBudget, fetchUser }
+  { fetchBudget }
 )(BudgetShow);

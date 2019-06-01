@@ -2,14 +2,17 @@ import {
   FETCH_BUDGETS,
   FETCH_BUDGET,
   IS_LOADING,
-  FETCH_TRANSACTION
+  FETCH_TRANSACTION,
+  ON_SUCESS,
+  RESET_ON_SUCESS_MESSAGE
 } from "actions/types";
 
 const initialState = {
   budgetList: [],
   budget: {},
   transaction: {},
-  loading: false
+  loading: false,
+  message: ""
 };
 
 export default (state = initialState, action) => {
@@ -37,6 +40,18 @@ export default (state = initialState, action) => {
         transaction: action.payload,
         loading: false
       };
+    case ON_SUCESS: {
+      return {
+        ...state,
+        message: action.payload
+      };
+    }
+    case RESET_ON_SUCESS_MESSAGE: {
+      return {
+        ...state,
+        message: ""
+      };
+    }
     default:
       return state;
   }
