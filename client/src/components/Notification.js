@@ -3,15 +3,45 @@ import { connect } from "react-redux";
 import { resetOnSuccessMessage } from "actions/budgets/budgetActions";
 
 class Notification extends React.Component {
+  state = { clicked: false };
+
+  handleNotificaiton = () => {
+    // if clicked is true
+    // run resetOnSuccessMessage
+    if (this.state.clicked) {
+      this.props.resetOnSuccessMessage();
+      this.setState({ clicked: false });
+    } else {
+      // else
+      // run defaultRemoveNotification
+      this.removeNotification();
+    }
+  };
+
+  // This function exists for the purpose if the user doesnt want to 'X'
+  // out of the notification. This way the notification only lingers for
+  // a few seconds before it is removed from the DOM.
+  removeNotification = () => {
+    setTimeout(() => {
+      if (this.state.clicked === true) {
+        return;
+      }
+      this.props.resetOnSuccessMessage();
+    }, 3000);
+  };
+
   render() {
-    console.log(this.props);
+    const { message, resetOnSuccessMessage } = this.props;
+    {
+      this.handleNotificaiton();
+    }
     return (
-      <div class="notification is-primary" style={{ marginTop: "20px" }}>
+      <div className="notification is-primary" style={{ marginTop: "20px" }}>
         <button
           className="delete"
-          onClick={() => this.props.resetOnSuccessMessage()}
+          onClick={() => this.setState({ clicked: true })}
         />
-        {this.props.message.success}
+        {message.success}
       </div>
     );
   }

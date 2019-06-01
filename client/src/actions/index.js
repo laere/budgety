@@ -1,15 +1,7 @@
 import axios from "axios";
 import apiCall from "actions/apiCall";
 import thunkCreator from "actions/thunkCreator";
-import history from "../history";
-import {
-  FETCH_USER,
-  FETCH_BUDGETS,
-  FETCH_BUDGET,
-  FETCH_TRANSACTION,
-  IS_LOADING,
-  ON_FAILURE
-} from "actions/types";
+import { FETCH_USER, IS_LOADING, ON_FAILURE } from "actions/types";
 
 export const fetchUser = () =>
   thunkCreator({

@@ -1,6 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import { fetchBudgets } from "actions/budgets/budgetActions";
+import {
+  fetchBudgets,
+  resetOnSuccessMessage
+} from "actions/budgets/budgetActions";
 import Spinner from "components/Spinner";
 import BudgetCard from "components/budgets/BudgetCard";
 import Notification from "components/Notification";
@@ -9,6 +12,8 @@ class BudgetsList extends React.Component {
   componentDidMount() {
     this.props.fetchBudgets();
   }
+
+  componentDidUpdate(prevState, prevProps) {}
 
   renderBudgets() {
     const { budgetList } = this.props.budgets;
@@ -29,6 +34,7 @@ class BudgetsList extends React.Component {
 
   render() {
     const { loading } = this.props.budgets;
+    const { success } = this.props.budgets.message;
 
     if (loading) {
       return <Spinner />;
@@ -36,10 +42,9 @@ class BudgetsList extends React.Component {
 
     return (
       <React.Fragment>
-        {this.props.budgets.message.success ? <Notification /> : false}
+        {success ? <Notification /> : false}
         <div style={{ textAlign: "left", marginTop: "20px" }}>
           {this.renderTitle()}
-          <h1>{this.props.budgets.message.success}</h1>
         </div>
         {this.renderBudgets()}
       </React.Fragment>
@@ -55,5 +60,5 @@ const mapStateToProps = ({ budgets }) => {
 
 export default connect(
   mapStateToProps,
-  { fetchBudgets }
+  { fetchBudgets, resetOnSuccessMessage }
 )(BudgetsList);
