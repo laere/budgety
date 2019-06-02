@@ -4,6 +4,7 @@ import { addCheck } from "actions/checks/checkActions";
 import GlobalForm from "components/GlobalForm";
 import formFields from "components/checks/formFields";
 import checkValidation from "validation/checkValidation";
+import PropTypes from "prop-types";
 
 class AddCheck extends React.Component {
   handleActionCreator = values => {

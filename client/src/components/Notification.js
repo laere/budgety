@@ -1,57 +1,69 @@
 import React from "react";
 import { connect } from "react-redux";
-import { resetOnSuccessMessage } from "actions/budgets/budgetActions";
+import { resetNotifications } from "actions";
+import PropTypes from "prop-types";
 
 class Notification extends React.Component {
   state = { clicked: false };
 
-  handleNotificaiton = () => {
+  toggleClickState = () => {
+    this.setState({ clicked: !this.state.clicked });
+  };
+
+  handleNotification = () => {
     // if clicked is true
-    // run resetOnSuccessMessage
+    // run resetNotifications
+    // and toggle state
     if (this.state.clicked) {
-      this.props.resetOnSuccessMessage();
-      this.setState({ clicked: false });
+      this.props.resetNotifications();
+      this.toggleClickState();
     } else {
-      // else
-      // run defaultRemoveNotification
+      // else the user must have not clicked off the noti.
+      // so run removeNotification
       this.removeNotification();
     }
   };
-
   // This function exists for the purpose if the user doesnt want to 'X'
   // out of the notification. This way the notification only lingers for
   // a few seconds before it is removed from the DOM.
   removeNotification = () => {
     setTimeout(() => {
-      if (this.state.clicked === true) {
+      if (this.state.clicked) {
         return;
       }
-      this.props.resetOnSuccessMessage();
-    }, 3000);
+      this.props.resetNotifications();
+    }, 5000);
   };
 
   render() {
-    const { message, resetOnSuccessMessage } = this.props;
-    {
-      this.handleNotificaiton();
-    }
+    console.log(this.props);
+    const { success, failure } = this.props.errors;
+
+    this.handleNotification();
+
     return (
-      <div className="notification is-primary" style={{ marginTop: "20px" }}>
-        <button
-          className="delete"
-          onClick={() => this.setState({ clicked: true })}
-        />
-        {message.success}
+      <div
+        className={`notification ${this.props.notificationColor}`}
+        style={{ marginTop: "20px" }}
+      >
+        <button className="delete" onClick={this.toggleClickState} />
+        <strong>{success || failure}</strong>
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ budgets: { message } }) => {
-  return { message };
+const mapStateToProps = ({ errors }) => {
+  return { errors };
+};
+
+Notification.propTypes = {
+  errors: PropTypes.object.isRequired,
+  notificationColor: PropTypes.string,
+  resetNotifications: PropTypes.func.isRequired
 };
 
 export default connect(
   mapStateToProps,
-  { resetOnSuccessMessage }
+  { resetNotifications }
 )(Notification);

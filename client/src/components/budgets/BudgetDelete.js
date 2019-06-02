@@ -3,6 +3,7 @@ import Modal from "components/Modal";
 import { connect } from "react-redux";
 import { deleteBudget } from "actions/budgets/budgetActions";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 class BudgetDelete extends React.Component {
   renderActions() {
@@ -34,6 +35,11 @@ class BudgetDelete extends React.Component {
     );
   }
 }
+
+BudgetDelete.propTypes = {
+  deleteBudget: PropTypes.func.isRequired,
+  budgetId: PropTypes.string.isRequired
+};
 
 export default connect(
   null,

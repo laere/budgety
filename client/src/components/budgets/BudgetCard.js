@@ -2,6 +2,7 @@ import React from "react";
 import accounting from "accounting-js";
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
+import PropTypes from "prop-types";
 
 const BudgetCard = ({ budget }) => {
   return (
@@ -34,6 +35,10 @@ const BudgetCard = ({ budget }) => {
       </footer>
     </div>
   );
+};
+
+BudgetCard.propTypes = {
+  budget: PropTypes.object.isRequired
 };
 
 export default BudgetCard;

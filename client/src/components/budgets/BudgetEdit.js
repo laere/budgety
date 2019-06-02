@@ -4,6 +4,7 @@ import { editBudget } from "actions/budgets/budgetActions";
 import formFields from "components/budgets/formFields";
 import GlobalForm from "components/GlobalForm";
 import budgetValidation from "validation/budgetValidation";
+import PropTypes from "prop-types";
 
 class BudgetEdit extends React.Component {
   handleActionCreator = values => {
@@ -20,7 +21,7 @@ class BudgetEdit extends React.Component {
           validateFunc={budgetValidation}
           initialValues={{ title, description }}
           actionCreator={this.handleActionCreator}
-          cancelpath="/budgets"
+          cancelpath="/budgets/"
         />
       </React.Fragment>
     );
@@ -29,6 +30,11 @@ class BudgetEdit extends React.Component {
 
 const mapStateToProps = ({ budgets }) => {
   return { budget: budgets.budget };
+};
+
+BudgetEdit.propTypes = {
+  editBudget: PropTypes.func.isRequired,
+  budget: PropTypes.object.isRequired
 };
 
 export default connect(

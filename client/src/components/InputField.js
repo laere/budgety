@@ -1,9 +1,10 @@
 import React from "react";
 import { Field, ErrorMessage } from "formik";
+import PropTypes from "prop-types";
 
-const InputField = ({ label, name, type, classStyleName, id }) => {
+const InputField = ({ label, name, type, classStyleName }) => {
   return (
-    <div key={id}>
+    <div>
       <label className="label">{label}</label>
       <Field
         type={type}
@@ -24,6 +25,13 @@ const InputField = ({ label, name, type, classStyleName, id }) => {
 InputField.defaultProps = {
   classStyleName: "input",
   type: "text"
+};
+
+InputField.propTypes = {
+  classStyleName: PropTypes.string,
+  type: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired
 };
 
 export default InputField;

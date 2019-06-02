@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const Card = ({ title, path }) => {
   return (
@@ -14,6 +15,11 @@ const Card = ({ title, path }) => {
       </footer>
     </div>
   );
+};
+
+Card.propTypes = {
+  title: PropTypes.string.isRequired,
+  path: PropTypes.string.isRequired
 };
 
 export default Card;

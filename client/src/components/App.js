@@ -2,6 +2,7 @@ import React from "react";
 import { Router, Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import { fetchUser } from "actions";
+import PropTypes from "prop-types";
 import history from "../history";
 import "./App.css";
 
@@ -88,6 +89,10 @@ class App extends React.Component {
     );
   }
 }
+
+App.propTypes = {
+  fetchUser: PropTypes.func.isRequired
+};
 
 const mapStateToProps = ({ auth }) => {
   return { auth };

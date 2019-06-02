@@ -31,7 +31,7 @@ router.post(
 
     await budget.save();
 
-    res.send(budget);
+    res.send("Transaction was successfully added!");
   })
 );
 
@@ -49,14 +49,13 @@ router.delete(
     const transactionAmount = transaction.amount;
 
     budget.amount += transactionAmount;
-    req.user.totalBalance += transactionAmount;
 
     transaction.remove();
 
     await req.user.save();
     await budget.save();
 
-    res.send(budget);
+    res.send("Transaction was successfully deleted!");
   })
 );
 
@@ -110,7 +109,7 @@ router.put(
 
     await budget.save();
 
-    res.send(budget);
+    res.send("Transaction was successfully edited!");
   })
 );
 

@@ -1,7 +1,8 @@
 import React from "react";
 import { Formik, Form } from "formik";
-import InputField from "components/InputField";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import InputField from "components/InputField";
 
 const GlobalForm = props => {
   const renderFields = () => {
@@ -51,6 +52,14 @@ const GlobalForm = props => {
       </Formik>
     </div>
   );
+};
+
+GlobalForm.propTypes = {
+  initialValues: PropTypes.object,
+  cancelpath: PropTypes.string,
+  validateFunc: PropTypes.func,
+  actionCreator: PropTypes.func,
+  formFields: PropTypes.array
 };
 
 export default GlobalForm;

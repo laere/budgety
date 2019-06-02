@@ -3,6 +3,7 @@ import Modal from "components/Modal";
 import { connect } from "react-redux";
 import { deleteCheck } from "actions/checks/checkActions";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 class CheckDelete extends React.Component {
   renderActions() {

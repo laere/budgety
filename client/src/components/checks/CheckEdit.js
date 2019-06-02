@@ -4,6 +4,7 @@ import { editCheck } from "actions/checks/checkActions";
 import formFields from "components/checks/formFields";
 import GlobalForm from "components/GlobalForm";
 import checkValidation from "validation/checkValidation";
+import PropTypes from "prop-types";
 
 class CheckEdit extends React.Component {
   handleActionCreator = values => {

@@ -1,5 +1,5 @@
 import history from "../history";
-import { budgetsLoading } from "actions/index.js";
+import { isLoading } from "actions/index.js";
 
 const thunkCreator = action => {
   const { types, promise, redirect, ...rest } = action;
@@ -7,7 +7,7 @@ const thunkCreator = action => {
 
   return async dispatch => {
     try {
-      dispatch(budgetsLoading());
+      dispatch(isLoading());
       const res = await promise;
 
       const { data } = res;
@@ -16,7 +16,6 @@ const thunkCreator = action => {
 
       history.push(redirect);
     } catch (err) {
-      console.log(err);
       dispatch({ ...rest, type: REJECTED, payload: err });
     }
   };

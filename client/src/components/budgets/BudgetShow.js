@@ -7,13 +7,29 @@ import Moment from "react-moment";
 import Spinner from "components/Spinner";
 import TransactionsList from "components/transactions/TransactionsList";
 import CheckList from "components/checks/CheckList";
-import CategoryList from "components/categories/CategoryList";
+import Notification from "components/Notification";
+import PropTypes from "prop-types";
+//import CategoryList from "components/categories/CategoryList";
 
 class BudgetShow extends React.Component {
   componentDidMount() {
     const { budgetId } = this.props.match.params;
 
     this.props.fetchBudget(budgetId);
+  }
+
+  renderNotifcations() {
+    const { success, failure } = this.props.errors;
+    // if errors isnt empty there must be a message
+    if (success || failure) {
+      // if message is sucess return the success message
+      if (success) {
+        return <Notification notificationColor="is-primary" />;
+      } else if (failure) {
+        // return the failure message
+        return <Notification notificationColor="is-danger" />;
+      }
+    }
   }
 
   render() {
@@ -32,6 +48,7 @@ class BudgetShow extends React.Component {
         >
           Go Back
         </Link>
+        {this.renderNotifcations()}
         <div className="card" key={budget._id} style={{ marginTop: "30px" }}>
           <header className="card-header">
             <p className="card-header-title">{budget.title}</p>
@@ -81,8 +98,14 @@ class BudgetShow extends React.Component {
   }
 }
 
-const mapStateToProps = ({ budgets }) => {
-  return { budgets };
+const mapStateToProps = ({ budgets, errors }) => {
+  return { budgets, errors };
+};
+
+BudgetShow.propTypes = {
+  fetchBudget: PropTypes.func.isRequired,
+  budgets: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
 };
 
 export default connect(

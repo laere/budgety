@@ -21,7 +21,7 @@ router.post(
 
     if (!budget) return next(errors.notFound);
 
-    console.log(budget);
+    // console.log(budget);
 
     budget.paychecks.unshift(req.body);
 
@@ -29,7 +29,7 @@ router.post(
 
     await budget.save();
 
-    res.send(budget);
+    res.send("Check was successfully added!");
   })
 );
 
@@ -54,7 +54,7 @@ router.delete(
 
     await budget.save();
 
-    res.send(budget);
+    res.send("Check was successfully deleted!");
   })
 );
 
@@ -75,30 +75,13 @@ router.put(
 
     let newCheck = { ...req.body };
 
-    let checkDifference;
-
-    //500 > 400
-    if (currentCheck.checkamount > newCheck.checkamount) {
-      // 500 - 400
-      // 500 = 500 - 100;
-      // budget amount = 400;
-      checkDifference = currentCheck.checkamount - newCheck.checkamount;
-
-      budget.amount -= checkDifference;
-      // 500 < 600
-    } else if (currentCheck.checkamount < newCheck.checkamount) {
-      // 600 - 500
-      // 500 = 500 + 100;
-      // budget amount = 600;
-      checkDifference = newCheck.checkamount - currentCheck.checkamount;
-      budget.amount += checkDifference;
-    }
+    budget.calculateChecks(currentCheck.checkamount, newCheck.checkamount);
 
     currentCheck.set(newCheck);
 
     await budget.save();
 
-    res.send(budget);
+    res.send("Check was successfully edited!");
   })
 );
 

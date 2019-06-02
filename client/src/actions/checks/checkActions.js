@@ -1,32 +1,32 @@
 import axios from "axios";
-import history from "../../history";
-import { FETCH_BUDGET } from "actions/types";
+import apiCall from "actions/apiCall";
+import thunkCreator from "actions/thunkCreator";
+import { ON_SUCCESS, ON_FAILURE } from "actions/types";
 
-export const addCheck = (budgetId, userData) => async dispatch => {
-  const res = await axios.post(`/api/budgets/${budgetId}/checks`, userData);
+export const addCheck = (budgetId, formValues) =>
+  thunkCreator({
+    types: [ON_SUCCESS, ON_FAILURE],
+    promise: apiCall(`/api/budgets/${budgetId}/checks`, axios.post, formValues),
+    redirect: `/budgets/${budgetId}`
+  });
 
-  console.log(res.data);
+export const deleteCheck = (budgetId, checkId) =>
+  thunkCreator({
+    types: [ON_SUCCESS, ON_FAILURE],
+    promise: apiCall(
+      `/api/budgets/${budgetId}/checks/${checkId}`,
+      axios.delete
+    ),
+    redirect: `/budgets/${budgetId}`
+  });
 
-  dispatch({ type: FETCH_BUDGET, payload: res.data });
-
-  history.push(`/budgets/${budgetId}`);
-};
-
-export const deleteCheck = (budgetId, checkId) => async dispatch => {
-  const res = await axios.delete(`/api/budgets/${budgetId}/checks/${checkId}`);
-
-  dispatch({ type: FETCH_BUDGET, payload: res.data });
-
-  history.push(`/budgets/${budgetId}`);
-};
-
-export const editCheck = (budgetId, checkId, userData) => async dispatch => {
-  const res = await axios.put(
-    `/api/budgets/${budgetId}/checks/${checkId}`,
-    userData
-  );
-
-  dispatch({ type: FETCH_BUDGET, payload: res.data });
-
-  history.push(`/budgets/${budgetId}`);
-};
+export const editCheck = (budgetId, checkId, formValues) =>
+  thunkCreator({
+    types: [ON_SUCCESS, ON_FAILURE],
+    promise: apiCall(
+      `/api/budgets/${budgetId}/checks/${checkId}`,
+      axios.put,
+      formValues
+    ),
+    redirect: `/budgets/${budgetId}`
+  });

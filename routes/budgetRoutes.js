@@ -57,12 +57,11 @@ router.post(
       user: req.user.id
     });
 
-    console.log(budget);
+    // console.log(budget);
 
-    // saving budget after creation
     await budget.save();
 
-    res.send({ success: "Budget was sucessfully added!" });
+    res.send("Budget was sucessfully added!");
   })
 );
 
@@ -81,7 +80,7 @@ router.delete(
 
     budget.remove();
 
-    res.send({ success: "Budget was sucessfully deleted!" });
+    res.send("Budget was sucessfully deleted!");
   })
 );
 
@@ -105,7 +104,7 @@ router.put(
       { new: true }
     );
 
-    res.send(budget);
+    res.send("Budget was successfully edited!");
   })
 );
 

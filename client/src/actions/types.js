@@ -3,10 +3,8 @@ export const FETCH_USER = "FETCH_USER";
 export const FETCH_BUDGETS = "FETCH_BUDGETS";
 export const FETCH_BUDGET = "FETCH_BUDGET";
 
-export const FETCH_TRANSACTION = "FETCH_TRANSACTION";
-
 export const IS_LOADING = "IS_LOADING";
 export const ON_FAILURE = "ON_FAILURE";
-export const ON_SUCESS = "ON_SUCESS";
+export const ON_SUCCESS = "ON_SUCCESS";
 
-export const RESET_ON_SUCESS_MESSAGE = "RESET_ON_SUCESS_MESSAGE";
+export const RESET_MESSAGES = "RESET_MESSAGES";

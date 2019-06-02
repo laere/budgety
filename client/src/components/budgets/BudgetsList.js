@@ -1,19 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
-import {
-  fetchBudgets,
-  resetOnSuccessMessage
-} from "actions/budgets/budgetActions";
+import { fetchBudgets } from "actions/budgets/budgetActions";
 import Spinner from "components/Spinner";
 import BudgetCard from "components/budgets/BudgetCard";
 import Notification from "components/Notification";
+import PropTypes from "prop-types";
 
 class BudgetsList extends React.Component {
   componentDidMount() {
     this.props.fetchBudgets();
   }
-
-  componentDidUpdate(prevState, prevProps) {}
 
   renderBudgets() {
     const { budgetList } = this.props.budgets;
@@ -32,9 +28,22 @@ class BudgetsList extends React.Component {
     );
   }
 
+  renderNotifcations() {
+    const { success, failure } = this.props.errors;
+    // if errors isnt empty there must be a message
+    if (success || failure) {
+      // if message is sucess return the success message
+      if (success) {
+        return <Notification notificationColor="is-primary" />;
+      } else if (failure) {
+        // return the failure message
+        return <Notification notificationColor="is-danger" />;
+      }
+    }
+  }
+
   render() {
     const { loading } = this.props.budgets;
-    const { success } = this.props.budgets.message;
 
     if (loading) {
       return <Spinner />;
@@ -42,7 +51,7 @@ class BudgetsList extends React.Component {
 
     return (
       <React.Fragment>
-        {success ? <Notification /> : false}
+        {this.renderNotifcations()}
         <div style={{ textAlign: "left", marginTop: "20px" }}>
           {this.renderTitle()}
         </div>
@@ -52,13 +61,20 @@ class BudgetsList extends React.Component {
   }
 }
 
-const mapStateToProps = ({ budgets }) => {
+const mapStateToProps = ({ budgets, errors }) => {
   return {
-    budgets
+    budgets,
+    errors
   };
+};
+
+BudgetsList.propTypes = {
+  fetchBudgets: PropTypes.func.isRequired,
+  budgets: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
 };
 
 export default connect(
   mapStateToProps,
-  { fetchBudgets, resetOnSuccessMessage }
+  { fetchBudgets }
 )(BudgetsList);

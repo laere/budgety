@@ -102,5 +102,28 @@ const budgetSchema = new Schema({
   }
 });
 
+budgetSchema.methods.calculateChecks = function(
+  currentCheckAmount,
+  newCheckAmount
+) {
+  console.log("THIS", this);
+  //500 > 400
+  if (currentCheckAmount > newCheckAmount) {
+    // 500 - 400
+    // 500 = 500 - 100;
+    // budget amount = 400;
+    checkDifference = currentCheckAmount - newCheckAmount;
+
+    this.amount -= checkDifference;
+    // 500 < 600
+  } else if (currentCheckAmount < newCheckAmount) {
+    // 600 - 500
+    // 500 = 500 + 100;
+    // budget amount = 600;
+    checkDifference = newCheckAmount - currentCheckAmount;
+    this.amount += checkDifference;
+  }
+};
+
 const Budget = mongoose.model("budgets", budgetSchema);
 module.exports = Budget;

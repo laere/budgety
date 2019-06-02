@@ -1,5 +1,4 @@
 import React from "react";
-import { fetchUser } from "actions";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
@@ -7,21 +6,23 @@ import PropTypes from "prop-types";
 class Header extends React.Component {
   renderContent() {
     const { auth } = this.props;
-    switch (auth) {
-      case null:
-        return;
-      case false:
-        return (
-          <a className="navbar-item" href="/auth/google">
-            Login with Google
-          </a>
-        );
-      default:
-        return (
-          <a key="4" className="navbar-item" href="/api/logout">
-            Logout
-          </a>
-        );
+
+    if (auth === null) {
+      return;
+    }
+
+    if (auth) {
+      return (
+        <a key="4" className="navbar-item" href="/api/logout">
+          Logout
+        </a>
+      );
+    } else {
+      return (
+        <a className="navbar-item" href="/auth/google">
+          Login with Google
+        </a>
+      );
     }
   }
 
@@ -43,15 +44,11 @@ class Header extends React.Component {
 }
 
 Header.propTypes = {
-  auth: PropTypes.boolean,
-  fetchUser: PropTypes.func.isRequired
+  auth: PropTypes.object
 };
 
 const mapStateToProps = ({ auth }) => {
   return { auth };
 };
 
-export default connect(
-  mapStateToProps,
-  { fetchUser }
-)(Header);
+export default connect(mapStateToProps)(Header);

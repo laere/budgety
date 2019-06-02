@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import CheckItem from "components/checks/CheckItem";
+import PropTypes from "prop-types";
 
 class CheckList extends React.Component {
   renderChecks() {

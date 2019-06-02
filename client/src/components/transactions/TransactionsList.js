@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import TransactionItem from "components/transactions/TransactionItem";
+import PropTypes from "prop-types";
 
 class TransactionsList extends React.Component {
   renderTransactions() {

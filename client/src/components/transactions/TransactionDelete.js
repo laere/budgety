@@ -3,6 +3,7 @@ import Modal from "components/Modal";
 import { connect } from "react-redux";
 import { deleteTransaction } from "actions/transactions/transactionActions";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 class TransactionDelete extends React.Component {
   renderActions() {

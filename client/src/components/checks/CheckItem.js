@@ -2,6 +2,7 @@ import accounting from "accounting-js";
 import React from "react";
 import Moment from "react-moment";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const CheckItem = ({ check, budgetId }) => {
   return (

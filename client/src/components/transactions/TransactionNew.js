@@ -4,6 +4,7 @@ import { addTransaction } from "actions/transactions/transactionActions";
 import formFields from "components/transactions/formFields";
 import GlobalForm from "components/GlobalForm";
 import transactionValidation from "validation/transactionValidation";
+import PropTypes from "prop-types";
 
 class TransactionNew extends React.Component {
   handleActionCreator = values => {
