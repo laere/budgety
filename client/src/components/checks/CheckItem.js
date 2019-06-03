@@ -30,4 +30,9 @@ const CheckItem = ({ check, budgetId }) => {
   );
 };
 
+CheckItem.propTypes = {
+  check: PropTypes.object.isRequired,
+  budgetId: PropTypes.string.isRequired
+};
+
 export default CheckItem;

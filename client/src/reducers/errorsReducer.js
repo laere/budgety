@@ -10,7 +10,7 @@ export default (state = {}, action) => {
     case ON_FAILURE:
       return {
         ...state,
-        failure: action.payload
+        failure: "Something went wrong!"
       };
     case RESET_MESSAGES:
       return {};

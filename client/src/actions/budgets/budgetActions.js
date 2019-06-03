@@ -35,12 +35,9 @@ export const deleteBudget = budgetId =>
     redirect: "/budgets"
   });
 
-export const editBudget = (budgetId, formValues) => async dispatch => {
-  try {
-    await axios.put(`/api/budgets/${budgetId}`, formValues);
-
-    history.push(`/budgets/${budgetId}`);
-  } catch (error) {
-    dispatch({ type: ON_FAILURE, payload: error });
-  }
-};
+export const editBudget = (budgetId, formValues) =>
+  thunkCreator({
+    types: [ON_SUCCESS, ON_FAILURE],
+    promise: apiCall(`/api/budgets/${budgetId}`, axios.put, formValues),
+    redirect: `/budgets/${budgetId}`
+  });

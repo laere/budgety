@@ -41,6 +41,11 @@ const mapStateToProps = ({ budgets }) => {
   return { budget: budgets.budget };
 };
 
+CheckEdit.propTypes = {
+  editCheck: PropTypes.func.isRequired,
+  budget: PropTypes.object.isRequired
+};
+
 export default connect(
   mapStateToProps,
   { editCheck }

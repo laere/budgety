@@ -29,6 +29,10 @@ class TransactionNew extends React.Component {
   }
 }
 
+TransactionNew.propTypes = {
+  addTransaction: PropTypes.func.isRequired
+};
+
 export default connect(
   null,
   { addTransaction }

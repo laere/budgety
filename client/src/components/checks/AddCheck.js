@@ -28,6 +28,10 @@ class AddCheck extends React.Component {
   }
 }
 
+AddCheck.propTypes = {
+  addCheck: PropTypes.func.isRequired
+};
+
 export default connect(
   null,
   { addCheck }

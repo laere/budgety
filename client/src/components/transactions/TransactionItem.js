@@ -31,4 +31,9 @@ const TransactionItem = ({ transaction, budgetId }) => {
   );
 };
 
+TransactionItem.propTypes = {
+  budgetId: PropTypes.string.isRequired,
+  transaction: PropTypes.object.isRequired
+};
+
 export default TransactionItem;

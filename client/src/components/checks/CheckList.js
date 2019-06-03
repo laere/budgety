@@ -38,4 +38,9 @@ class CheckList extends React.Component {
 const mapStateToProps = state => {
   return { budget: state.budgets.budget };
 };
+
+CheckList.propTypes = {
+  budget: PropTypes.object.isRequired
+};
+
 export default connect(mapStateToProps)(CheckList);

@@ -44,10 +44,15 @@ class TransactionEdit extends React.Component {
 
 const mapStateToProps = ({ budgets }) => {
   return {
-    transaction: budgets.transaction,
     budget: budgets.budget,
     loading: budgets.loading
   };
+};
+
+TransactionEdit.propTypes = {
+  editTransaction: PropTypes.func.isRequired,
+  budget: PropTypes.object.isRequired,
+  loading: PropTypes.bool.isRequired
 };
 
 export default connect(

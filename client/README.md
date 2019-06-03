@@ -6,6 +6,6 @@ Things to add:
 
 ### Allow users to add specific categories such as (food, savings, housing) which have their own transactions list.
 
-### Make delete item component
+### Add ability to sort transactions by date (default), low and high.
 
-### Add prop types for type checking
+### Refactor notification code. We're setting state during a render which is bad. Hide/show instead of setTimeout.
