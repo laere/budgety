@@ -4,8 +4,16 @@ import { resetNotifications } from "actions";
 import PropTypes from "prop-types";
 
 class Notification extends React.Component {
+  handleNotifications() {
+    // If user doesn't X out of notification then
+    // after 5 seconds we reset the messages anyways
+    setTimeout(() => this.props.resetNotifications(), 5000);
+  }
+
   render() {
     const { success, failure } = this.props.errors;
+
+    this.handleNotifications();
 
     return (
       <div
