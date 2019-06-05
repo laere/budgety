@@ -34,7 +34,9 @@ router.get(
   "/:budgetId",
   requireLogin,
   myAsync(async (req, res, next) => {
-    const budget = await Budget.findById(req.params.budgetId);
+    const budget = await Budget.findById(req.params.budgetId).populate(
+      "categories"
+    );
 
     if (!budget) {
       next(errors.notFound);

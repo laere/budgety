@@ -1,5 +1,4 @@
 import React from "react";
-import Moment from "react-moment";
 import CategoryList from "components/categories/CategoryList";
 
 class Category extends React.Component {
@@ -15,24 +14,21 @@ class Category extends React.Component {
 
   render() {
     const { showcategory } = this.state;
-    console.log(this.state);
+    const icon = showcategory ? "fas fa-angle-up" : "fas fa-angle-down";
+
     return (
-      <React.Fragment>
-        <div className="dropdown-trigger">
-          <button
-            className="button"
-            aria-haspopup="true"
-            aria-controls="dropdown-menu"
-            onClick={this.toggleCategory}
-          >
-            <span>Dropdown button</span>
-            <span className="icon is-small">
-              <i className="fas fa-angle-down" aria-hidden="true" />
-            </span>
-          </button>
+      <div style={{ marginTop: "30px" }}>
+        <div className="card">
+          <header className="card-header">
+            <p className="card-header-title">{this.props.category.name}</p>
+            <p
+              className={`card-header-icon ${icon}`}
+              onClick={this.toggleCategory}
+            />
+          </header>
+          <div>{showcategory ? <CategoryList /> : false}</div>
         </div>
-        <div>{showcategory ? <CategoryList /> : false}</div>
-      </React.Fragment>
+      </div>
     );
   }
 }

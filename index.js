@@ -9,6 +9,7 @@ const auth = require("./routes/authRoutes");
 const budgets = require("./routes/budgetRoutes");
 const transactions = require("./routes/transactionRoutes");
 const checks = require("./routes/checkRoutes");
+const categories = require("./routes/categoryRoutes");
 
 require("./services/passport");
 
@@ -34,6 +35,7 @@ app.use(auth);
 app.use("/api/budgets", budgets);
 app.use("/api/budgets", transactions);
 app.use("/api/budgets", checks);
+app.use("/api/budgets", categories);
 
 // Only ran inside production (in heroku)
 if (process.env.NODE_ENV === "production") {

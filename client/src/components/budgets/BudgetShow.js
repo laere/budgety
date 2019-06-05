@@ -2,6 +2,7 @@ import React from "react";
 import accounting from "accounting-js";
 import { connect } from "react-redux";
 import { fetchBudget } from "actions/budgets/budgetActions";
+import { addCategory } from "actions/categories/categoryActions";
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
 import Spinner from "components/Spinner";
@@ -30,6 +31,21 @@ class BudgetShow extends React.Component {
         return <Notification notificationColor="is-danger" />;
       }
     }
+  }
+
+  renderCategories() {
+    const { budget, loading } = this.props.budgets;
+
+    console.log(budget.categories);
+
+    if (!budget.categories) {
+      return <Spinner />;
+    }
+
+    return budget.categories.map(category => {
+      console.log(category._id);
+      return <Category key={category._id} category={category} />;
+    });
   }
 
   render() {
@@ -88,13 +104,17 @@ class BudgetShow extends React.Component {
             >
               Add Transaction
             </Link>
+            <button
+              className="card-footer-item"
+              onClick={() => this.props.addCategory(budget._id)}
+            >
+              Add Category
+            </button>
           </footer>
         </div>
         <CheckList />
         <TransactionsList />
-        <Category />
-        <Category />
-        <Category />
+        {this.renderCategories()}
       </div>
     );
   }
@@ -112,5 +132,5 @@ BudgetShow.propTypes = {
 
 export default connect(
   mapStateToProps,
-  { fetchBudget }
+  { fetchBudget, addCategory }
 )(BudgetShow);

@@ -1,20 +1,19 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const categoryItemSchema = new Schema({
-  name: {
-    type: String,
-    required: true
-  },
-  planned: {
-    type: Number,
-    default: 0
-  },
-  remaining: {
-    type: Number,
-    default: 0
-  }
-});
+// const categoryItemSchema = new Schema({
+//   name: {
+//     type: String
+//   },
+//   planned: {
+//     type: Number,
+//     default: 0
+//   },
+//   remaining: {
+//     type: Number,
+//     default: 0
+//   }
+// });
 
 const transactionSchema = new Schema({
   description: {
@@ -34,16 +33,15 @@ const transactionSchema = new Schema({
   }
 });
 
-const categorySchema = new Schema({
-  name: {
-    type: String,
-    default: "Untitled",
-    minlength: 2,
-    maxlength: 50
-  },
-  items: [categoryItemSchema],
-  transactions: [transactionSchema]
-});
+// const categorySchema = new Schema({
+//   name: {
+//     type: String,
+//     default: "Untitled",
+//     minlength: 2,
+//     maxlength: 50
+//   },
+//   items: [categoryItemSchema]
+// });
 
 const checkSchema = new Schema({
   checkamount: {
@@ -96,6 +94,7 @@ const budgetSchema = new Schema({
       }
     }
   ],
+  categories: [{ type: Schema.Types.ObjectId, ref: "categories" }],
   dateCreated: {
     type: Date,
     default: Date.now
