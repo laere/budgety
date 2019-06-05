@@ -10,13 +10,14 @@ class CategoryItem extends React.Component {
   };
 
   render() {
+    console.log("CATEGORY ITEM PROPS", this.props);
     const { isSelected } = this.state;
     return (
       <tr
         onClick={this.handleSelectedItem}
         className={isSelected ? "is-selected" : ""}
       >
-        <td>Category Item</td>
+        <td>{this.props.item.name}</td>
         <td>Item Amount</td>
       </tr>
     );

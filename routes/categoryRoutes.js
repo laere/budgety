@@ -34,4 +34,22 @@ router.post(
   })
 );
 
+router.post(
+  "/:budgetId/categories/:categoryId",
+  requireLogin,
+  myAsync(async (req, res, next) => {
+    let category = await Category.findById(req.params.categoryId);
+
+    if (!category) return next(errors.processReq);
+
+    console.log(category);
+
+    category.categoryitems.push(req.body);
+
+    await category.save();
+
+    res.send("Sucess");
+  })
+);
+
 module.exports = router;

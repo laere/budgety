@@ -14,3 +14,12 @@ export const addCategory = budgetId =>
     types: [FETCH_BUDGET, ON_FAILURE],
     promise: apiCall(`/api/budgets/${budgetId}/categories`, axios.post)
   });
+
+export const addCategoryItem = (budgetId, categoryId) =>
+  thunkCreator({
+    types: [ON_SUCCESS, ON_FAILURE],
+    promise: apiCall(
+      `/api/budgets/${budgetId}/categories/${categoryId}`,
+      axios.post
+    )
+  });

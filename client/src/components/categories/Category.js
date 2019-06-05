@@ -26,7 +26,13 @@ class Category extends React.Component {
               onClick={this.toggleCategory}
             />
           </header>
-          <div>{showcategory ? <CategoryList /> : false}</div>
+          <div>
+            {showcategory ? (
+              <CategoryList categoryId={this.props.category._id} />
+            ) : (
+              false
+            )}
+          </div>
         </div>
       </div>
     );

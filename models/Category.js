@@ -3,7 +3,8 @@ const { Schema } = mongoose;
 
 const categoryItemSchema = new Schema({
   name: {
-    type: String
+    type: String,
+    default: "Untitled"
   },
   planned: {
     type: Number,
@@ -26,7 +27,7 @@ const categorySchema = new Schema({
     minlength: 2,
     maxlength: 50
   },
-  items: [categoryItemSchema]
+  categoryitems: [categoryItemSchema]
 });
 
 const Category = mongoose.model("categories", categorySchema);
