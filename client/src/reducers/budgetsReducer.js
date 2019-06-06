@@ -1,4 +1,9 @@
-import { FETCH_BUDGETS, FETCH_BUDGET, IS_LOADING } from "actions/types";
+import {
+  FETCH_BUDGETS,
+  FETCH_BUDGET,
+  IS_LOADING,
+  DELETE_CATEGORY
+} from "actions/types";
 
 const initialState = {
   budgetList: [],
@@ -13,17 +18,32 @@ export default (state = initialState, action) => {
         ...state,
         loading: true
       };
+
     case FETCH_BUDGETS:
       return {
         ...state,
         budgetList: action.payload,
         loading: false
       };
+
     case FETCH_BUDGET:
       return {
         ...state,
         budget: action.payload,
         loading: false
+      };
+
+    case DELETE_CATEGORY:
+      const categories = state.budget.categories;
+      const filteredCategories = categories.filter(
+        item => item._id !== action.payload._id
+      );
+
+      return {
+        ...state,
+        budget: {
+          categories: filteredCategories
+        }
       };
 
     default:

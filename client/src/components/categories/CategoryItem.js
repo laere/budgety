@@ -19,6 +19,9 @@ class CategoryItem extends React.Component {
       >
         <td>{this.props.item.name}</td>
         <td>Item Amount</td>
+        <td>
+          <button>Delete</button>
+        </td>
       </tr>
     );
   }

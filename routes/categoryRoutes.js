@@ -16,8 +16,6 @@ router.post(
       "categories"
     );
 
-    console.log(budget);
-
     if (!budget) return next(errors.processReq);
 
     let category = new Category({});
@@ -28,8 +26,6 @@ router.post(
 
     await budget.save();
 
-    console.log(budget);
-
     res.send(budget);
   })
 );
@@ -38,17 +34,33 @@ router.post(
   "/:budgetId/categories/:categoryId",
   requireLogin,
   myAsync(async (req, res, next) => {
+    let budget = await Budget.findById(req.params.budgetId).populate(
+      "categories"
+    );
+
+    if (!budget) return next(errors.processReq);
+
     let category = await Category.findById(req.params.categoryId);
 
     if (!category) return next(errors.processReq);
-
-    console.log(category);
 
     category.categoryitems.push(req.body);
 
     await category.save();
 
-    res.send("Sucess");
+    await budget.save();
+
+    res.send(budget);
+  })
+);
+
+router.delete(
+  "/:budgetId/categories/:categoryId",
+  requireLogin,
+  myAsync(async (req, res, next) => {
+    let category = await Category.findByIdAndRemove(req.params.categoryId);
+
+    res.send(category);
   })
 );
 

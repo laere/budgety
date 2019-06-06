@@ -2,7 +2,10 @@ import React from "react";
 import accounting from "accounting-js";
 import { connect } from "react-redux";
 import { fetchBudget } from "actions/budgets/budgetActions";
-import { addCategory } from "actions/categories/categoryActions";
+import {
+  addCategory,
+  deleteCategory
+} from "actions/categories/categoryActions";
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
 import Spinner from "components/Spinner";
@@ -36,15 +39,18 @@ class BudgetShow extends React.Component {
   renderCategories() {
     const { budget, loading } = this.props.budgets;
 
-    console.log(budget.categories);
-
     if (!budget.categories) {
       return <Spinner />;
     }
 
     return budget.categories.map(category => {
-      console.log(category._id);
-      return <Category key={category._id} category={category} />;
+      return (
+        <Category
+          key={category._id}
+          category={category}
+          budgetId={budget._id}
+        />
+      );
     });
   }
 
@@ -132,5 +138,5 @@ BudgetShow.propTypes = {
 
 export default connect(
   mapStateToProps,
-  { fetchBudget, addCategory }
+  { fetchBudget, addCategory, deleteCategory }
 )(BudgetShow);
