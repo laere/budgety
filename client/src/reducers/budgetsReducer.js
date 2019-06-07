@@ -2,7 +2,8 @@ import {
   FETCH_BUDGETS,
   FETCH_BUDGET,
   IS_LOADING,
-  DELETE_CATEGORY
+  DELETE_CATEGORY,
+  EDIT_CATEGORY
 } from "actions/types";
 
 const initialState = {
@@ -12,6 +13,7 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
+  const { categories } = state.budget;
   switch (action.type) {
     case IS_LOADING:
       return {
@@ -34,7 +36,6 @@ export default (state = initialState, action) => {
       };
 
     case DELETE_CATEGORY:
-      const categories = state.budget.categories;
       const filteredCategories = categories.filter(
         item => item._id !== action.payload._id
       );
@@ -46,6 +47,21 @@ export default (state = initialState, action) => {
         }
       };
 
+    case EDIT_CATEGORY:
+      const category = categories.find(
+        category => category._id === action.payload._id
+      );
+
+      const updatedCategories = category
+        ? [...categories, { ...category, ...action.payload }]
+        : [...categories];
+
+      return {
+        ...state,
+        budget: {
+          categories: updatedCategories
+        }
+      };
     default:
       return state;
   }

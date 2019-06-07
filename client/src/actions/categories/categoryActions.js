@@ -5,6 +5,7 @@ import thunkCreator from "actions/thunkCreator";
 import {
   FETCH_BUDGET,
   DELETE_CATEGORY,
+  EDIT_CATEGORY,
   ON_FAILURE,
   ON_SUCCESS
 } from "actions/types";
@@ -35,7 +36,7 @@ export const deleteCategory = (budgetId, categoryId) =>
 
 export const editCategory = (budgetId, categoryId, formValues) =>
   thunkCreator({
-    types: [FETCH_BUDGET, ON_FAILURE],
+    types: [EDIT_CATEGORY, ON_FAILURE],
     promise: apiCall(
       `/api/budgets/${budgetId}/categories/${categoryId}`,
       axios.put,

@@ -10,3 +10,4 @@ export const ON_SUCCESS = "ON_SUCCESS";
 export const RESET_MESSAGES = "RESET_MESSAGES";
 
 export const DELETE_CATEGORY = "DELETE_CATEGORY";
+export const EDIT_CATEGORY = "EDIT_CATEGORY";

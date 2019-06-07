@@ -12,11 +12,20 @@ class CategoryEdit extends React.Component {
     this.props.editCategory(budgetId, categoryId, values);
   };
 
+  findCategory() {
+    console.log(this.props.budget);
+    return this.props.budget.categories.find(
+      category => category._id === this.props.match.params.categoryId
+    );
+  }
+
   render() {
+    const category = this.findCategory();
+    console.log(this.props.budget);
     return (
       <React.Fragment>
         <GlobalForm
-          initialValues={{ name: "" }}
+          initialValues={{ name: category.name }}
           formFields={formFields}
           actionCreator={this.handleActionCreator}
           cancelpath={`/budgets/${this.props.match.params.budgetId}`}
@@ -27,13 +36,13 @@ class CategoryEdit extends React.Component {
 }
 
 const mapStateToProps = ({ budgets }) => {
-  return { budget: budgets.budget };
+  return { budget: budgets.budget, loading: budgets.loading };
 };
 
-// CategoryEdit.propTypes = {
-//   editCategory: PropTypes.func.isRequired,
-//   budget: PropTypes.object.isRequired
-// };
+CategoryEdit.propTypes = {
+  editCategory: PropTypes.func.isRequired,
+  budget: PropTypes.object.isRequired
+};
 
 export default connect(
   mapStateToProps,
