@@ -1,14 +1,14 @@
 import React from "react";
 import CategoryItem from "components/categories/CategoryItem";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { addCategoryItem } from "actions/categories/categoryActions";
 
 class CategoryList extends React.Component {
   handleOnClick = () => {
-    const budgetId = this.props.budget._id;
-    const { categoryId } = this.props;
+    const { categoryId, addCategoryItem, budget } = this.props;
 
-    this.props.addCategoryItem(budgetId, categoryId);
+    addCategoryItem(budget._id, categoryId);
   };
 
   renderCategoryItems() {
@@ -23,7 +23,6 @@ class CategoryList extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <div style={{ marginTop: "40px" }}>
         <table className="table is-fullwidth">
@@ -39,6 +38,12 @@ class CategoryList extends React.Component {
 
 const mapStateToProps = ({ budgets: { budget } }) => {
   return { budget };
+};
+
+CategoryList.propTypes = {
+  budget: PropTypes.object.isRequired,
+  categoryId: PropTypes.string.isRequired,
+  addCategoryItem: PropTypes.func.isRe
 };
 
 export default connect(

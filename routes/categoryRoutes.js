@@ -60,6 +60,22 @@ router.delete(
   myAsync(async (req, res, next) => {
     let category = await Category.findByIdAndRemove(req.params.categoryId);
 
+    if (!category) return next(errors.processReq);
+
+    res.send(category);
+  })
+);
+
+router.put(
+  "/:budgetId/categories/:categoryId",
+  requireLogin,
+  myAsync(async (req, res, next) => {
+    let category = await Category.findOneAndUpdate(
+      { _id: req.params.categoryId },
+      { $set: req.body },
+      { new: true }
+    );
+
     res.send(category);
   })
 );

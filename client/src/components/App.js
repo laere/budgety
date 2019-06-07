@@ -21,6 +21,7 @@ import CheckList from "components/checks/CheckList";
 import Dashboard from "components/dashboard/Dashboard";
 import CheckDelete from "components/checks/CheckDelete";
 import CheckEdit from "components/checks/CheckEdit";
+import CategoryEdit from "components/categories/CategoryEdit";
 
 class App extends React.Component {
   componentDidMount() {
@@ -82,6 +83,11 @@ class App extends React.Component {
               exact
               path="/budgets/:budgetId/checks/:checkId/edit"
               component={CheckEdit}
+            />
+            <Route
+              exact
+              path="/budgets/:budgetId/categories/:categoryId"
+              component={CategoryEdit}
             />
           </Switch>
         </div>

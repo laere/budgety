@@ -1,7 +1,14 @@
 import React from "react";
 import CategoryList from "components/categories/CategoryList";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+import { Formik, Form } from "formik";
+import InputField from "components/InputField";
 import { connect } from "react-redux";
-import { deleteCategory } from "actions/categories/categoryActions";
+import {
+  deleteCategory,
+  editCategory
+} from "actions/categories/categoryActions";
 
 class Category extends React.Component {
   state = { showcategory: false };
@@ -13,18 +20,29 @@ class Category extends React.Component {
   };
 
   handleDelete = () => {
-    this.props.deleteCategory(this.props.budgetId, this.props.category._id);
+    const { deleteCategory, budgetId, category } = this.props;
+
+    deleteCategory(budgetId, category._id);
   };
 
   render() {
-    const { showcategory } = this.state;
+    const { showcategory, isEditing } = this.state;
+    const { name, _id } = this.props.category;
     const icon = showcategory ? "fas fa-angle-up" : "fas fa-angle-down";
 
     return (
       <div style={{ marginTop: "30px" }}>
         <div className="card">
           <header className="card-header">
-            <p className="card-header-title">{this.props.category.name}</p>
+            <div className="card-header-title" onClick={this.handleEditing}>
+              {name}
+            </div>
+            <Link
+              to={`/budgets/${this.props.budgetId}/categories/${_id}`}
+              className="button is-small"
+            >
+              Edit
+            </Link>
             <button onClick={this.handleDelete} className="button is-small">
               Delete
             </button>
@@ -33,20 +51,19 @@ class Category extends React.Component {
               onClick={this.toggleCategory}
             />
           </header>
-          <div>
-            {showcategory ? (
-              <CategoryList categoryId={this.props.category._id} />
-            ) : (
-              false
-            )}
-          </div>
+          <div>{showcategory ? <CategoryList categoryId={_id} /> : false}</div>
         </div>
       </div>
     );
   }
 }
 
+Category.propTypes = {
+  deleteCategory: PropTypes.func.isRequired,
+  category: PropTypes.object.isRequired
+};
+
 export default connect(
   null,
-  { deleteCategory }
+  { deleteCategory, editCategory }
 )(Category);

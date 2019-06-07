@@ -3,7 +3,6 @@ import apiCall from "actions/apiCall";
 import thunkCreator from "actions/thunkCreator";
 
 import {
-  FETCH_BUDGETS,
   FETCH_BUDGET,
   DELETE_CATEGORY,
   ON_FAILURE,
@@ -32,4 +31,15 @@ export const deleteCategory = (budgetId, categoryId) =>
       `/api/budgets/${budgetId}/categories/${categoryId}`,
       axios.delete
     )
+  });
+
+export const editCategory = (budgetId, categoryId, formValues) =>
+  thunkCreator({
+    types: [FETCH_BUDGET, ON_FAILURE],
+    promise: apiCall(
+      `/api/budgets/${budgetId}/categories/${categoryId}`,
+      axios.put,
+      formValues
+    ),
+    redirect: `/budgets/${budgetId}`
   });

@@ -31,7 +31,7 @@ InputField.propTypes = {
   classStyleName: PropTypes.string,
   type: PropTypes.string,
   name: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired
+  label: PropTypes.string
 };
 
 export default InputField;

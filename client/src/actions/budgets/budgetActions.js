@@ -1,7 +1,6 @@
 import axios from "axios";
 import apiCall from "actions/apiCall";
 import thunkCreator from "actions/thunkCreator";
-import history from "../../history";
 import {
   FETCH_BUDGETS,
   FETCH_BUDGET,

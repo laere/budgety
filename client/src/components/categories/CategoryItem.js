@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 class CategoryItem extends React.Component {
   state = { isSelected: false };
@@ -10,7 +11,6 @@ class CategoryItem extends React.Component {
   };
 
   render() {
-    console.log("CATEGORY ITEM PROPS", this.props);
     const { isSelected } = this.state;
     return (
       <tr
@@ -26,5 +26,10 @@ class CategoryItem extends React.Component {
     );
   }
 }
+
+CategoryItem.propTypes = {
+  isSelected: PropTypes.bool.isRequired,
+  item: PropTypes.object.isRequired
+};
 
 export default CategoryItem;
