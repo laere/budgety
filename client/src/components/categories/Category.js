@@ -2,7 +2,7 @@ import React from "react";
 import CategoryList from "components/categories/CategoryList";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { Formik, Form } from "formik";
+import { Formik, Form, Field } from "formik";
 import InputField from "components/InputField";
 import { connect } from "react-redux";
 import {
@@ -11,7 +11,10 @@ import {
 } from "actions/categories/categoryActions";
 
 class Category extends React.Component {
-  state = { showcategory: false };
+  state = {
+    isEditing: false,
+    showcategory: false
+  };
 
   toggleCategory = () => {
     const { showcategory } = this.state;
@@ -25,17 +28,44 @@ class Category extends React.Component {
     deleteCategory(budgetId, category._id);
   };
 
+  handleEditing = () => {
+    this.setState({ isEditing: true });
+  };
+
+  handleEditSubmit = values => {
+    const { editCategory, budgetId, category } = this.props;
+    editCategory(budgetId, category._id, values);
+    this.setState({ isEditing: false });
+  };
+
   render() {
+    console.log("CATEGORY STATE", this.state);
     const { showcategory, isEditing } = this.state;
     const { name, _id } = this.props.category;
     const icon = showcategory ? "fas fa-angle-up" : "fas fa-angle-down";
-
+    console.log("NAME", name);
     return (
       <div style={{ marginTop: "30px" }}>
         <div className="card">
           <header className="card-header">
-            <div className="card-header-title" onClick={this.handleEditing}>
-              {name}
+            <div className="card-header-title">
+              {isEditing ? (
+                <Formik initialValues={{ name: this.props.category.name }}>
+                  {({ values }) => (
+                    <Form>
+                      <Field
+                        type="text"
+                        name="name"
+                        className="input"
+                        onBlur={() => this.handleEditSubmit(values)}
+                        autoFocus
+                      />
+                    </Form>
+                  )}
+                </Formik>
+              ) : (
+                <span onClick={this.handleEditing}>{name}</span>
+              )}
             </div>
             <Link
               to={`/budgets/${this.props.budgetId}/categories/${_id}`}

@@ -41,6 +41,7 @@ class BudgetShow extends React.Component {
     }
 
     return budget.categories.map(category => {
+      console.log(category);
       return (
         <Category
           key={category._id}

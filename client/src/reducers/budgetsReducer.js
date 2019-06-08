@@ -52,9 +52,11 @@ export default (state = initialState, action) => {
         category => category._id === action.payload._id
       );
 
-      const updatedCategories = category
-        ? [...categories, { ...category, ...action.payload }]
-        : [...categories];
+      console.log("CATEGORY FOUND IN REDUCER", category);
+      console.log("PAYLOAD", action.payload);
+      const updatedCategories;
+      console.log("CATEGORIES", categories);
+      console.log("UPDATED CATEGORIES", updatedCategories);
 
       return {
         ...state,
