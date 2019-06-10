@@ -41,7 +41,7 @@ class BudgetShow extends React.Component {
     }
 
     return budget.categories.map(category => {
-      console.log(category);
+      // console.log(category);
       return (
         <Category
           key={category._id}
@@ -54,6 +54,8 @@ class BudgetShow extends React.Component {
 
   render() {
     const { budget, loading } = this.props.budgets;
+
+    console.log("ID", this.props.match.params.budgetId);
 
     if (budget === null || loading) {
       return <Spinner />;

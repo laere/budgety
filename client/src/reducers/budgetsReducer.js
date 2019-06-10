@@ -1,9 +1,10 @@
 import {
   FETCH_BUDGETS,
   FETCH_BUDGET,
+  ADD_CATEGORY_ITEM,
   IS_LOADING,
   DELETE_CATEGORY,
-  EDIT_CATEGORY
+  UPDATE_CATEGORY
 } from "actions/types";
 
 const initialState = {
@@ -43,11 +44,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         budget: {
+          ...state.budget,
           categories: filteredCategories
         }
       };
 
-    case EDIT_CATEGORY:
+    case UPDATE_CATEGORY:
       // const category = categories.find(
       //   category => category._id === action.payload._id
       // );
@@ -60,7 +62,7 @@ export default (state = initialState, action) => {
       const updatedCategories = categories.map(category => {
         if (category._id === action.payload._id) {
           const { name } = category;
-          return Object.assign({}, category, { name: action.payload.name });
+          return Object.assign({}, category, { ...action.payload });
         }
         return category;
       });
@@ -74,6 +76,7 @@ export default (state = initialState, action) => {
           categories: updatedCategories
         }
       };
+
     default:
       return state;
   }

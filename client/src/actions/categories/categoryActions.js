@@ -4,8 +4,9 @@ import thunkCreator from "actions/thunkCreator";
 
 import {
   FETCH_BUDGET,
+  ADD_CATEGORY_ITEM,
   DELETE_CATEGORY,
-  EDIT_CATEGORY,
+  UPDATE_CATEGORY,
   ON_FAILURE,
   ON_SUCCESS
 } from "actions/types";
@@ -18,7 +19,7 @@ export const addCategory = budgetId =>
 
 export const addCategoryItem = (budgetId, categoryId) =>
   thunkCreator({
-    types: [FETCH_BUDGET, ON_FAILURE],
+    types: [UPDATE_CATEGORY, ON_FAILURE],
     promise: apiCall(
       `/api/budgets/${budgetId}/categories/${categoryId}`,
       axios.post
@@ -34,9 +35,9 @@ export const deleteCategory = (budgetId, categoryId) =>
     )
   });
 
-export const editCategory = (budgetId, categoryId, formValues) =>
+export const updateCategory = (budgetId, categoryId, formValues) =>
   thunkCreator({
-    types: [EDIT_CATEGORY, ON_FAILURE],
+    types: [UPDATE_CATEGORY, ON_FAILURE],
     promise: apiCall(
       `/api/budgets/${budgetId}/categories/${categoryId}`,
       axios.put,
@@ -44,3 +45,5 @@ export const editCategory = (budgetId, categoryId, formValues) =>
     ),
     redirect: `/budgets/${budgetId}`
   });
+
+export const deleteCategoryItem = (budgetId, categoryId) => thunkCreator({});

@@ -7,7 +7,7 @@ import InputField from "components/InputField";
 import { connect } from "react-redux";
 import {
   deleteCategory,
-  editCategory
+  updateCategory
 } from "actions/categories/categoryActions";
 
 class Category extends React.Component {
@@ -33,17 +33,17 @@ class Category extends React.Component {
   };
 
   handleEditSubmit = values => {
-    const { editCategory, budgetId, category } = this.props;
-    editCategory(budgetId, category._id, values);
+    const { updateCategory, budgetId, category } = this.props;
+    updateCategory(budgetId, category._id, values);
     this.setState({ isEditing: false });
   };
 
   render() {
-    console.log("CATEGORY STATE", this.state);
+    // console.log("CATEGORY STATE", this.state);
     const { showcategory, isEditing } = this.state;
     const { name, _id } = this.props.category;
     const icon = showcategory ? "fas fa-angle-up" : "fas fa-angle-down";
-    console.log("NAME", name);
+    // console.log("NAME", name);
     return (
       <div style={{ marginTop: "30px" }}>
         <div className="card">
@@ -67,12 +67,6 @@ class Category extends React.Component {
                 <span onClick={this.handleEditing}>{name}</span>
               )}
             </div>
-            <Link
-              to={`/budgets/${this.props.budgetId}/categories/${_id}`}
-              className="button is-small"
-            >
-              Edit
-            </Link>
             <button onClick={this.handleDelete} className="button is-small">
               Delete
             </button>
@@ -90,10 +84,11 @@ class Category extends React.Component {
 
 Category.propTypes = {
   deleteCategory: PropTypes.func.isRequired,
+  updateCategory: PropTypes.func.isRequired,
   category: PropTypes.object.isRequired
 };
 
 export default connect(
   null,
-  { deleteCategory, editCategory }
+  { deleteCategory, updateCategory }
 )(Category);

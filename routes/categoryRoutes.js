@@ -12,11 +12,15 @@ router.post(
   requireLogin,
   myAsync(async (req, res, next) => {
     console.log(req.body);
+    console.log(req.params.budgetId);
     let budget = await Budget.findById(req.params.budgetId).populate(
       "categories"
     );
 
     if (!budget) return next(errors.processReq);
+
+    console.log(req.params.budgetId);
+    console.log(budget);
 
     let category = new Category({});
 
@@ -34,11 +38,13 @@ router.post(
   "/:budgetId/categories/:categoryId",
   requireLogin,
   myAsync(async (req, res, next) => {
-    let budget = await Budget.findById(req.params.budgetId).populate(
-      "categories"
-    );
+    // let budget = await Budget.findById(req.params.budgetId).populate(
+    //   "categories"
+    // );
 
-    if (!budget) return next(errors.processReq);
+    console.log(req.params.categoryId);
+
+    // if (!budget) return next(errors.processReq);
 
     let category = await Category.findById(req.params.categoryId);
 
@@ -47,10 +53,10 @@ router.post(
     category.categoryitems.push(req.body);
 
     await category.save();
+    //
+    // await budget.save();
 
-    await budget.save();
-
-    res.send(budget);
+    res.send(category);
   })
 );
 
@@ -68,6 +74,21 @@ router.delete(
 
 router.put(
   "/:budgetId/categories/:categoryId",
+  requireLogin,
+  myAsync(async (req, res, next) => {
+    console.log(req.body);
+    let category = await Category.findOneAndUpdate(
+      { _id: req.params.categoryId },
+      { $set: req.body },
+      { new: true }
+    );
+
+    res.send(category);
+  })
+);
+
+router.put(
+  "/:budgetId/categories/:categoryId/categoryitems",
   requireLogin,
   myAsync(async (req, res, next) => {
     console.log(req.body);

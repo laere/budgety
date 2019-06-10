@@ -18,18 +18,27 @@ class CategoryList extends React.Component {
     const category = categories.find(category => category._id === categoryId);
 
     return category.categoryitems.map(item => {
-      return <CategoryItem key={item._id} item={item} />;
+      return (
+        <CategoryItem
+          key={item._id}
+          item={item}
+          categoryId={category._id}
+          budgetId={this.props.budget._id}
+        />
+      );
     });
   }
 
   render() {
     return (
-      <div style={{ marginTop: "40px" }}>
+      <div>
         <table className="table is-fullwidth">
           <tbody>{this.renderCategoryItems()}</tbody>
         </table>
-        <footer className="card-footer" onClick={this.handleOnClick}>
-          <div className="card-footer-item">Add item</div>
+        <footer className="card-footer">
+          <div className="card-footer-item" onClick={this.handleOnClick}>
+            Add item
+          </div>
         </footer>
       </div>
     );
@@ -43,7 +52,7 @@ const mapStateToProps = ({ budgets: { budget } }) => {
 CategoryList.propTypes = {
   budget: PropTypes.object.isRequired,
   categoryId: PropTypes.string.isRequired,
-  addCategoryItem: PropTypes.func.isRe
+  addCategoryItem: PropTypes.func.isRequired
 };
 
 export default connect(
