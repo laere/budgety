@@ -48,19 +48,29 @@ export default (state = initialState, action) => {
       };
 
     case EDIT_CATEGORY:
-      const category = categories.find(
-        category => category._id === action.payload._id
-      );
+      // const category = categories.find(
+      //   category => category._id === action.payload._id
+      // );
 
-      console.log("CATEGORY FOUND IN REDUCER", category);
-      console.log("PAYLOAD", action.payload);
-      const updatedCategories;
-      console.log("CATEGORIES", categories);
-      console.log("UPDATED CATEGORIES", updatedCategories);
+      // Category would be the current value or item we're updating.
+      // Action.payload is the newly updated object returned from the DB.
+
+      // console.log("CATEGORY FOUND IN REDUCER", category);
+      // console.log("PAYLOAD", action.payload);
+      const updatedCategories = categories.map(category => {
+        if (category._id === action.payload._id) {
+          const { name } = category;
+          return Object.assign({}, category, { name: action.payload.name });
+        }
+        return category;
+      });
+      // console.log("CATEGORIES", categories);
+      // console.log("UPDATED CATEGORIES", updatedCategories);
 
       return {
         ...state,
         budget: {
+          ...state.budget,
           categories: updatedCategories
         }
       };
