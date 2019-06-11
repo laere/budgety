@@ -50,6 +50,7 @@ class CategoryItem extends React.Component {
         <td>Item Amount</td>
         <td>
           <button
+            className="button is-small is-danger is-outlined"
             onClick={() =>
               this.props.deleteCategoryItem(budgetId, categoryId, _id)
             }

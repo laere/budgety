@@ -104,23 +104,19 @@ class BudgetShow extends React.Component {
             >
               Delete
             </Link>
-            <Link
-              to={`/budgets/${budget._id}/transactions/new`}
-              className="card-footer-item"
-            >
-              Add Transaction
-            </Link>
-            <button
-              className="card-footer-item"
-              onClick={() => this.props.addCategory(budget._id)}
-            >
-              Add Category
-            </button>
           </footer>
         </div>
         <CheckList />
-        <TransactionsList />
-        {this.renderCategories()}
+        <div style={{ marginTop: "50px" }}>
+          <h1 className="title">Categories</h1>
+          <button
+            className="button is-outline is-primary"
+            onClick={() => this.props.addCategory(budget._id)}
+          >
+            Add Category
+          </button>
+          {this.renderCategories()}
+        </div>
       </div>
     );
   }

@@ -91,8 +91,8 @@ router.put(
   "/:budgetId/categories/:categoryId/:categoryItemId",
   requireLogin,
   myAsync(async (req, res, next) => {
-    console.log(req.body);
-    console.log(req.params.categoryId);
+    // console.log(req.body);
+    // console.log(req.params.categoryId);
     let category = await Category.findOneAndUpdate(
       {
         _id: req.params.categoryId,
@@ -106,7 +106,7 @@ router.put(
       { new: true }
     );
 
-    console.log(category);
+    // console.log(category);
 
     res.send(category);
   })

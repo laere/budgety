@@ -67,7 +67,11 @@ class Category extends React.Component {
                 <span onClick={this.handleEditing}>{name}</span>
               )}
             </div>
-            <button onClick={this.handleDelete} className="button is-small">
+            <button
+              onClick={this.handleDelete}
+              className="button is-small is-danger is-outlined"
+              style={{ margin: "auto" }}
+            >
               Delete
             </button>
             <p
