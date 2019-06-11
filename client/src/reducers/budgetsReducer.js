@@ -50,15 +50,10 @@ export default (state = initialState, action) => {
       };
 
     case UPDATE_CATEGORY:
-      // const category = categories.find(
-      //   category => category._id === action.payload._id
-      // );
-
-      // Category would be the current value or item we're updating.
-      // Action.payload is the newly updated object returned from the DB.
-
       // console.log("CATEGORY FOUND IN REDUCER", category);
       // console.log("PAYLOAD", action.payload);
+
+      // Could possibly use a hash table to reduce time complexity?
       const updatedCategories = categories.map(category => {
         if (category._id === action.payload._id) {
           const { name } = category;

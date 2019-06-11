@@ -87,16 +87,36 @@ router.put(
   })
 );
 
-router.put(
-  "/:budgetId/categories/:categoryId/categoryitems",
+// router.put(
+//   "/:budgetId/categories/:categoryId/categoryitems",
+//   requireLogin,
+//   myAsync(async (req, res, next) => {
+//     console.log(req.body);
+//     let category = await Category.findOneAndUpdate(
+//       { _id: req.params.categoryId },
+//       { $set: req.body },
+//       { new: true }
+//     );
+//
+//     res.send(category);
+//   })
+// );
+
+router.delete(
+  "/:budgetId/categories/:categoryId/:categoryItemId",
   requireLogin,
   myAsync(async (req, res, next) => {
-    console.log(req.body);
-    let category = await Category.findOneAndUpdate(
-      { _id: req.params.categoryId },
-      { $set: req.body },
-      { new: true }
-    );
+    let category = await Category.findById(req.params.categoryId);
+
+    if (!category) return next(errors.processReq);
+
+    let categoryItem = category.categoryitems.id(req.params.categoryItemId);
+
+    console.log("CATEGORY ITEM", categoryItem);
+
+    categoryItem.remove();
+
+    await category.save();
 
     res.send(category);
   })

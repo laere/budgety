@@ -46,4 +46,11 @@ export const updateCategory = (budgetId, categoryId, formValues) =>
     redirect: `/budgets/${budgetId}`
   });
 
-export const deleteCategoryItem = (budgetId, categoryId) => thunkCreator({});
+export const deleteCategoryItem = (budgetId, categoryId, categoryItemId) =>
+  thunkCreator({
+    types: [UPDATE_CATEGORY, ON_FAILURE],
+    promise: apiCall(
+      `/api/budgets/${budgetId}/categories/${categoryId}/${categoryItemId}`,
+      axios.delete
+    )
+  });
