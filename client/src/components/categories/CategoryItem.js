@@ -1,4 +1,5 @@
 import React from "react";
+import accounting from "accounting-js";
 import PropTypes from "prop-types";
 import { Formik, Form, Field } from "formik";
 import { connect } from "react-redux";
@@ -24,11 +25,11 @@ class CategoryItem extends React.Component {
 
   render() {
     const { budgetId, categoryId } = this.props;
-    const { name, _id } = this.props.item;
+    const { name, planned, remaining, _id } = this.props.item;
     const { isEditing } = this.state;
     return (
-      <tr>
-        <td>
+      <div className="category-item">
+        <div>
           {isEditing ? (
             <Formik initialValues={{ name: name }}>
               {({ values }) => (
@@ -46,19 +47,22 @@ class CategoryItem extends React.Component {
           ) : (
             <span onClick={this.handleEditing}>{name}</span>
           )}
-        </td>
-        <td>Item Amount</td>
-        <td>
-          <button
-            className="button is-small is-danger is-outlined"
-            onClick={() =>
-              this.props.deleteCategoryItem(budgetId, categoryId, _id)
-            }
-          >
-            Delete
-          </button>
-        </td>
-      </tr>
+        </div>
+        <div className="category-item__end">
+          <div className="item">{accounting.formatMoney(planned)}</div>
+          <div className="item">{accounting.formatMoney(remaining)}</div>
+          <div>
+            <button
+              className="button is-small is-danger is-outlined"
+              onClick={() =>
+                this.props.deleteCategoryItem(budgetId, categoryId, _id)
+              }
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
     );
   }
 }

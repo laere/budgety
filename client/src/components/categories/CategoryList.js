@@ -31,15 +31,16 @@ class CategoryList extends React.Component {
 
   render() {
     return (
-      <div>
-        <table className="table is-fullwidth">
-          <tbody>{this.renderCategoryItems()}</tbody>
-        </table>
-        <footer className="card-footer">
-          <div className="card-footer-item" onClick={this.handleOnClick}>
-            Add item
-          </div>
-        </footer>
+      <div className="category-list">
+        {this.renderCategoryItems()}
+        <div style={{ padding: "24px" }}>
+          <button
+            onClick={this.handleOnClick}
+            className="button is-primary is-outlined"
+          >
+            Add Item
+          </button>
+        </div>
       </div>
     );
   }

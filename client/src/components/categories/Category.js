@@ -45,42 +45,47 @@ class Category extends React.Component {
     const icon = showcategory ? "fas fa-angle-up" : "fas fa-angle-down";
     // console.log("NAME", name);
     return (
-      <div style={{ marginTop: "30px" }}>
-        <div className="card">
-          <header className="card-header">
-            <div className="card-header-title">
-              {isEditing ? (
-                <Formik initialValues={{ name: this.props.category.name }}>
-                  {({ values }) => (
-                    <Form>
-                      <Field
-                        type="text"
-                        name="name"
-                        className="input"
-                        onBlur={() => this.handleEditSubmit(values)}
-                        autoFocus
-                      />
-                    </Form>
-                  )}
-                </Formik>
-              ) : (
-                <span onClick={this.handleEditing}>{name}</span>
-              )}
-            </div>
-            <button
-              onClick={this.handleDelete}
-              className="button is-small is-danger is-outlined"
-              style={{ margin: "auto" }}
-            >
-              Delete
-            </button>
-            <p
-              className={`card-header-icon ${icon}`}
+      <div className="category">
+        <header className="category-header">
+          <div className="category-header__name">
+            {isEditing ? (
+              <Formik initialValues={{ name: this.props.category.name }}>
+                {({ values }) => (
+                  <Form>
+                    <Field
+                      type="text"
+                      name="name"
+                      className="input"
+                      onBlur={() => this.handleEditSubmit(values)}
+                      autoFocus
+                    />
+                  </Form>
+                )}
+              </Formik>
+            ) : (
+              <span onClick={this.handleEditing}>{name}</span>
+            )}
+            <span
+              className={`category-header__icon ${icon}`}
+              style={{ marginLeft: "20px" }}
               onClick={this.toggleCategory}
             />
-          </header>
-          <div>{showcategory ? <CategoryList categoryId={_id} /> : false}</div>
-        </div>
+          </div>
+          <div className="category-header__end">
+            <div className="item">Planned</div>
+            <div className="item">Remaining</div>
+            <div>
+              <button
+                className="button is-danger is-outlined is-small"
+                onClick={this.handleDelete}
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </header>
+
+        {showcategory ? <CategoryList categoryId={_id} /> : false}
       </div>
     );
   }

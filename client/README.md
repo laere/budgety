@@ -11,3 +11,5 @@ Things to add:
 ### Refactor categories to a table element.
 
 ### Add amounts to categories as well, including planned and spent values.
+
+### Create HOC for on click edit feature
