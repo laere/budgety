@@ -14,7 +14,7 @@ class CheckEdit extends React.Component {
 
   render() {
     const { paychecks } = this.props.budget;
-    const { checkId } = this.props.match.params;
+    const { checkId, budgetId } = this.props.match.params;
     if (!paychecks) {
       return <div>Loading...</div>;
     }
@@ -30,7 +30,7 @@ class CheckEdit extends React.Component {
           validateFunc={checkValidation}
           initialValues={{ checkamount: check.checkamount }}
           actionCreator={this.handleActionCreator}
-          cancelpath="/budgets"
+          cancelpath={`/budgets/${budgetId}`}
         />
       </React.Fragment>
     );

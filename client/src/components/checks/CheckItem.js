@@ -14,7 +14,7 @@ const CheckItem = ({ check, budgetId }) => {
       <td>
         <Link
           to={`/budgets/${budgetId}/checks/${check._id}/delete`}
-          className="button is-danger is-small"
+          className="button is-danger is-small is-outlined"
         >
           Delete
         </Link>

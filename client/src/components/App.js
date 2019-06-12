@@ -31,7 +31,7 @@ class App extends React.Component {
   render() {
     return (
       <Router history={history}>
-        <div className="container">
+        <div className="container" style={{ paddingBottom: "50px" }}>
           <Header />
           <Switch>
             <Route exact path="/" component={LandingPage} />
