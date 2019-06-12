@@ -37,9 +37,9 @@
 }
 
 .category-item__end {
-  width: 35%;
+  width: 12%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   text-align: center;
   align-items: center;
 }
@@ -53,10 +53,13 @@
   align-self: center;
 }
 
-.--delete {
-  display: inline-block;
+.category-header__end--item {
+  flex: 1;
+}
+.category-item-delete-icon {
+  padding: 0 10px;
 }
 
-.item {
-  flex: 1;
+.category-item-delete-icon:hover {
+  cursor: pointer;
 }

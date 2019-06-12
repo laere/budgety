@@ -6,11 +6,7 @@ const categoryItemSchema = new Schema({
     type: String,
     default: "Untitled"
   },
-  planned: {
-    type: Number,
-    default: 0
-  },
-  remaining: {
+  spent: {
     type: Number,
     default: 0
   }
@@ -20,6 +16,14 @@ const categorySchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
     ref: "users"
+  },
+  planned: {
+    type: Number,
+    default: 0
+  },
+  spentTotal: {
+    type: Number,
+    default: 0
   },
   name: {
     type: String,

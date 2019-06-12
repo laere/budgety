@@ -1,6 +1,7 @@
 import React from "react";
 import CategoryList from "components/categories/CategoryList";
 import PropTypes from "prop-types";
+import accounting from "accounting-js";
 import { Link } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import InputField from "components/InputField";
@@ -9,6 +10,8 @@ import {
   deleteCategory,
   updateCategory
 } from "actions/categories/categoryActions";
+
+import onClickEditHOC from "components/onClickEditHOC";
 
 class Category extends React.Component {
   state = {
@@ -28,20 +31,22 @@ class Category extends React.Component {
     deleteCategory(budgetId, category._id);
   };
 
-  handleEditing = () => {
-    this.setState({ isEditing: true });
-  };
-
-  handleEditSubmit = values => {
-    const { updateCategory, budgetId, category } = this.props;
-    updateCategory(budgetId, category._id, values);
-    this.setState({ isEditing: false });
-  };
+  // handleEditing = () => {
+  //   this.setState({ isEditing: true });
+  // };
+  //
+  // handleEditSubmit = values => {
+  //   const { updateCategory, budgetId, category } = this.props;
+  //   updateCategory(budgetId, category._id, values);
+  //   this.setState({ isEditing: false });
+  // };
 
   render() {
+    console.log("CATEGORY PROPS", this.props);
     // console.log("CATEGORY STATE", this.state);
-    const { showcategory, isEditing } = this.state;
-    const { name, _id } = this.props.category;
+    const { showcategory } = this.state;
+    const { isEditing } = this.props;
+    const { name, planned, spentTotal, _id } = this.props.category;
     const icon = showcategory ? "fas fa-angle-up" : "fas fa-angle-down";
     // console.log("NAME", name);
     return (
@@ -56,14 +61,14 @@ class Category extends React.Component {
                       type="text"
                       name="name"
                       className="input"
-                      onBlur={() => this.handleEditSubmit(values)}
+                      onBlur={() => this.props.handleEditSubmit(values)}
                       autoFocus
                     />
                   </Form>
                 )}
               </Formik>
             ) : (
-              <span onClick={this.handleEditing}>{name}</span>
+              <span onClick={this.props.handleEditing}>{name}</span>
             )}
             <span
               className={`category-header__icon ${icon}`}
@@ -72,8 +77,12 @@ class Category extends React.Component {
             />
           </div>
           <div className="category-header__end">
-            <div className="item">Planned</div>
-            <div className="item">Remaining</div>
+            <div className="category-header__end--item">
+              Planned: {accounting.formatMoney(planned)}
+            </div>
+            <div className="category-header__end--item">
+              Spent: {accounting.formatMoney(spentTotal)}
+            </div>
             <div>
               <button
                 className="button is-danger is-outlined is-small"
@@ -97,7 +106,9 @@ Category.propTypes = {
   category: PropTypes.object.isRequired
 };
 
+const WrappedComponent = onClickEditHOC(Category);
+
 export default connect(
   null,
   { deleteCategory, updateCategory }
-)(Category);
+)(WrappedComponent);

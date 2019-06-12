@@ -25,7 +25,7 @@ class CategoryItem extends React.Component {
 
   render() {
     const { budgetId, categoryId } = this.props;
-    const { name, planned, remaining, _id } = this.props.item;
+    const { name, spent, _id } = this.props.item;
     const { isEditing } = this.state;
     return (
       <div className="category-item">
@@ -49,17 +49,14 @@ class CategoryItem extends React.Component {
           )}
         </div>
         <div className="category-item__end">
-          <div className="item">{accounting.formatMoney(planned)}</div>
-          <div className="item">{accounting.formatMoney(remaining)}</div>
+          <div>{accounting.formatMoney(spent)}</div>
           <div>
-            <button
-              className="button is-small is-danger is-outlined"
+            <i
+              className="far fa-trash-alt category-item-delete-icon"
               onClick={() =>
                 this.props.deleteCategoryItem(budgetId, categoryId, _id)
               }
-            >
-              Delete
-            </button>
+            />
           </div>
         </div>
       </div>
