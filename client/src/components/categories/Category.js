@@ -10,12 +10,10 @@ import {
   deleteCategory,
   updateCategory
 } from "actions/categories/categoryActions";
-
 import onClickEditHOC from "components/onClickEditHOC";
 
 class Category extends React.Component {
   state = {
-    isEditing: false,
     showcategory: false
   };
 
@@ -30,16 +28,6 @@ class Category extends React.Component {
 
     deleteCategory(budgetId, category._id);
   };
-
-  // handleEditing = () => {
-  //   this.setState({ isEditing: true });
-  // };
-  //
-  // handleEditSubmit = values => {
-  //   const { updateCategory, budgetId, category } = this.props;
-  //   updateCategory(budgetId, category._id, values);
-  //   this.setState({ isEditing: false });
-  // };
 
   render() {
     console.log("CATEGORY PROPS", this.props);
@@ -61,7 +49,7 @@ class Category extends React.Component {
                       type="text"
                       name="name"
                       className="input"
-                      onBlur={() => this.props.handleEditSubmit(values)}
+                      onBlur={() => this.props.handleCategoryEditSubmit(values)}
                       autoFocus
                     />
                   </Form>

@@ -42,7 +42,7 @@ router.post(
     //   "categories"
     // );
 
-    console.log(req.params.categoryId);
+    console.log("CATEGORY ITEM", req.body);
 
     // if (!budget) return next(errors.processReq);
 
@@ -51,6 +51,8 @@ router.post(
     if (!category) return next(errors.processReq);
 
     category.categoryitems.push(req.body);
+
+    console.log(category);
 
     await category.save();
     //
@@ -91,7 +93,7 @@ router.put(
   "/:budgetId/categories/:categoryId/:categoryItemId",
   requireLogin,
   myAsync(async (req, res, next) => {
-    // console.log(req.body);
+    console.log(req.body);
     // console.log(req.params.categoryId);
     let category = await Category.findOneAndUpdate(
       {
@@ -102,7 +104,12 @@ router.put(
           }
         }
       },
-      { $set: { "categoryitems.$.name": req.body.name } },
+      {
+        $set: {
+          "categoryitems.$.name": req.body.name,
+          "categoryitems.$.spent": req.body.spent
+        }
+      },
       { new: true }
     );
 

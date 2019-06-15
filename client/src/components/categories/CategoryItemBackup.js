@@ -27,30 +27,24 @@ class CategoryItem extends React.Component {
     return (
       <div className="category-item">
         <div>
-          <Formik initialValues={{ name, spent }}>
-            {({ values }) => (
-              <Form>
-                <CategoryItemName
-                  fieldName="name"
-                  defaultValue={name}
-                  categoryItemId={_id}
-                  budgetId={budgetId}
-                  categoryId={categoryId}
-                  values={values}
-                />
-                <CategoryItemName
-                  fieldName="spent"
-                  defaultValue={spent}
-                  categoryItemId={_id}
-                  budgetId={budgetId}
-                  categoryId={categoryId}
-                  values={values}
-                />
-              </Form>
-            )}
-          </Formik>
+          <CategoryItemName
+            initialValues={{ name: this.props.item.name }}
+            fieldName="name"
+            defaultValue={name}
+            categoryItemId={_id}
+            budgetId={budgetId}
+            categoryId={categoryId}
+          />
         </div>
         <div className="category-item__end">
+          <CategoryItemName
+            initialValues={{ spent: this.props.item.spent }}
+            fieldName="spent"
+            defaultValue={accounting.formatMoney(spent)}
+            categoryItemId={_id}
+            budgetId={budgetId}
+            categoryId={categoryId}
+          />
           <div>
             <i
               className="far fa-trash-alt category-item-delete-icon"
