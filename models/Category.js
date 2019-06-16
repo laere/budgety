@@ -34,12 +34,11 @@ const categorySchema = new Schema({
   categoryitems: [categoryItemSchema]
 });
 
-categorySchema.methods.calculateSpentTotal = function(currentSpentTotal) {
-  return this.categoryitems.reduce((currentSpentTotal, current) => {
-    console.log(currentSpentTotal, current);
-    console.log("currentSpentTotal", currentSpentTotal);
-    return currentSpentTotal + current.spent;
-  }, currentSpentTotal);
+categorySchema.methods.calculateSpentTotal = function() {
+  return this.categoryitems.reduce((accum, current) => {
+    console.log(accum, current);
+    return accum + current.spent;
+  }, 0);
 };
 
 const Category = mongoose.model("categories", categorySchema);

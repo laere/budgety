@@ -119,7 +119,7 @@ router.put(
 
     categoryItem.set(newCheckItemProps);
 
-    const newTotal = category.calculateSpentTotal(totalSpent);
+    const newTotal = category.calculateSpentTotal();
 
     console.log("new total", newTotal);
 
