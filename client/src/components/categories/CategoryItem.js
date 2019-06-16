@@ -3,12 +3,9 @@ import accounting from "accounting-js";
 import PropTypes from "prop-types";
 import { Formik, Form, Field } from "formik";
 import { connect } from "react-redux";
-import {
-  deleteCategoryItem,
-  updateCategoryItem
-} from "actions/categories/categoryActions";
+import { deleteCategoryItem } from "actions/categories/categoryActions";
 import onClickEditHOC from "components/onClickEditHOC";
-import CategoryItemName from "components/categories/CategoryItemName";
+import CategorySubItem from "components/categories/CategorySubItem";
 
 class CategoryItem extends React.Component {
   render() {
@@ -30,7 +27,7 @@ class CategoryItem extends React.Component {
           <Formik initialValues={{ name, spent }}>
             {({ values }) => (
               <Form>
-                <CategoryItemName
+                <CategorySubItem
                   fieldName="name"
                   defaultValue={name}
                   categoryItemId={_id}
@@ -38,13 +35,14 @@ class CategoryItem extends React.Component {
                   categoryId={categoryId}
                   values={values}
                 />
-                <CategoryItemName
+                <CategorySubItem
                   fieldName="spent"
                   defaultValue={spent}
                   categoryItemId={_id}
                   budgetId={budgetId}
                   categoryId={categoryId}
                   values={values}
+                  type="number"
                 />
               </Form>
             )}
@@ -69,9 +67,7 @@ CategoryItem.propTypes = {
   item: PropTypes.object.isRequired
 };
 
-// const WrappedComponent = onClickEditHOC(CategoryItem);
-
 export default connect(
   null,
-  { deleteCategoryItem, updateCategoryItem }
+  { deleteCategoryItem }
 )(CategoryItem);

@@ -33,8 +33,9 @@ class Category extends React.Component {
     console.log("CATEGORY PROPS", this.props);
     // console.log("CATEGORY STATE", this.state);
     const { showcategory } = this.state;
-    const { isEditing } = this.props;
-    const { name, planned, spentTotal, _id } = this.props.category;
+    const { isEditing, handleEditing, handleCategoryEditSubmit } = this.props;
+    const { name, planned, totalspent, _id } = this.props.category;
+
     const icon = showcategory ? "fas fa-angle-up" : "fas fa-angle-down";
     // console.log("NAME", name);
     return (
@@ -42,21 +43,21 @@ class Category extends React.Component {
         <header className="category-header">
           <div className="category-header__name">
             {isEditing ? (
-              <Formik initialValues={{ name: this.props.category.name }}>
+              <Formik initialValues={{ name }}>
                 {({ values }) => (
                   <Form>
                     <Field
                       type="text"
                       name="name"
                       className="input"
-                      onBlur={() => this.props.handleCategoryEditSubmit(values)}
+                      onBlur={() => handleCategoryEditSubmit(values)}
                       autoFocus
                     />
                   </Form>
                 )}
               </Formik>
             ) : (
-              <span onClick={this.props.handleEditing}>{name}</span>
+              <span onClick={handleEditing}>{name}</span>
             )}
             <span
               className={`category-header__icon ${icon}`}
@@ -69,7 +70,7 @@ class Category extends React.Component {
               Planned: {accounting.formatMoney(planned)}
             </div>
             <div className="category-header__end--item">
-              Spent: {accounting.formatMoney(spentTotal)}
+              Spent: {accounting.formatMoney(totalspent)}
             </div>
             <div>
               <button

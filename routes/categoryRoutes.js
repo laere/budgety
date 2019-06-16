@@ -93,27 +93,59 @@ router.put(
   "/:budgetId/categories/:categoryId/:categoryItemId",
   requireLogin,
   myAsync(async (req, res, next) => {
+    // {name: Untitled, spent: 100}
     console.log(req.body);
-    // console.log(req.params.categoryId);
-    let category = await Category.findOneAndUpdate(
-      {
-        _id: req.params.categoryId,
-        categoryitems: {
-          $elemMatch: {
-            _id: req.params.categoryItemId
-          }
-        }
-      },
-      {
-        $set: {
-          "categoryitems.$.name": req.body.name,
-          "categoryitems.$.spent": req.body.spent
-        }
-      },
-      { new: true }
-    );
 
-    // console.log(category);
+    // console.log(req.params.categoryId);
+
+    let category = await Category.findById(req.params.categoryId);
+
+    console.log("CATEGORY", category);
+
+    // 600
+    let totalSpent = category.totalspent;
+
+    let categoryItem = category.categoryitems.id(req.params.categoryItemId);
+
+    console.log(totalSpent);
+    console.log("CAT ITEM", categoryItem);
+
+    // { name: Untitled, spent: 100}
+    const newCheckItemProps = { ...req.body };
+
+    // 600, 100
+
+    console.log("SPENT", newCheckItemProps.spent);
+
+    categoryItem.set(newCheckItemProps);
+
+    const newTotal = category.calculateSpentTotal(totalSpent);
+
+    console.log("new total", newTotal);
+
+    category.set("totalspent", newTotal);
+
+    await category.save();
+
+    // let category = await Category.findOneAndUpdate(
+    //   {
+    //     _id: req.params.categoryId,
+    //     categoryitems: {
+    //       $elemMatch: {
+    //         _id: req.params.categoryItemId
+    //       }
+    //     }
+    //   },
+    //   {
+    //     $set: {
+    //       "categoryitems.$.name": req.body.name,
+    //       "categoryitems.$.spent": req.body.spent
+    //     }
+    //   },
+    //   { new: true }
+    // );
+
+    console.log(category);
 
     res.send(category);
   })
