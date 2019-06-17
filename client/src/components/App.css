@@ -37,11 +37,6 @@
 }
 
 .category-item__end {
-  width: 12%;
-  display: flex;
-  justify-content: space-between;
-  text-align: center;
-  align-items: center;
 }
 
 .category-header__name {
@@ -62,4 +57,12 @@
 
 .category-item-delete-icon:hover {
   cursor: pointer;
+  padding: 3px 10px;
+}
+
+.category-item-form {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
