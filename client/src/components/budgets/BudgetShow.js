@@ -6,7 +6,6 @@ import { addCategory } from "actions/categories/categoryActions";
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
 import Spinner from "components/Spinner";
-import TransactionsList from "components/transactions/TransactionsList";
 import CheckList from "components/checks/CheckList";
 import Notification from "components/Notification";
 import PropTypes from "prop-types";

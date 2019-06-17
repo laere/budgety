@@ -165,6 +165,10 @@ router.delete(
 
     categoryItem.remove();
 
+    const newTotal = category.calculateSpentTotal();
+
+    category.set("totalspent", newTotal);
+
     await category.save();
 
     res.send(category);

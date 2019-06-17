@@ -1,23 +1,14 @@
 import React from "react";
-import accounting from "accounting-js";
 import PropTypes from "prop-types";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form } from "formik";
 import { connect } from "react-redux";
 import { deleteCategoryItem } from "actions/categories/categoryActions";
-import onClickEditHOC from "components/onClickEditHOC";
 import CategorySubItem from "components/categories/CategorySubItem";
 
 class CategoryItem extends React.Component {
   render() {
     const { name, spent, _id } = this.props.item;
-    const {
-      budgetId,
-      categoryId,
-      isEditing,
-      handleEditing,
-      handleCategoryEditSubmit,
-      handleCategoryItemEditSubmit
-    } = this.props;
+    const { budgetId, categoryId } = this.props;
 
     console.log("ITEM", this.props);
 

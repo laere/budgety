@@ -4,11 +4,9 @@ import thunkCreator from "actions/thunkCreator";
 
 import {
   FETCH_BUDGET,
-  ADD_CATEGORY_ITEM,
   DELETE_CATEGORY,
   UPDATE_CATEGORY,
-  ON_FAILURE,
-  ON_SUCCESS
+  ON_FAILURE
 } from "actions/types";
 
 export const addCategory = budgetId =>

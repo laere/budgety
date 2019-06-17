@@ -1,7 +1,6 @@
 import {
   FETCH_BUDGETS,
   FETCH_BUDGET,
-  ADD_CATEGORY_ITEM,
   IS_LOADING,
   DELETE_CATEGORY,
   UPDATE_CATEGORY
@@ -56,7 +55,6 @@ export default (state = initialState, action) => {
       // Could possibly use a hash table to reduce time complexity?
       const updatedCategories = categories.map(category => {
         if (category._id === action.payload._id) {
-          const { name } = category;
           return Object.assign({}, category, { ...action.payload });
         }
         return category;

@@ -3,7 +3,7 @@ import accounting from "accounting-js";
 import { Field } from "formik";
 import { connect } from "react-redux";
 import { updateCategoryItem } from "actions/categories/categoryActions";
-import onClickEditHOC from "components/onClickEditHOC";
+import onClickEdit from "components/onClickEdit";
 
 class CategorySubItem extends React.Component {
   render() {
@@ -47,9 +47,9 @@ CategorySubItem.defaultProps = {
   type: "text"
 };
 
-const WrappedComponent = onClickEditHOC(CategorySubItem);
+const EnhancedComponent = onClickEdit(CategorySubItem);
 
 export default connect(
   null,
   { updateCategoryItem }
-)(WrappedComponent);
+)(EnhancedComponent);

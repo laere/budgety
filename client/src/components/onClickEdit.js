@@ -1,7 +1,7 @@
 import React from "react";
 
-const onClickEditHOC = WrappedComponent => {
-  return class extends React.Component {
+const onClickEdit = WrappedComponent => {
+  return class onClickEdit extends React.Component {
     state = {
       isEditing: false
     };
@@ -47,4 +47,4 @@ const onClickEditHOC = WrappedComponent => {
   };
 };
 
-export default onClickEditHOC;
+export default onClickEdit;

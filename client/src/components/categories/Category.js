@@ -2,15 +2,13 @@ import React from "react";
 import CategoryList from "components/categories/CategoryList";
 import PropTypes from "prop-types";
 import accounting from "accounting-js";
-import { Link } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
-import InputField from "components/InputField";
 import { connect } from "react-redux";
 import {
   deleteCategory,
   updateCategory
 } from "actions/categories/categoryActions";
-import onClickEditHOC from "components/onClickEditHOC";
+import onClickEdit from "components/onClickEdit";
 
 class Category extends React.Component {
   state = {
@@ -30,6 +28,7 @@ class Category extends React.Component {
   };
 
   render() {
+    console.log("HOC", onClickEdit);
     console.log("CATEGORY PROPS", this.props);
     // console.log("CATEGORY STATE", this.state);
     const { showcategory } = this.state;
@@ -95,9 +94,9 @@ Category.propTypes = {
   category: PropTypes.object.isRequired
 };
 
-const WrappedComponent = onClickEditHOC(Category);
+const EnhancedComponent = onClickEdit(Category);
 
 export default connect(
   null,
   { deleteCategory, updateCategory }
-)(WrappedComponent);
+)(EnhancedComponent);
