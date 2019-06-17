@@ -14,7 +14,7 @@ const onClickEdit = WrappedComponent => {
     handleCategoryEditSubmit = values => {
       this.props.updateCategory(
         this.props.budgetId,
-        this.props.category._id,
+        this.props.categoryId,
         values
       );
       this.setState({ isEditing: false });
