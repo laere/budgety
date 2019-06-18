@@ -36,16 +36,27 @@
   align-items: center;
 }
 
+.category-header-form {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .category-item__end {
 }
 
 .category-header__name {
   display: flex;
   align-items: center;
+  width: 90%;
+  padding: 0 10px;
 }
 
 .category-header__icon {
   align-self: center;
+  padding: 0 10px;
+  justify-content: flex-start;
 }
 
 .category-header__end--item {

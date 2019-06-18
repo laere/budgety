@@ -6,7 +6,8 @@ const onClickEdit = WrappedComponent => {
       isEditing: false
     };
 
-    handleEditing = () => {
+    handleEditing = e => {
+      console.log(e.target);
       this.setState({ isEditing: true });
       console.log("asdas");
     };

@@ -12,13 +12,20 @@ import CategoryHeaderItem from "components/categories/CategoryHeaderItem";
 
 class Category extends React.Component {
   state = {
-    showcategory: false
+    showcategory: false,
+    shoeRemaining: false
   };
 
   toggleCategory = () => {
     const { showcategory } = this.state;
 
     this.setState({ showcategory: !showcategory });
+  };
+
+  toggleRemaining = () => {
+    const { showRemaining } = this.state;
+
+    this.setState({ showRemaining: !showRemaining });
   };
 
   handleDelete = () => {
@@ -28,21 +35,25 @@ class Category extends React.Component {
   };
 
   render() {
-    console.log("CATEGORY PROPS", this.props);
-    // console.log("CATEGORY STATE", this.state);
-    const { showcategory } = this.state;
+    const { showcategory, showRemaining } = this.state;
     const { budgetId, category } = this.props;
     const { name, planned, totalspent, _id } = this.props.category;
 
     const icon = showcategory ? "fas fa-angle-up" : "fas fa-angle-down";
-    // console.log("NAME", name);
+
+    const remaining = planned - totalspent;
+
     return (
       <div className="category">
         <header className="category-header">
           <div className="category-header__name">
+            <span
+              className={`category-header__icon ${icon}`}
+              onClick={this.toggleCategory}
+            />
             <Formik initialValues={{ name, planned }}>
               {({ values }) => (
-                <Form>
+                <Form className="category-header-form">
                   <CategoryHeaderItem
                     fieldName="name"
                     defaultValue={name}
@@ -51,8 +62,10 @@ class Category extends React.Component {
                     categoryId={category._id}
                     values={values}
                   />
+
                   <CategoryHeaderItem
                     fieldName="planned"
+                    label="Planned"
                     defaultValue={planned}
                     categoryItemId={_id}
                     budgetId={budgetId}
@@ -63,17 +76,25 @@ class Category extends React.Component {
                 </Form>
               )}
             </Formik>
-
-            <span
-              className={`category-header__icon ${icon}`}
-              style={{ marginLeft: "20px" }}
-              onClick={this.toggleCategory}
-            />
           </div>
           <div className="category-header__end">
             <div className="category-header__end--item">
-              Spent: {accounting.formatMoney(totalspent)}
+              {showRemaining ? (
+                <span style={{ color: `${remaining < 0 ? "red" : "green"}` }}>
+                  Remaining: {accounting.formatMoney(remaining)}
+                </span>
+              ) : (
+                <span style={{ color: "#1EA3B2" }}>
+                  Spent: {accounting.formatMoney(totalspent)}
+                </span>
+              )}
+              <span
+                className={icon}
+                onClick={this.toggleRemaining}
+                style={{ marginLeft: "10px" }}
+              />
             </div>
+
             <div>
               <button
                 className="button is-danger is-outlined is-small"

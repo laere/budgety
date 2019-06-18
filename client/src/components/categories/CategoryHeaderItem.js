@@ -15,7 +15,8 @@ class CategoryHeaderItem extends React.Component {
       fieldName,
       handleCategoryEditSubmit,
       values,
-      handleEditing
+      handleEditing,
+      label
     } = this.props;
 
     // If the value is a number we must be editing the spent field
@@ -27,6 +28,7 @@ class CategoryHeaderItem extends React.Component {
 
     return (
       <div>
+        <label>{label ? `${label}: ` : false} </label>
         {isEditing ? (
           <Field
             type={type}
