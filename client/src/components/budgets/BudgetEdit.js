@@ -14,6 +14,7 @@ class BudgetEdit extends React.Component {
 
   render() {
     const { title, description } = this.props.budget;
+    const { budgetId } = this.props.match.params;
     return (
       <React.Fragment>
         <GlobalForm
@@ -21,7 +22,7 @@ class BudgetEdit extends React.Component {
           validateFunc={budgetValidation}
           initialValues={{ title, description }}
           actionCreator={this.handleActionCreator}
-          cancelpath="/budgets/"
+          cancelpath={`/budgets/${budgetId}`}
         />
       </React.Fragment>
     );

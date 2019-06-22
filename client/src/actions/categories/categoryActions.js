@@ -6,22 +6,15 @@ import {
   FETCH_BUDGET,
   DELETE_CATEGORY,
   UPDATE_CATEGORY,
-  ON_FAILURE
+  ON_FAILURE,
+  ADD_CATEGORY_ITEM,
+  DELETE_CATEGORY_ITEM
 } from "actions/types";
 
 export const addCategory = budgetId =>
   thunkCreator({
     types: [FETCH_BUDGET, ON_FAILURE],
     promise: apiCall(`/api/budgets/${budgetId}/categories`, axios.post)
-  });
-
-export const addCategoryItem = (budgetId, categoryId) =>
-  thunkCreator({
-    types: [UPDATE_CATEGORY, ON_FAILURE],
-    promise: apiCall(
-      `/api/budgets/${budgetId}/categories/${categoryId}`,
-      axios.post
-    )
   });
 
 export const deleteCategory = (budgetId, categoryId) =>
@@ -44,6 +37,24 @@ export const updateCategory = (budgetId, categoryId, formValues) =>
     redirect: `/budgets/${budgetId}`
   });
 
+export const addCategoryItem = (budgetId, categoryId) =>
+  thunkCreator({
+    types: [ADD_CATEGORY_ITEM, ON_FAILURE],
+    promise: apiCall(
+      `/api/budgets/${budgetId}/categories/${categoryId}`,
+      axios.post
+    )
+  });
+
+export const deleteCategoryItem = (budgetId, categoryId, categoryItemId) =>
+  thunkCreator({
+    types: [DELETE_CATEGORY_ITEM, ON_FAILURE],
+    promise: apiCall(
+      `/api/budgets/${budgetId}/categories/${categoryId}/${categoryItemId}`,
+      axios.delete
+    )
+  });
+
 export const updateCategoryItem = (
   budgetId,
   categoryId,
@@ -58,13 +69,4 @@ export const updateCategoryItem = (
       formValues
     ),
     redirect: `/budgets/${budgetId}`
-  });
-
-export const deleteCategoryItem = (budgetId, categoryId, categoryItemId) =>
-  thunkCreator({
-    types: [UPDATE_CATEGORY, ON_FAILURE],
-    promise: apiCall(
-      `/api/budgets/${budgetId}/categories/${categoryId}/${categoryItemId}`,
-      axios.delete
-    )
   });

@@ -19,14 +19,6 @@ const BudgetCard = ({ budget }) => {
       </header>
       <div className="card-content">
         <div className="content">{budget.description}</div>
-
-        <div style={{ marginTop: "20px" }}>
-          You currently have <strong>{budget.transactions.length}</strong>{" "}
-          {budget.transactions.length > 1 || budget.transactions.length === 0
-            ? "transactions"
-            : "transaction"}{" "}
-          for this budget!
-        </div>
       </div>
       <footer className="card-footer">
         <Link to={`/budgets/${budget._id}`} className="card-footer-item">

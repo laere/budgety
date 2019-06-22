@@ -75,25 +75,6 @@ const budgetSchema = new Schema({
     minlength: 2
   },
   paychecks: [checkSchema],
-  transactions: [
-    {
-      description: {
-        type: String,
-        required: true,
-        minlength: 2,
-        maxlength: 50
-      },
-      amount: {
-        type: Number,
-        default: 0,
-        required: true
-      },
-      dateCreated: {
-        type: Date,
-        default: Date.now
-      }
-    }
-  ],
   categories: [{ type: Schema.Types.ObjectId, ref: "categories" }],
   dateCreated: {
     type: Date,
@@ -121,6 +102,30 @@ budgetSchema.methods.calculateChecks = function(
     // budget amount = 600;
     checkDifference = newCheckAmount - currentCheckAmount;
     this.amount += checkDifference;
+  }
+};
+
+budgetSchema.methods.calculateBudgetAmount = function(
+  currentTotalSpent,
+  newTotalSpent
+) {
+  // Budget = 100
+  // Cat Item = 10
+  // We change Cat item to 5
+
+  // Current total spent = 10.
+  // New Total spent = 5.
+  let diff;
+  // If new total spent is < current total spent
+  if (newTotalSpent < currentTotalSpent) {
+    // add the difference to the budget amount.
+    diff = currentTotalSpent - newTotalSpent;
+    this.amount += diff;
+    // Else if the new total spent is greater than the current total SPENT
+  } else if (newTotalSpent > currentTotalSpent) {
+    // Subtract the difference from the budget amount.
+    diff = newTotalSpent - currentTotalSpent;
+    this.amount -= diff;
   }
 };
 

@@ -3,7 +3,7 @@ import accounting from "accounting-js";
 import { Field } from "formik";
 import { connect } from "react-redux";
 import { updateCategoryItem } from "actions/categories/categoryActions";
-import onClickEdit from "components/onClickEdit";
+import onClickEdit from "components/HOC/onClickEdit";
 
 class CategorySubItem extends React.Component {
   render() {

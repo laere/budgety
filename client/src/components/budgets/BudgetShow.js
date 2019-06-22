@@ -74,7 +74,10 @@ class BudgetShow extends React.Component {
           <header className="card-header">
             <p className="card-header-title">{budget.title}</p>
             <p className="card-header-icon">
-              Budget Amount: {accounting.formatMoney(budget.amount)}
+              <span style={{ marginRight: "5px" }}>
+                <strong>{accounting.formatMoney(budget.amount)}</strong>
+              </span>
+              <span>left to budget</span>
             </p>
             <div className="card-header-icon">
               <span style={{ marginRight: "10px" }}>Created on:</span>{" "}

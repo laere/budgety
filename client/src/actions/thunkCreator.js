@@ -7,12 +7,11 @@ const thunkCreator = action => {
 
   return async dispatch => {
     try {
-      // dispatch(isLoading());
       const res = await promise;
 
       const { data } = res;
-
-      console.log("THUNK DATA", data);
+      //
+      // console.log("THUNK DATA", data);
 
       dispatch({ ...rest, type: SUCCESS, payload: data });
 

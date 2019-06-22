@@ -8,15 +8,12 @@ const onClickEdit = WrappedComponent => {
 
     handleEditing = () => {
       this.setState({ isEditing: true });
-      console.log("asdas");
     };
 
     handleCategoryEditSubmit = values => {
-      this.props.updateCategory(
-        this.props.budgetId,
-        this.props.categoryId,
-        values
-      );
+      const { updateCategory, budgetId, categoryId } = this.props;
+
+      updateCategory(budgetId, categoryId, values);
       this.setState({ isEditing: false });
     };
 
@@ -33,7 +30,7 @@ const onClickEdit = WrappedComponent => {
     };
 
     render() {
-      console.log("HOC", this.props);
+      // console.log("HOC", this.props);
       return (
         <WrappedComponent
           isEditing={this.state.isEditing}

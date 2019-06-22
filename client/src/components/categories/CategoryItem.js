@@ -10,13 +10,7 @@ class CategoryItem extends React.Component {
     const { name, spent, _id } = this.props.item;
     const { budgetId, categoryId } = this.props;
 
-    const style = {
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center"
-    };
-
-    console.log("ITEM", this.props);
+    // console.log("ITEM", this.props);
 
     return (
       <div className="category-item">
