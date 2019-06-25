@@ -51,36 +51,15 @@ export default (state = initialState, action) => {
         }
       };
 
-    case ADD_CATEGORY_ITEM:
-      // console.log("ADD ITEM", action.payload);
-      // const matchedCategory = categories.indexOf(action.payload.category);
-      // console.log(matchedCategory);
-      const matchedCategories = categories.map(category => {
-        // console.log("Category", category);
-        if (category._id === action.payload._id) {
-          // console.log("action payload", action.payload);
-          return Object.assign({}, category, { ...action.payload });
-        }
-        return category;
-      });
-
-      return {
-        ...state,
-        budget: {
-          ...state.budget,
-          categories: matchedCategories
-        }
-      };
-
-    // case DELETE_CATEGORY_ITEM:
-    //   console.log("ADD ITEM", action.payload);
+    // case ADD_CATEGORY_ITEM:
+    //   // console.log("ADD ITEM", action.payload);
     //   // const matchedCategory = categories.indexOf(action.payload.category);
     //   // console.log(matchedCategory);
-    //   const matched = categories.map(category => {
-    //     console.log("Category", category);
-    //     if (category._id === action.payload.category._id) {
-    //       console.log("action payload", action.payload);
-    //       return Object.assign({}, category, { ...action.payload.category });
+    //   const matchedCategories = categories.map(category => {
+    //     // console.log("Category", category);
+    //     if (category._id === action.payload._id) {
+    //       // console.log("action payload", action.payload);
+    //       return Object.assign({}, category, { ...action.payload });
     //     }
     //     return category;
     //   });
@@ -89,8 +68,7 @@ export default (state = initialState, action) => {
     //     ...state,
     //     budget: {
     //       ...state.budget,
-    //       amount: action.payload.budget.amount,
-    //       categories: matched
+    //       categories: matchedCategories
     //     }
     //   };
 

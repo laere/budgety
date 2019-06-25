@@ -40,7 +40,7 @@ export const updateCategory = (budgetId, categoryId, formValues) =>
 
 export const addCategoryItem = (budgetId, categoryId) =>
   thunkCreator({
-    types: [ADD_CATEGORY_ITEM, ON_FAILURE],
+    types: [UPDATE_CATEGORY, ON_FAILURE],
     promise: apiCall(
       `/api/budgets/${budgetId}/categories/${categoryId}`,
       axios.post
