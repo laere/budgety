@@ -173,7 +173,13 @@ router.delete(
   "/:budgetId/categories/:categoryId/:categoryItemId",
   requireLogin,
   myAsync(async (req, res, next) => {
+    let budget = await Budget.findById(req.params.budgetId);
+
+    if (!budget) return next(errors.processReq);
+
     let category = await Category.findById(req.params.categoryId);
+
+    console.log("Current cat total", category.totalspent);
 
     if (!category) return next(errors.processReq);
 
@@ -181,15 +187,20 @@ router.delete(
 
     console.log("CATEGORY ITEM", categoryItem);
 
+    budget.amount += categoryItem.spent;
+
     categoryItem.remove();
 
     const newTotal = category.calculateSpentTotal();
 
+    console.log(newTotal);
+
     category.set("totalspent", newTotal);
 
     await category.save();
+    await budget.save();
 
-    res.send(category);
+    res.send({ category, budget });
   })
 );
 

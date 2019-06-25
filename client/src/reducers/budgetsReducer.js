@@ -77,9 +77,9 @@ export default (state = initialState, action) => {
       // console.log(matchedCategory);
       const matched = categories.map(category => {
         console.log("Category", category);
-        if (category._id === action.payload._id) {
+        if (category._id === action.payload.category._id) {
           console.log("action payload", action.payload);
-          return Object.assign({}, category, { ...action.payload });
+          return Object.assign({}, category, { ...action.payload.category });
         }
         return category;
       });
@@ -88,6 +88,7 @@ export default (state = initialState, action) => {
         ...state,
         budget: {
           ...state.budget,
+          amount: action.payload.budget.amount,
           categories: matched
         }
       };
@@ -98,7 +99,7 @@ export default (state = initialState, action) => {
 
       // Could possibly use a hash table to reduce time complexity?
 
-      let updatedCategory = action.payload.category || action.payload;
+      let updatedCategory = action.payload.category;
       console.log(updatedCategory);
       console.log("categories", categories);
       const updatedCategories = categories.map(category => {
