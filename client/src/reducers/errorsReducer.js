@@ -8,9 +8,10 @@ export default (state = {}, action) => {
         success: action.payload
       };
     case ON_FAILURE:
+      console.log("error", action.payload);
       return {
         ...state,
-        failure: "Something went wrong!"
+        failure: action.payload
       };
     case RESET_MESSAGES:
       return {};

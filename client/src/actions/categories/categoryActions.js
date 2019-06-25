@@ -8,7 +8,8 @@ import {
   UPDATE_CATEGORY,
   ON_FAILURE,
   ADD_CATEGORY_ITEM,
-  DELETE_CATEGORY_ITEM
+  DELETE_CATEGORY_ITEM,
+  UPDATE_CATEGORY_ITEM
 } from "actions/types";
 
 export const addCategory = budgetId =>
@@ -48,7 +49,7 @@ export const addCategoryItem = (budgetId, categoryId) =>
 
 export const deleteCategoryItem = (budgetId, categoryId, categoryItemId) =>
   thunkCreator({
-    types: [DELETE_CATEGORY_ITEM, ON_FAILURE],
+    types: [UPDATE_CATEGORY_ITEM, ON_FAILURE],
     promise: apiCall(
       `/api/budgets/${budgetId}/categories/${categoryId}/${categoryItemId}`,
       axios.delete
@@ -62,7 +63,7 @@ export const updateCategoryItem = (
   formValues
 ) =>
   thunkCreator({
-    types: [UPDATE_CATEGORY, ON_FAILURE],
+    types: [UPDATE_CATEGORY_ITEM, ON_FAILURE],
     promise: apiCall(
       `/api/budgets/${budgetId}/categories/${categoryId}/${categoryItemId}`,
       axios.put,

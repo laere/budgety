@@ -4,6 +4,7 @@ import {
   IS_LOADING,
   DELETE_CATEGORY,
   UPDATE_CATEGORY,
+  UPDATE_CATEGORY_ITEM,
   ADD_CATEGORY_ITEM,
   DELETE_CATEGORY_ITEM
 } from "actions/types";
@@ -46,19 +47,18 @@ export default (state = initialState, action) => {
         ...state,
         budget: {
           ...state.budget,
-
           categories: filteredCategories
         }
       };
 
     case ADD_CATEGORY_ITEM:
-      console.log("ADD ITEM", action.payload);
+      // console.log("ADD ITEM", action.payload);
       // const matchedCategory = categories.indexOf(action.payload.category);
       // console.log(matchedCategory);
       const matchedCategories = categories.map(category => {
-        console.log("Category", category);
+        // console.log("Category", category);
         if (category._id === action.payload._id) {
-          console.log("action payload", action.payload);
+          // console.log("action payload", action.payload);
           return Object.assign({}, category, { ...action.payload });
         }
         return category;
@@ -71,42 +71,41 @@ export default (state = initialState, action) => {
           categories: matchedCategories
         }
       };
-    case DELETE_CATEGORY_ITEM:
-      console.log("ADD ITEM", action.payload);
-      // const matchedCategory = categories.indexOf(action.payload.category);
-      // console.log(matchedCategory);
-      const matched = categories.map(category => {
-        console.log("Category", category);
-        if (category._id === action.payload.category._id) {
-          console.log("action payload", action.payload);
-          return Object.assign({}, category, { ...action.payload.category });
-        }
-        return category;
-      });
 
-      return {
-        ...state,
-        budget: {
-          ...state.budget,
-          amount: action.payload.budget.amount,
-          categories: matched
-        }
-      };
+    // case DELETE_CATEGORY_ITEM:
+    //   console.log("ADD ITEM", action.payload);
+    //   // const matchedCategory = categories.indexOf(action.payload.category);
+    //   // console.log(matchedCategory);
+    //   const matched = categories.map(category => {
+    //     console.log("Category", category);
+    //     if (category._id === action.payload.category._id) {
+    //       console.log("action payload", action.payload);
+    //       return Object.assign({}, category, { ...action.payload.category });
+    //     }
+    //     return category;
+    //   });
+    //
+    //   return {
+    //     ...state,
+    //     budget: {
+    //       ...state.budget,
+    //       amount: action.payload.budget.amount,
+    //       categories: matched
+    //     }
+    //   };
 
-    case UPDATE_CATEGORY:
+    case UPDATE_CATEGORY_ITEM:
       // console.log("CATEGORY FOUND IN REDUCER", category);
       // console.log("PAYLOAD", action.payload);
-
       // Could possibly use a hash table to reduce time complexity?
-
-      let updatedCategory = action.payload.category;
-      console.log(updatedCategory);
-      console.log("categories", categories);
+      let updated = action.payload.category || action.payload;
+      // console.log(updatedCategory);
+      // console.log("categories", categories);
       const updatedCategories = categories.map(category => {
-        console.log("Category", category);
-        if (category._id === updatedCategory._id) {
-          console.log("action payload", action.payload);
-          return Object.assign({}, category, { ...updatedCategory });
+        // console.log("Category", category);
+        if (category._id === updated._id) {
+          // console.log("action payload", action.payload);
+          return Object.assign({}, category, { ...updated });
         }
         return category;
       });
@@ -117,6 +116,29 @@ export default (state = initialState, action) => {
           ...state.budget,
           amount: action.payload.budget.amount,
           categories: updatedCategories
+        }
+      };
+
+    case UPDATE_CATEGORY:
+      // console.log("CATEGORY FOUND IN REDUCER", category);
+      // console.log("PAYLOAD", action.payload);
+      // Could possibly use a hash table to reduce time complexity?
+      // console.log(updatedCategory);
+      // console.log("categories", categories);
+      const updatedCategory = categories.map(category => {
+        // console.log("Category", category);
+        if (category._id === action.payload._id) {
+          // console.log("action payload", action.payload);
+          return Object.assign({}, category, { ...action.payload });
+        }
+        return category;
+      });
+
+      return {
+        ...state,
+        budget: {
+          ...state.budget,
+          categories: updatedCategory
         }
       };
 
