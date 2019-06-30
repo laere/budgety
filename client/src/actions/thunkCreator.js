@@ -7,6 +7,7 @@ const thunkCreator = action => {
 
   return async dispatch => {
     try {
+      dispatch(isLoading());
       const res = await promise;
 
       const { data } = res;

@@ -56,7 +56,7 @@ class BudgetShow extends React.Component {
 
     console.log("ID", this.props.match.params.budgetId);
 
-    if (budget === null || loading) {
+    if (loading) {
       return <Spinner />;
     }
 

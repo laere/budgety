@@ -4,9 +4,7 @@ import {
   IS_LOADING,
   DELETE_CATEGORY,
   UPDATE_CATEGORY,
-  UPDATE_CATEGORY_ITEM,
-  ADD_CATEGORY_ITEM,
-  DELETE_CATEGORY_ITEM
+  UPDATE_CATEGORY_ITEM
 } from "actions/types";
 
 const initialState = {
@@ -40,42 +38,20 @@ export default (state = initialState, action) => {
 
     case DELETE_CATEGORY:
       const filteredCategories = categories.filter(
-        item => item._id !== action.payload._id
+        item => item._id !== action.payload.category._id
       );
 
       return {
         ...state,
         budget: {
           ...state.budget,
+          amount: action.payload.budget.amount,
           categories: filteredCategories
-        }
+        },
+        loading: false
       };
 
-    // case ADD_CATEGORY_ITEM:
-    //   // console.log("ADD ITEM", action.payload);
-    //   // const matchedCategory = categories.indexOf(action.payload.category);
-    //   // console.log(matchedCategory);
-    //   const matchedCategories = categories.map(category => {
-    //     // console.log("Category", category);
-    //     if (category._id === action.payload._id) {
-    //       // console.log("action payload", action.payload);
-    //       return Object.assign({}, category, { ...action.payload });
-    //     }
-    //     return category;
-    //   });
-    //
-    //   return {
-    //     ...state,
-    //     budget: {
-    //       ...state.budget,
-    //       categories: matchedCategories
-    //     }
-    //   };
-
     case UPDATE_CATEGORY_ITEM:
-      // console.log("CATEGORY FOUND IN REDUCER", category);
-      // console.log("PAYLOAD", action.payload);
-      // Could possibly use a hash table to reduce time complexity?
       let updated = action.payload.category || action.payload;
       // console.log(updatedCategory);
       // console.log("categories", categories);
