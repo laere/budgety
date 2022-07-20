@@ -32,6 +32,6 @@
   },
   "devDependencies": {
     "supertest": "^4.0.2",
-    "terser": "^3.14.1"
+    "terser": "^4.8.1"
   }
 }
